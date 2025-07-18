@@ -3,7 +3,7 @@ const config = {
   tabWidth: 2,
   semi: true,
   singleQuote: true,
-  printWidth: 140,
+  printWidth: 120,
   arrowParens: "always",
   endOfLine: "lf",
   jsxSingleQuote: true,
