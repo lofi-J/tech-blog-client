@@ -5,6 +5,7 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-plan-hover: var(--plan-hover);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto-sans-kr), var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -50,6 +51,7 @@
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
   --background: oklch(1 0 0);
+  --plan-hover: oklch(97% 0% 68deg);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -84,6 +86,7 @@
 
 .dark {
   --background: oklch(0.145 0 0);
+  --plan-hover: oklch(24% 0% 68deg);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -123,54 +126,25 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* 테마 토글 애니메이션 */
-@keyframes theme-toggle-rotate {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.2);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
+  button {
+    @apply cursor-pointer;
   }
 }
 
-@keyframes theme-toggle-fade {
-  0% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(0.8) rotate(90deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(180deg);
+@layer utilities {
+  .header-height {
+    height: 56px;
   }
 }
 
-@keyframes theme-toggle-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
+@layer components {
+  .plan-hover {
+    @apply hover:bg-plan-hover border-1 border-ring/50;
   }
-  50% {
-    transform: translateY(-2px);
+  .only-pc {
+    @apply hidden md:block;
   }
-}
-
-.theme-toggle-animate {
-  animation: theme-toggle-rotate 0.6s ease-in-out;
-}
-
-.theme-toggle-fade {
-  animation: theme-toggle-fade 0.4s ease-in-out;
-}
-
-.theme-toggle-bounce {
-  animation: theme-toggle-bounce 0.3s ease-in-out;
+  .only-mobile {
+    @apply block md:hidden;
+  }
 }

@@ -1,72 +1,71 @@
 import MoonIcon from "@/shared/icons/moon.svg";
 import SunIcon from "@/shared/icons/sun.svg";
-import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const ToggleThemeButton = () => {
   const { theme, setTheme } = useTheme();
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [mobileTap, setMobileTap] = useState(false);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   const toggleTheme = () => {
-    setIsAnimating(true);
+    if (isMobile) {
+      setMobileTap(true);
+      setTimeout(() => setMobileTap(false), 250);
+    }
     setTheme(theme === "light" ? "dark" : "light");
-
-    // 애니메이션 완료 후 상태 리셋
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 300);
   };
 
-  if (!mounted) {
-    return (
-      <div className="border-1 hover:border-accent-foreground rounded-md w-8 h-8 flex items-center justify-center">
-        <div className="w-5 h-5 bg-gray-300 rounded animate-pulse" />
-      </div>
-    );
-  }
-
   return (
-    <div className="border-1 hover:border-accent-foreground rounded-md w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-105 hover:shadow-md">
-      <button
-        onClick={toggleTheme}
-        className={clsx(
-          "text-accent-foreground relative transition-all duration-300",
-          isAnimating && "theme-toggle-fade"
-        )}
-        disabled={isAnimating}
-      >
-        <div className="relative w-5 h-5">
-          {/* Moon Icon */}
-          <div
-            className={clsx(
-              "absolute inset-0 transition-all duration-500 ease-in-out",
-              theme === "light"
-                ? "opacity-100 rotate-0 scale-100"
-                : "opacity-0 -rotate-90 scale-75"
-            )}
+    <>
+      <div className="pr-4.5 plan-hover rounded-xl only-pc">
+        <button
+          aria-label="Toggle theme"
+          onClick={toggleTheme}
+          className="text-accent-foreground relative flex items-center py-1 px-2"
+        >
+          <motion.div
+            className="relative z-10 hover:bg- rounded-md"
+            initial={false}
+            animate={{
+              x: theme === "dark" ? 18 : 0,
+            }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
           >
-            <MoonIcon width={20} height={20} />
-          </div>
-
-          {/* Sun Icon */}
-          <div
-            className={clsx(
-              "absolute inset-0 transition-all duration-500 ease-in-out",
-              theme === "dark"
-                ? "opacity-100 rotate-0 scale-100"
-                : "opacity-0 -rotate-90 scale-75"
+            {theme === "dark" ? (
+              <MoonIcon width={20} height={20} />
+            ) : (
+              <SunIcon width={20} height={20} />
             )}
+          </motion.div>
+        </button>
+      </div>
+      <div className="only-mobile">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.button
+            aria-label="Toggle theme"
+            className="plan-hover rounded-md p-1.5 border-0"
+            onClick={toggleTheme}
+            animate={{
+              scale: mobileTap ? 1.2 : 1,
+              opacity: mobileTap ? 0.7 : 1,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 500,
+              damping: 30,
+              duration: 0.25,
+            }}
           >
-            <SunIcon width={20} height={20} />
-          </div>
-        </div>
-      </button>
-    </div>
+            {theme === "dark" ? (
+              <MoonIcon width={16} height={16} />
+            ) : (
+              <SunIcon width={16} height={16} />
+            )}
+          </motion.button>
+        </AnimatePresence>
+      </div>
+    </>
   );
 };
