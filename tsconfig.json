@@ -25,7 +25,8 @@
       "@/components/*": ["./src/components/*"],
       "@/types/*": ["./src/types/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/styles/*": ["./src/styles/*"],
+      "#/home/*": ["./src/features/home/*"]
     }
   },
   "include": [
