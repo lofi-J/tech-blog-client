@@ -22,9 +22,7 @@
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"],
       "@/shared/*": ["./src/shared/*"],
-      "@/components/*": ["./src/components/*"],
       "@/types/*": ["./src/types/*"],
-      "@/lib/*": ["./src/lib/*"],
       "@/styles/*": ["./src/styles/*"],
       "#/home/*": ["./src/features/home/*"]
     }

@@ -1,4 +1,4 @@
-import { HeaderBanner } from "@/components/header-banner/header-banner";
+import { HeaderBanner } from "@/shared/components/header-banner/header-banner";
 import { ThemeProvider } from "@/shared/context/theme-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
