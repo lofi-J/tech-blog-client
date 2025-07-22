@@ -1,6 +1,6 @@
 import { Badge } from "@/shared/components/ui/badge";
 
-export const WellcomeSection = () => {
+export const IntroduceSection = () => {
   return (
     <div>
       <Badge variant={"outline"}>Wellcome to LOFI-J</Badge>
