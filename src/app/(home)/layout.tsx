@@ -1,9 +1,9 @@
 import { HeaderBanner } from "@/shared/components/header-banner/header-banner";
 import { ThemeProvider } from "@/shared/context/theme-provider";
+import "@/styles/fonts.css";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/fonts.css";
-import "../styles/globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +40,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <HeaderBanner />
-          <div className="">{children}</div>
+          <div>{children}</div>
         </ThemeProvider>
       </body>
     </html>

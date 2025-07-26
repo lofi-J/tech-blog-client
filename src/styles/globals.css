@@ -129,7 +129,8 @@
   #logo {
     font-family: "Train One", sans-serif;
   }
-  button {
+  button,
+  a {
     @apply cursor-pointer;
   }
 }
