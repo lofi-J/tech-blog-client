@@ -24,7 +24,8 @@
       "@/shared/*": ["./src/shared/*"],
       "@/types/*": ["./src/types/*"],
       "@/styles/*": ["./src/styles/*"],
-      "#/home/*": ["./src/features/home/*"]
+      "#/home/*": ["./src/features/home/*"],
+      "@/generated/*": ["./src/generated/*"]
     }
   },
   "include": [
@@ -35,7 +36,8 @@
     "src/types/**/*.d.ts",
     "svgr.d.ts",
     "next-env.d.ts",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/generated/**/*"
   ],
   "exclude": ["node_modules"]
 }
