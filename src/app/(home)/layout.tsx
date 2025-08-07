@@ -1,5 +1,6 @@
 import { HeaderBanner } from "@/shared/components/header-banner/header-banner";
 import { ThemeProvider } from "@/shared/context/theme-provider";
+import { ApolloWrapper } from "@/shared/providers/apollo-provider";
 import "@/styles/fonts.css";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -33,15 +34,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <HeaderBanner />
-          <div>{children}</div>
-        </ThemeProvider>
+        <ApolloWrapper>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <HeaderBanner />
+            <div>{children}</div>
+          </ThemeProvider>
+        </ApolloWrapper>
       </body>
     </html>
   );
