@@ -1,12 +1,31 @@
 overwrite: true
 schema:
   - "http://localhost:3001/graphql"
+
 documents:
   - "src/**/*.{gql,graphql}"
   - "src/**/*.tsx"
   - "src/**/*.ts"
+
 generates:
-  src/generated/graphql.ts:
+  # Types
+  generated/types.ts:
+    documents:
+      - "src/**/graphql/types.graphql"
+      - "src/**/graphql/fragments.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+      useIndexSignature: true
+      skipTypename: false
+      enumsAsTypes: true
+
+  # Queries
+  generated/queries.ts:
+    documents:
+      - "src/**/graphql/queries.graphql"
+      - "src/**/graphql/fragments.graphql"
     plugins:
       - "typescript"
       - "typescript-operations"
@@ -15,4 +34,19 @@ generates:
       withHooks: true
       withComponent: false
       withHOC: false
-      apolloReactHooksImportFrom: "@apollo/client"
+      operationResultSuffix: "Result"
+
+  # Mutations
+  generated/mutations.ts:
+    documents:
+      - "src/**/graphql/mutations.graphql"
+      - "src/**/graphql/fragments.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      operationResultSuffix: "Result"
