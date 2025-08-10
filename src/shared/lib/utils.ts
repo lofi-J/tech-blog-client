@@ -14,7 +14,7 @@ export function cn(...inputs: ClassValue[]) {
 export async function healthCheck(
   baseUrl?: string,
   timeout: number = 5000
-): Promise<boolean> {
+): Promise<{ status: boolean; message: string }> {
   try {
     const url = `${baseUrl || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/health`;
 
@@ -32,14 +32,21 @@ export async function healthCheck(
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      console.warn(`Health check failed with status: ${response.status}`);
-      return false;
+      return {
+        status: false,
+        message: "Health check failed",
+      };
     }
 
-    console.log(`Health check success with status: ${response.status}`);
-    return response.ok;
+    return {
+      status: true,
+      message: "Health check success",
+    };
   } catch (error) {
     console.error("Health check error:", error);
-    return false;
+    return {
+      status: false,
+      message: "Health check failed",
+    };
   }
 }
