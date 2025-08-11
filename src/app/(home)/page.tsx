@@ -3,8 +3,6 @@ import { RecomendedPostSection } from "@/features/home/components/recomended-pos
 import { TechStackSection } from "@/features/home/components/tech-stack-section";
 
 export default async function Home() {
-  // const res = await healthCheck();
-
   return (
     <div className="flex flex-col gap-10 items-center">
       <IntroduceSection />

@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "lofi-J Tech Blog",
-  description: "frontend developerlofi-J's Tech Blog",
+  description: "frontend developer lofi-J's Tech Blog",
   icons: {
     icon: "/favicon.ico",
   },
