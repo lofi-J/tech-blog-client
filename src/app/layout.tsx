@@ -1,4 +1,4 @@
-import { HeaderBanner } from "@/shared/components/header-banner/header-banner";
+import { HeaderNavbar } from "@/shared/components/header-banner/header-navbar";
 import { ThemeProvider } from "@/shared/context/theme-provider";
 import { ApolloWrapper } from "@/shared/providers/apollo-provider";
 import "@/styles/fonts.css";
@@ -41,8 +41,8 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <HeaderBanner />
-            <div>{children}</div>
+            <HeaderNavbar />
+            {children}
           </ThemeProvider>
         </ApolloWrapper>
       </body>

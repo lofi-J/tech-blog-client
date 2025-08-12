@@ -12,7 +12,7 @@ export const IntroduceSection = () => {
       </a>
       <h1 className="text-5xl font-bold mt-4 tracking-wide">Welcome</h1>
       <h2 className="text-[16px] font-bold mt-1">to Lofi-J Tech Blog</h2>
-      <p className="text-center text-sm mt-4 font-semibold">
+      <p className="text-center text-sm mt-8 font-semibold">
         해당 블로그는 프론트엔드 영역뿐만 아니라 백엔드, DevOps, 아키텍처 등
         <br />
         개발관련 관심사들을 다룰 예정입니다
