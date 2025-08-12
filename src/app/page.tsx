@@ -1,6 +1,6 @@
-import { IntroduceSection } from "@/features/home/components/introduce-section";
-import { RecomendedPostSection } from "@/features/home/components/recomended-post-section";
-import { TechStackSection } from "@/features/home/components/tech-stack-section";
+import { IntroduceSection } from "@/root/components/introduce-section";
+import { RecomendedPostSection } from "@/root/components/recomended-post-section";
+import { TechStackSection } from "@/root/components/tech-stack-section";
 
 export default async function Home() {
   return (

@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { TypoLogo } from "../typo-logo";
 import { ToggleThemeButton } from "./toggle-theme-button";
@@ -16,9 +14,6 @@ export const HeaderNavbar = () => {
             <TypoLogo />
           </Link>
           <ul className="flex-center gap-4 text-sm">
-            <li>
-              <Link href="/">HOME</Link>
-            </li>
             <li>
               <Link href="/posts">Posts</Link>
             </li>

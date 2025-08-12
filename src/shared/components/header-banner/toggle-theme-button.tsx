@@ -1,3 +1,5 @@
+"use client";
+
 import MoonIcon from "@/shared/icons/moon.svg";
 import SunIcon from "@/shared/icons/sun.svg";
 import { AnimatePresence, motion } from "framer-motion";

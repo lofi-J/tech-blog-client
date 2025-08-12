@@ -24,9 +24,10 @@
       "@/shared/*": ["./src/shared/*"],
       "@/types/*": ["./src/types/*"],
       "@/styles/*": ["./src/styles/*"],
-      "#/home/*": ["./src/features/home/*"],
+      "@/root/*": ["./src/features/root/*"],
       "@/generated/*": ["./generated/*"]
-    }
+    },
+    "baseUrl": "."
   },
   "include": [
     "next-env.d.ts",
