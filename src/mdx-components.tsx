@@ -39,7 +39,7 @@ const components: MDXComponents = {
 };
 
 export function useMDXComponents(
-  otherComponents?: MDXComponents,
+  otherComponents?: MDXComponents
 ): MDXComponents {
   return {
     ...components,
