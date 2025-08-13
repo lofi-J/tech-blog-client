@@ -20,7 +20,8 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   try {
-    const post = getPostBySlug(params.slug);
+    const { slug } = await params;
+    const post = getPostBySlug(slug);
 
     return {
       title: post.metadata.title,
@@ -47,17 +48,18 @@ export async function generateMetadata({
 }
 
 export default async function PostPage({ params }: PageProps) {
+  const { slug } = await params;
   let post;
 
   try {
-    post = getPostBySlug(params.slug);
+    post = getPostBySlug(slug);
   } catch (error) {
     notFound();
   }
 
   const components = useMDXComponents();
 
-  // Compile and run MDX
+  // Compile and run MDX (@mdx-js/mdx)
   const compiled = await compile(post.content, {
     outputFormat: "function-body",
     development: false,
