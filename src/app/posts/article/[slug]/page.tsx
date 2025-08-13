@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 import * as runtime from "react/jsx-runtime";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
