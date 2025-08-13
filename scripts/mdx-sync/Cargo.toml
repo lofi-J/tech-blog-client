@@ -1,6 +1,17 @@
 [package]
 name = "mdx-sync"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+
+[[bin]]
+name = "mdx-sync"
+path = "src/main.rs"
+
+[lib]
+name = "mdx_sync"
+path = "src/lib.rs"
 
 [dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+walkdir = "2.4"
