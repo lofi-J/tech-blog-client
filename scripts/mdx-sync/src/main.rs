@@ -1,5 +1,5 @@
-use mdx_sync::print_hello;
+use mdx_sync::execute_mdx_sync;
 
 fn main() {
-    print_hello();
+    execute_mdx_sync();
 }
