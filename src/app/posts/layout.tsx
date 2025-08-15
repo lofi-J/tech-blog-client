@@ -1,3 +1,4 @@
+import { TagsSidebar } from "@/features/tags/components/tags-sidebar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export default function PostsLayout({
 }>) {
   return (
     <div className="container mx-auto px-4 py-8">
+      <TagsSidebar />
       <div className="prose prose-lg max-w-none">{children}</div>
     </div>
   );

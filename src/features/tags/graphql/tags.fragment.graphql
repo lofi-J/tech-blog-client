@@ -1,0 +1,9 @@
+fragment TagBaseFields on Tags {
+  id
+}
+
+fragment TagAllFields on Tags {
+  ...TagBaseFields
+  tag_name
+  created_at
+}

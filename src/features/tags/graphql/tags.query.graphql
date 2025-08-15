@@ -1,0 +1,5 @@
+query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
+  getAllTags(orderBy: $orderBy) {
+    ...TagAllFields
+  }
+}

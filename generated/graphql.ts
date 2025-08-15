@@ -1,5 +1,5 @@
-import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
+import { gql } from "@apollo/client";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -33,113 +33,137 @@ export type Scalars = {
 
 export type Query = {
   __typename?: "Query";
-  getAllUsers: Array<User>;
-  getUserById?: Maybe<User>;
+  getAllTags: Array<Tags>;
+  popularTags: Array<Tags>;
+  tagUsageStats: Array<Tags>;
 };
 
-export type QueryGetUserByIdArgs = {
-  id: Scalars["String"]["input"];
+export type QueryGetAllTagsArgs = {
+  orderBy?: TagsOrderBy;
 };
 
-export type User = {
-  __typename?: "User";
-  createdAt: Scalars["DateTime"]["output"];
-  email: Scalars["String"]["output"];
-  id: Scalars["ID"]["output"];
-  name?: Maybe<Scalars["String"]["output"]>;
-  updatedAt: Scalars["DateTime"]["output"];
+export type QueryPopularTagsArgs = {
+  limit?: Scalars["Int"]["input"];
 };
 
-export type GetAllUsersQueryVariables = Exact<{ [key: string]: never }>;
+export type Tags = {
+  __typename?: "Tags";
+  created_at: Scalars["DateTime"]["output"];
+  id: Scalars["Int"]["output"];
+  tag_name: Scalars["String"]["output"];
+  usage_count?: Maybe<Scalars["Int"]["output"]>;
+};
 
-export type GetAllUsersQuery = {
+/** 정렬 기준 */
+export type TagsOrderBy = "CREATED_AT" | "ID" | "POPULAR" | "TAG_NAME";
+
+export type TagBaseFieldsFragment = { __typename?: "Tags"; id: number };
+
+export type TagAllFieldsFragment = {
+  __typename?: "Tags";
+  tag_name: string;
+  created_at: any;
+  id: number;
+};
+
+export type GetAllTagsQueryVariables = Exact<{
+  orderBy?: InputMaybe<TagsOrderBy>;
+}>;
+
+export type GetAllTagsQuery = {
   __typename?: "Query";
-  getAllUsers: Array<{
-    __typename?: "User";
-    id: string;
-    name?: string | null;
-    email: string;
-    createdAt: any;
-    updatedAt: any;
+  getAllTags: Array<{
+    __typename?: "Tags";
+    tag_name: string;
+    created_at: any;
+    id: number;
   }>;
 };
 
-export const GetAllUsersDocument = gql`
-  query GetAllUsers {
-    getAllUsers {
-      id
-      name
-      email
-      createdAt
-      updatedAt
+export const TagBaseFieldsFragmentDoc = gql`
+  fragment TagBaseFields on Tags {
+    id
+  }
+`;
+export const TagAllFieldsFragmentDoc = gql`
+  fragment TagAllFields on Tags {
+    ...TagBaseFields
+    tag_name
+    created_at
+  }
+  ${TagBaseFieldsFragmentDoc}
+`;
+export const GetAllTagsDocument = gql`
+  query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
+    getAllTags(orderBy: $orderBy) {
+      ...TagAllFields
     }
   }
+  ${TagAllFieldsFragmentDoc}
 `;
 
 /**
- * __useGetAllUsersQuery__
+ * __useGetAllTagsQuery__
  *
- * To run a query within a React component, call `useGetAllUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAllTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllUsersQuery({
+ * const { data, loading, error } = useGetAllTagsQuery({
  *   variables: {
+ *      orderBy: // value for 'orderBy'
  *   },
  * });
  */
-export function useGetAllUsersQuery(
+export function useGetAllTagsQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    GetAllUsersQuery,
-    GetAllUsersQueryVariables
-  >,
+    GetAllTagsQuery,
+    GetAllTagsQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
-    GetAllUsersDocument,
-    options,
+  return Apollo.useQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
+    GetAllTagsDocument,
+    options
   );
 }
-export function useGetAllUsersLazyQuery(
+export function useGetAllTagsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAllUsersQuery,
-    GetAllUsersQueryVariables
-  >,
+    GetAllTagsQuery,
+    GetAllTagsQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
-    GetAllUsersDocument,
-    options,
+  return Apollo.useLazyQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
+    GetAllTagsDocument,
+    options
   );
 }
-export function useGetAllUsersSuspenseQuery(
+export function useGetAllTagsSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetAllUsersQuery,
-        GetAllUsersQueryVariables
-      >,
+    | Apollo.SuspenseQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>
 ) {
   const options =
     baseOptions === Apollo.skipToken
       ? baseOptions
       : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(
-    GetAllUsersDocument,
-    options,
+  return Apollo.useSuspenseQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
+    GetAllTagsDocument,
+    options
   );
 }
-export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
-export type GetAllUsersLazyQueryHookResult = ReturnType<
-  typeof useGetAllUsersLazyQuery
+export type GetAllTagsQueryHookResult = ReturnType<typeof useGetAllTagsQuery>;
+export type GetAllTagsLazyQueryHookResult = ReturnType<
+  typeof useGetAllTagsLazyQuery
 >;
-export type GetAllUsersSuspenseQueryHookResult = ReturnType<
-  typeof useGetAllUsersSuspenseQuery
+export type GetAllTagsSuspenseQueryHookResult = ReturnType<
+  typeof useGetAllTagsSuspenseQuery
 >;
-export type GetAllUsersQueryResult = Apollo.QueryResult<
-  GetAllUsersQuery,
-  GetAllUsersQueryVariables
+export type GetAllTagsQueryResult = Apollo.QueryResult<
+  GetAllTagsQuery,
+  GetAllTagsQueryVariables
 >;

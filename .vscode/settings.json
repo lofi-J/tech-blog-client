@@ -12,6 +12,17 @@
   },
   "css.validate": false,
   "files.associations": {
-    "*.css": "tailwindcss"
-  }
+    "*.css": "tailwindcss",
+    "*.graphql": "graphql",
+    "*.gql": "graphql"
+  },
+  "apollo/client.service.name": "tech-story-backend",
+  "apollo/client.service.url": "http://localhost:3001/graphql",
+  "apollo/client.includes": [
+    "src/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.graphql",
+    "src/**/*.gql"
+  ],
+  "apollo/client.excludes": ["**/node_modules", "**/__tests__"]
 }
