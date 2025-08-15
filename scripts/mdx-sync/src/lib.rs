@@ -1,4 +1,5 @@
 // 모듈 선언
+pub mod https;
 pub mod types;
 
 use std::fs;
@@ -126,11 +127,28 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
 }
 
 // main 에서 실행할 함수
-pub fn execute_mdx_sync() {
+pub async fn execute_mdx_sync() {
     let vec_file_paths = get_content_file_paths("src/content");
-    let local_post_metadata = generate_all_posts_metadata(vec_file_paths);
-    println!(
-        "==========================local_post_metadata========================== \n{:?}",
-        local_post_metadata
-    );
+    let local_post_metadata = generate_all_posts_metadata(vec_file_paths); // 모든 파일 파싱 후 메타데이터 벡터 생성
+
+    let mut success_count = 0;
+    let mut error_count = 0;
+
+    for post_metadata in local_post_metadata {
+        match https::upsert_post_metadata(post_metadata.clone()).await {
+            Ok(_response) => {
+                success_count += 1;
+            }
+            Err(e) => {
+                error_count += 1;
+                println!("❌ Failed to upsert '{}': {}", post_metadata.slug, e);
+            }
+        }
+    }
+
+    // 최종 결과 출력
+    println!("\n================== SYNC COMPLETE ==================");
+    println!("✅ Success: {} posts", success_count);
+    println!("❌ Errors: {} posts", error_count);
+    println!("📊 Total: {} posts", success_count + error_count);
 }
