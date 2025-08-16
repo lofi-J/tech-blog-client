@@ -1,3 +1,4 @@
+import { Footer } from "@/shared/components/footer";
 import { HeaderNavbar } from "@/shared/components/header-banner/header-navbar";
 import { ThemeProvider } from "@/shared/context/theme-provider";
 import { ApolloWrapper } from "@/shared/providers/apollo-provider";
@@ -43,6 +44,7 @@ export default function RootLayout({
           >
             <HeaderNavbar />
             {children}
+            <Footer />
           </ThemeProvider>
         </ApolloWrapper>
       </body>

@@ -1,5 +1,5 @@
 import { getAllPostSlugs, getPostBySlug } from "@/lib/mdx";
-import { useMDXComponents } from "@/mdx-components";
+import { getMDXComponents } from "@/mdx-components";
 import { compile, run } from "@mdx-js/mdx";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -39,7 +39,7 @@ export async function generateMetadata({
         description: post.metadata.description,
       },
     };
-  } catch (error) {
+  } catch {
     return {
       title: "Post Not Found",
       description: "The requested post could not be found.",
@@ -53,11 +53,11 @@ export default async function PostPage({ params }: PageProps) {
 
   try {
     post = getPostBySlug(slug);
-  } catch (error) {
+  } catch {
     notFound();
   }
 
-  const components = useMDXComponents();
+  const components = getMDXComponents();
 
   // Compile and run MDX (@mdx-js/mdx)
   const compiled = await compile(post.content, {

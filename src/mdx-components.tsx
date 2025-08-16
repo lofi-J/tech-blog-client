@@ -38,11 +38,19 @@ const components: MDXComponents = {
   ),
 };
 
-export function useMDXComponents(
+// 서버 컴포넌트에서 사용할 함수
+export function getMDXComponents(
   otherComponents?: MDXComponents
 ): MDXComponents {
   return {
     ...components,
     ...otherComponents,
   };
+}
+
+// 클라이언트 컴포넌트에서 사용하는 Hook
+export function useMDXComponents(
+  otherComponents?: MDXComponents
+): MDXComponents {
+  return getMDXComponents(otherComponents);
 }
