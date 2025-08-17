@@ -1,35 +1,55 @@
-"use client";
-
+import client from "@/client";
 import { PostCard } from "@/features/posts/components/post-card";
 import { PostCardSkeletons } from "@/features/posts/components/post-card-skeleton";
-import { useGetAllPostsQuery } from "@/generated/graphql";
+import { GetAllPostsDocument, GetAllPostsQuery } from "@/generated/graphql";
+import { Suspense } from "react";
 
 const SKELETON_COUNT = 6;
 
-export const RecomendedPostSection = () => {
-  const { data, loading, error } = useGetAllPostsQuery({
-    variables: {
-      inputs: {
-        orderBy: "POPULAR_LIKES",
-        limit: SKELETON_COUNT,
-        offset: 0,
+async function PostsList() {
+  try {
+    const { data } = await client.query<GetAllPostsQuery>({
+      query: GetAllPostsDocument,
+      variables: {
+        inputs: {
+          orderBy: "POPULAR_LIKES",
+          limit: SKELETON_COUNT,
+          offset: 0,
+        },
       },
-    },
-  });
-  const posts = data?.getAllPosts.posts ?? [];
+      // 서버에서 캐시를 사용하지 않도록 설정
+      fetchPolicy: "no-cache",
+    });
 
-  if (error) {
-    console.error(error);
-    return null;
+    const posts = data?.getAllPosts.posts ?? [];
+
+    return (
+      <div className="flex flex-wrap gap-10 justify-center items-center">
+        {posts.map((post) => (
+          <PostCard post={post} key={post.id} />
+        ))}
+      </div>
+    );
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+    return (
+      <div className="text-center text-red-500">
+        포스트를 불러오는데 실패했습니다.
+      </div>
+    );
   }
+}
 
+export const RecomendedPostSection = () => {
   return (
-    <div className="flex flex-wrap gap-10 justify-center items-center">
-      {loading ? (
-        <PostCardSkeletons count={SKELETON_COUNT} />
-      ) : (
-        posts.map((post) => <PostCard post={post} key={post.id} />)
-      )}
-    </div>
+    <Suspense
+      fallback={
+        <div className="flex flex-wrap gap-10 justify-center items-center">
+          <PostCardSkeletons count={SKELETON_COUNT} />
+        </div>
+      }
+    >
+      <PostsList />
+    </Suspense>
   );
 };

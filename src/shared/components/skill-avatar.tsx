@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/shared/lib/utils";
 import { useEffect, useState } from "react";
 import { AvatarFallback } from "./ui/avatar";

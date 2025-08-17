@@ -2,6 +2,6 @@
 
 @layer components {
   .post-card {
-    @apply aspect-[4/3] min-w-[300px];
+    @apply w-[300px] min-h-[250px];
   }
 }
