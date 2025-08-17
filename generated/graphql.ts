@@ -1,106 +1,240 @@
-import * as Apollo from "@apollo/client";
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  DateTime: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
+};
+
+export type GetPostsInput = {
+  /** 가져올 포스트 수 */
+  limit?: Scalars['Int']['input'];
+  /** 건너뛸 포스트 수 */
+  offset?: Scalars['Int']['input'];
+  /** 정렬 순서 */
+  order?: SortOrder;
+  /** 정렬 기준 */
+  orderBy?: PostsOrderBy;
+  /** 검색 키워드 */
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Post = {
+  __typename?: 'Post';
+  hash_code: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  published?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  stats?: Maybe<PostStats>;
+  tags?: Maybe<Array<Tags>>;
+  title: Scalars['String']['output'];
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PostStats = {
+  __typename?: 'PostStats';
+  id?: Maybe<Scalars['Int']['output']>;
+  likes: Scalars['Int']['output'];
+  post_id?: Maybe<Scalars['Int']['output']>;
+  updated_at?: Maybe<Scalars['DateTime']['output']>;
+  views: Scalars['Int']['output'];
+};
+
+/** 포스트 정렬 기준 */
+export type PostsOrderBy =
+  /** ID순 */
+  | 'ID'
+  /** 최신순 (발행일 기준) */
+  | 'LATEST'
+  /** 인기순 (좋아요 기준) */
+  | 'POPULAR_LIKES'
+  /** 인기순 (조회수 기준) */
+  | 'POPULAR_VIEWS'
+  /** 제목순 */
+  | 'TITLE'
+  /** 업데이트순 (수정일 기준) */
+  | 'UPDATED';
+
+export type PostsResponse = {
+  __typename?: 'PostsResponse';
+  hasMore: Scalars['Boolean']['output'];
+  posts: Array<Post>;
+  totalCount: Scalars['Int']['output'];
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
+  getAllPosts: PostsResponse;
   getAllTags: Array<Tags>;
+  getPostBySlug?: Maybe<Post>;
   popularTags: Array<Tags>;
   tagUsageStats: Array<Tags>;
 };
+
+
+export type QueryGetAllPostsArgs = {
+  input: GetPostsInput;
+};
+
 
 export type QueryGetAllTagsArgs = {
   orderBy?: TagsOrderBy;
 };
 
-export type QueryPopularTagsArgs = {
-  limit?: Scalars["Int"]["input"];
+
+export type QueryGetPostBySlugArgs = {
+  slug: Scalars['String']['input'];
 };
 
+
+export type QueryPopularTagsArgs = {
+  limit?: Scalars['Int']['input'];
+};
+
+/** 정렬 순서 */
+export type SortOrder =
+  /** 오름차순 */
+  | 'ASC'
+  /** 내림차순 */
+  | 'DESC';
+
 export type Tags = {
-  __typename?: "Tags";
-  created_at: Scalars["DateTime"]["output"];
-  id: Scalars["Int"]["output"];
-  tag_name: Scalars["String"]["output"];
-  usage_count?: Maybe<Scalars["Int"]["output"]>;
+  __typename?: 'Tags';
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['Int']['output'];
+  tag_name: Scalars['String']['output'];
+  usage_count?: Maybe<Scalars['Int']['output']>;
 };
 
 /** 정렬 기준 */
-export type TagsOrderBy = "CREATED_AT" | "ID" | "POPULAR" | "TAG_NAME";
+export type TagsOrderBy =
+  | 'CREATED_AT'
+  | 'ID'
+  | 'POPULAR'
+  | 'TAG_NAME';
 
-export type TagBaseFieldsFragment = { __typename?: "Tags"; id: number };
+export type PostStatsBaseFieldsFragment = { __typename?: 'PostStats', id?: number | null };
 
-export type TagAllFieldsFragment = {
-  __typename?: "Tags";
-  tag_name: string;
-  created_at: any;
-  id: number;
-};
+export type PostStatsAllFieldsFragment = { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null };
+
+export type GetAllPostsQueryVariables = Exact<{
+  inputs: GetPostsInput;
+}>;
+
+
+export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, title: string, hash_code: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null }> } };
+
+export type TagBaseFieldsFragment = { __typename?: 'Tags', id: number };
+
+export type TagAllFieldsFragment = { __typename?: 'Tags', tag_name: string, created_at: any, id: number };
 
 export type GetAllTagsQueryVariables = Exact<{
   orderBy?: InputMaybe<TagsOrderBy>;
 }>;
 
-export type GetAllTagsQuery = {
-  __typename?: "Query";
-  getAllTags: Array<{
-    __typename?: "Tags";
-    tag_name: string;
-    created_at: any;
-    id: number;
-  }>;
-};
 
+export type GetAllTagsQuery = { __typename?: 'Query', getAllTags: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> };
+
+export const PostStatsBaseFieldsFragmentDoc = gql`
+    fragment PostStatsBaseFields on PostStats {
+  id
+}
+    `;
+export const PostStatsAllFieldsFragmentDoc = gql`
+    fragment PostStatsAllFields on PostStats {
+  ...PostStatsBaseFields
+  post_id
+  views
+  likes
+  updated_at
+}
+    ${PostStatsBaseFieldsFragmentDoc}`;
 export const TagBaseFieldsFragmentDoc = gql`
-  fragment TagBaseFields on Tags {
-    id
-  }
-`;
+    fragment TagBaseFields on Tags {
+  id
+}
+    `;
 export const TagAllFieldsFragmentDoc = gql`
-  fragment TagAllFields on Tags {
-    ...TagBaseFields
-    tag_name
-    created_at
-  }
-  ${TagBaseFieldsFragmentDoc}
-`;
-export const GetAllTagsDocument = gql`
-  query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
-    getAllTags(orderBy: $orderBy) {
-      ...TagAllFields
+    fragment TagAllFields on Tags {
+  ...TagBaseFields
+  tag_name
+  created_at
+}
+    ${TagBaseFieldsFragmentDoc}`;
+export const GetAllPostsDocument = gql`
+    query GetAllPosts($inputs: GetPostsInput!) {
+  getAllPosts(input: $inputs) {
+    totalCount
+    posts {
+      id
+      slug
+      title
+      hash_code
+      published
+      updated_at
+      tags {
+        ...TagAllFields
+      }
+      stats {
+        ...PostStatsAllFields
+      }
     }
   }
-  ${TagAllFieldsFragmentDoc}
-`;
+}
+    ${TagAllFieldsFragmentDoc}
+${PostStatsAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetAllPostsQuery__
+ *
+ * To run a query within a React component, call `useGetAllPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPostsQuery({
+ *   variables: {
+ *      inputs: // value for 'inputs'
+ *   },
+ * });
+ */
+export function useGetAllPostsQuery(baseOptions: Apollo.QueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables> & ({ variables: GetAllPostsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+      }
+export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+        }
+export function useGetAllPostsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+        }
+export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
+export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
+export type GetAllPostsSuspenseQueryHookResult = ReturnType<typeof useGetAllPostsSuspenseQuery>;
+export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export const GetAllTagsDocument = gql`
+    query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
+  getAllTags(orderBy: $orderBy) {
+    ...TagAllFields
+  }
+}
+    ${TagAllFieldsFragmentDoc}`;
 
 /**
  * __useGetAllTagsQuery__
@@ -118,52 +252,19 @@ export const GetAllTagsDocument = gql`
  *   },
  * });
  */
-export function useGetAllTagsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetAllTagsQuery,
-    GetAllTagsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
-    GetAllTagsDocument,
-    options
-  );
-}
-export function useGetAllTagsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAllTagsQuery,
-    GetAllTagsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
-    GetAllTagsDocument,
-    options
-  );
-}
-export function useGetAllTagsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
-    GetAllTagsDocument,
-    options
-  );
-}
+export function useGetAllTagsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, options);
+      }
+export function useGetAllTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, options);
+        }
+export function useGetAllTagsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, options);
+        }
 export type GetAllTagsQueryHookResult = ReturnType<typeof useGetAllTagsQuery>;
-export type GetAllTagsLazyQueryHookResult = ReturnType<
-  typeof useGetAllTagsLazyQuery
->;
-export type GetAllTagsSuspenseQueryHookResult = ReturnType<
-  typeof useGetAllTagsSuspenseQuery
->;
-export type GetAllTagsQueryResult = Apollo.QueryResult<
-  GetAllTagsQuery,
-  GetAllTagsQueryVariables
->;
+export type GetAllTagsLazyQueryHookResult = ReturnType<typeof useGetAllTagsLazyQuery>;
+export type GetAllTagsSuspenseQueryHookResult = ReturnType<typeof useGetAllTagsSuspenseQuery>;
+export type GetAllTagsQueryResult = Apollo.QueryResult<GetAllTagsQuery, GetAllTagsQueryVariables>;

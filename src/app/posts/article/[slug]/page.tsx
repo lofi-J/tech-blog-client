@@ -1,4 +1,4 @@
-import { getAllPostSlugs, getPostBySlug } from "@/lib/mdx";
+import { getAllPostSlugs, getPostBySlug } from "@/core-lib/mdx";
 import { getMDXComponents } from "@/mdx-components";
 import { compile, run } from "@mdx-js/mdx";
 import { Metadata } from "next";

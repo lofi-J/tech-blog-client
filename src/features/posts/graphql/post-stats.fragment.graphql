@@ -1,0 +1,11 @@
+fragment PostStatsBaseFields on PostStats {
+  id
+}
+
+fragment PostStatsAllFields on PostStats {
+  ...PostStatsBaseFields
+  post_id
+  views
+  likes
+  updated_at
+}
