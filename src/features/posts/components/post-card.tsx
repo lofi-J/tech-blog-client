@@ -31,7 +31,7 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
   // # heading 제거
   const formattedContent = content.replace(/#+\s/g, "");
 
-  // 2~10 줄까지만 렌더
+  // 2 ~ maxContentLine 줄까지만 렌더
   const lines = formattedContent.split("\n");
   const restContent = lines.slice(2, maxContentLine).join("\n");
 
@@ -42,7 +42,7 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
   const { default: Content } = await run(compiled, runtime);
 
   return (
-    <Card className="post-card bg-background">
+    <Card className="bg-background w-full">
       <CardHeader className="flex flex-col gap-2">
         <div className="flex w-full justify-between items-center">
           <span className="text-sm text-muted-foreground">

@@ -4,7 +4,7 @@ import { TechStackSection } from "@/root/components/tech-stack-section";
 
 export default async function Home() {
   return (
-    <div className="flex flex-col gap-30 items-center container mx-auto mt-10 mb-30">
+    <div className="flex-col-container container mx-auto gap-20 md:gap-25 lg:gap-30">
       <IntroduceSection />
       <RecomendedPostSection />
       <TechStackSection />

@@ -1,7 +1,15 @@
 /* Tailwind CSS v4 Components */
 
 @layer components {
-  .post-card {
-    @apply w-[300px] min-h-[250px];
+  .flex-container {
+    @apply flex flex-wrap w-full justify-center
+           px-4 sm:px-6 lg:px-8
+           [&>*]:flex-1;
+  }
+
+  .flex-col-container {
+    @apply flex flex-col w-full justify-center
+           px-4 sm:px-6 lg:px-8
+           [&>*]:flex-1;
   }
 }

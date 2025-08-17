@@ -53,16 +53,16 @@ const previewComponents: MDXComponents = {
     </h3>
   ),
   p: ({ children }) => (
-    <p className="mb-2 leading-4 text-gray-700 text-[10px]">{children}</p>
+    <p className="mb-2 leading-4 text-gray-700 text-[12px]">{children}</p>
   ),
   ul: ({ children }) => (
     <ul className="mb-4 list-disc list-inside space-y-2 text-gray-700 text-[10px]">
       {children}
     </ul>
   ),
-  li: ({ children }) => <li className="leading-4 text-[10px]">{children}</li>,
+  li: ({ children }) => <li className="leading-4 text-[11px]">{children}</li>,
   strong: ({ children }) => (
-    <strong className="font-semibold text-gray-900 text-[10px]">
+    <strong className="font-semibold text-gray-900 text-[11px]">
       {children}
     </strong>
   ),

@@ -4,7 +4,7 @@ import { PostCardSkeletons } from "@/features/posts/components/post-card-skeleto
 import { GetAllPostsDocument, GetAllPostsQuery } from "@/generated/graphql";
 import { Suspense } from "react";
 
-const SKELETON_COUNT = 6;
+const SKELETON_COUNT = 3;
 
 async function PostsList() {
   try {
@@ -12,31 +12,31 @@ async function PostsList() {
       query: GetAllPostsDocument,
       variables: {
         inputs: {
-          orderBy: "POPULAR_LIKES",
+          orderBy: "LATEST",
           limit: SKELETON_COUNT,
           offset: 0,
         },
       },
-      // 서버에서 캐시를 사용하지 않도록 설정
-      fetchPolicy: "no-cache",
+      fetchPolicy: "cache-first",
     });
 
     const posts = data?.getAllPosts.posts ?? [];
 
     return (
-      <div className="flex flex-wrap gap-10 justify-center items-center">
-        {posts.map((post) => (
-          <PostCard post={post} key={post.id} />
-        ))}
-      </div>
+      <section className="flex flex-col gap-3">
+        <h2 className="text-xl font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
+          최근 포스트
+        </h2>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+          {posts.map((post) => (
+            <PostCard post={post} key={post.id} />
+          ))}
+        </div>
+      </section>
     );
   } catch (error) {
     console.error("Failed to fetch posts:", error);
-    return (
-      <div className="text-center text-red-500">
-        포스트를 불러오는데 실패했습니다.
-      </div>
-    );
+    return null;
   }
 }
 
@@ -44,9 +44,14 @@ export const RecomendedPostSection = () => {
   return (
     <Suspense
       fallback={
-        <div className="flex flex-wrap gap-10 justify-center items-center">
-          <PostCardSkeletons count={SKELETON_COUNT} />
-        </div>
+        <section className="flex-col-container gap-3">
+          <h2 className="text-xl font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
+            최근 포스트
+          </h2>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+            <PostCardSkeletons count={SKELETON_COUNT} />
+          </div>
+        </section>
       }
     >
       <PostsList />
