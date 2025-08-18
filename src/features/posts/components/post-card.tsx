@@ -21,7 +21,7 @@ type PostCardProps = {
 };
 
 export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
-  const { slug, title, published, updated_at, tags, stats } = post;
+  const { slug, title, published, tags } = post;
 
   const firstTag = (tags && tags[0]?.tag_name) ?? "";
 

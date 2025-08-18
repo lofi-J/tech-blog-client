@@ -156,7 +156,7 @@ const getFallbackText = (skillName: string) => {
 export const SkillAvatar = ({
   skillName,
   sizeClass = "size-4",
-  avatarClassName,
+  // avatarClassName,
 }: SkillAvatarProps) => {
   const [IconComponent, setIconComponent] =
     useState<React.ComponentType | null>(null);
