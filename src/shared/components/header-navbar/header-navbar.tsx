@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TypoLogo } from "../typo-logo";
+import { HeaderModalTrigger } from "./header-modal-trigger";
 import { ToggleThemeButton } from "./toggle-theme-button";
 
 export const HeaderNavbar = () => {
@@ -22,7 +23,10 @@ export const HeaderNavbar = () => {
             </li>
           </ul>
         </nav>
-        <ToggleThemeButton />
+        <div className="flex items-center gap-2">
+          <HeaderModalTrigger />
+          <ToggleThemeButton />
+        </div>
       </div>
     </header>
   );
