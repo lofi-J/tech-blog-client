@@ -20,11 +20,11 @@ export const ToggleThemeButton = () => {
   };
 
   return (
-    <div className="">
+    <div className="bg-secondary rounded-sm">
       <AnimatePresence mode="wait" initial={false}>
         <motion.button
           aria-label="Toggle theme"
-          className="plan-hover rounded-md p-1.5 border-0"
+          className="plan-hover rounded-md p-2 border-0"
           onClick={toggleTheme}
           animate={{
             scale: mobileTap ? 1.2 : 1,
@@ -38,9 +38,9 @@ export const ToggleThemeButton = () => {
           }}
         >
           {theme === "dark" ? (
-            <MoonIcon width={16} height={16} />
+            <MoonIcon width={20} height={20} />
           ) : (
-            <SunIcon width={16} height={16} />
+            <SunIcon width={20} height={20} />
           )}
         </motion.button>
       </AnimatePresence>

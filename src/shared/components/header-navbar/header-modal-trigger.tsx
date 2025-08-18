@@ -14,9 +14,9 @@ export const HeaderModalTrigger = () => {
     <Button
       variant="ghost"
       onClick={onClick}
-      className="px-2 min-w-[200px] bg-secondary flex items-center justify-between"
+      className="px-2 min-w-[200px] bg-secondary flex items-center justify-between hover:bg-secondary/80"
     >
-      <span className="text-muted-foreground text-sm font-light">
+      <span className="text-muted-foreground text-[13px] font-light">
         Search any keywords...
       </span>
       <span className="flex items-center gap-1">
