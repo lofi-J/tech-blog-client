@@ -5,7 +5,6 @@ use crate::types::{PostMetadata, UpsertRequestBody, UpsertResponse};
 
 // Next.js 프로젝트 루트의 .env 파일에서 환경변수 읽기
 fn get_remote_base_url() -> String {
-    // scripts/mdx-sync에서 프로젝트 루트로 이동하여 .env 파일 로드
     dotenv().ok();
 
     env::var("NEXT_PUBLIC_API_URL").unwrap_or_else(|_| {

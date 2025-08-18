@@ -1,14 +1,14 @@
 [package]
-name = "mdx-sync"
+name = "mdx"
 version = "0.1.0"
 edition = "2021"
 
 [[bin]]
-name = "mdx-sync"
+name = "mdx"
 path = "src/main.rs"
 
 [lib]
-name = "mdx_sync"
+name = "mdx"
 path = "src/lib.rs"
 
 [dependencies]

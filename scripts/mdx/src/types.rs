@@ -57,3 +57,16 @@ pub struct UpsertRequestBody {
     pub published: Option<String>, // ISO 날짜 문자열
     pub tags: Option<Vec<String>>,
 }
+
+// ---------------------------------------------  SEARCH INDEX  -----------------------------------------
+
+// 검색 인덱스용 타입 (search-modal.tsx의 Index와 일치)
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct SearchIndex {
+    pub title: String,
+    pub slug: String,
+    pub description: String,
+    pub date: String,
+    pub tags: Vec<String>,
+    pub content: String,
+}

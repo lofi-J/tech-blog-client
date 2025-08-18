@@ -6,7 +6,7 @@ use std::fs;
 use std::fs::read_dir;
 use std::path::{Path, PathBuf};
 
-use crate::types::{PostMetadata, PostMetadataKey, PostMetadataOnlyParse};
+use crate::types::{PostMetadata, PostMetadataKey, PostMetadataOnlyParse, SearchIndex};
 
 use sha2::{Digest, Sha256};
 
@@ -147,8 +147,65 @@ pub async fn execute_mdx_sync() {
     }
 
     // 최종 결과 출력
-    println!("\n================== SYNC COMPLETE ==================");
     println!("✅ Success: {} posts", success_count);
     println!("❌ Errors: {} posts", error_count);
     println!("📊 Total: {} posts", success_count + error_count);
+}
+
+pub fn execute_mdx_indexing() {
+    let emit_json_path = "public/search-index/index.json";
+    let vec_file_paths = get_content_file_paths("src/content");
+
+    let parent = Path::new(emit_json_path).parent().unwrap();
+    fs::create_dir_all(parent).unwrap();
+
+    let mut search_indices = Vec::<SearchIndex>::new();
+
+    for file_path in &vec_file_paths {
+        let file_name = file_path
+            .file_name()
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .replace(".mdx", "");
+
+        let content = fs::read_to_string(file_path).unwrap();
+        let only_article_content = content
+            .split("---")
+            .nth(2)
+            .unwrap()
+            .to_string()
+            .replace("\n", "");
+
+        let metadata_str = extract_metadata(content.clone()).unwrap();
+
+        let title = extract_metadata_value(&metadata_str, &PostMetadataKey::Title).unwrap();
+        let description =
+            extract_metadata_value(&metadata_str, &PostMetadataKey::Description).unwrap();
+        let date = extract_metadata_value(&metadata_str, &PostMetadataKey::Date).unwrap();
+        let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags)
+            .unwrap()
+            .split(", ")
+            .map(|s| s.to_string())
+            .collect::<Vec<String>>();
+
+        let search_index = SearchIndex {
+            title,
+            slug: file_name.clone(),
+            description,
+            date,
+            tags,
+            content: only_article_content,
+        };
+
+        search_indices.push(search_index);
+        println!("✅ Indexed: {}", file_name);
+    }
+
+    // JSON 파일로 저장
+    let json_string = serde_json::to_string_pretty(&search_indices).unwrap();
+    fs::write(emit_json_path, json_string).unwrap();
+
+    println!("📄 Search index saved to: {}", emit_json_path);
+    println!("📊 Total indexed posts: {}", search_indices.len());
 }
