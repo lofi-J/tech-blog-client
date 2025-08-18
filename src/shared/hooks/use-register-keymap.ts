@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 type RegisterKeyMap = {
   commandKey?: CommandKeys;
@@ -15,24 +15,24 @@ export const useRegisterKeymap = () => {
 
   const isMac =
     typeof window !== "undefined" && window.navigator.platform.includes("Mac");
-  const CommandKeyMap: Record<CommandKeys, CommandKeyValues> = {
-    "⌘": isMac ? "meta" : "ctrl",
-    "⌥": "alt",
-    "⇧": "shift",
-    "⌃": "ctrl",
-  };
+
+  const CommandKeyMap: Record<CommandKeys, CommandKeyValues> = useMemo(() => {
+    return {
+      "⌘": isMac ? "meta" : "ctrl",
+      "⌥": "alt",
+      "⇧": "shift",
+      "⌃": "ctrl",
+    };
+  }, [isMac]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      console.log(event.key);
       if (!registerKeyMap.current) return;
 
       const { commandKey, key, callback } = registerKeyMap.current;
       const isRegistable = key && callback;
 
       if (registerKeyMap.current && isRegistable) {
-        console.log(event.key);
-
         if (
           commandKey &&
           event.key === CommandKeyMap[commandKey] &&
@@ -45,12 +45,14 @@ export const useRegisterKeymap = () => {
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    if (registerKeyMap.current) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
 
     unregisterKeyMap.current = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [registerKeyMap]);
+  }, [registerKeyMap, CommandKeyMap]);
 
   return {
     registerKeyMap,

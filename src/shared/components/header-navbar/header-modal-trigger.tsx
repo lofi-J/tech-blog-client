@@ -2,7 +2,7 @@
 
 import { useRegisterKeymap } from "@/shared/hooks/use-register-keymap";
 import { cn } from "@/shared/lib/utils";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SearchModal } from "../search-modal";
 import { Button } from "../ui/button";
 
@@ -10,24 +10,29 @@ export const HeaderModalTrigger = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { registerKeyMap, unregisterKeyMap } = useRegisterKeymap();
 
-  const openModal = () => setIsOpen(true);
+  const openModal = useCallback(() => setIsOpen(true), [setIsOpen]);
 
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    openModal();
-  };
+  const onClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openModal();
+    },
+    [openModal]
+  );
 
-  // warn: must be dependency array empty
   useEffect(() => {
+    const unregister = unregisterKeyMap.current;
     registerKeyMap.current = {
       commandKey: "⌘",
       key: "k",
       callback: openModal,
     };
 
-    return () => unregisterKeyMap.current?.();
-  }, []);
+    return () => {
+      unregister?.();
+    };
+  }, [openModal, registerKeyMap, unregisterKeyMap]);
 
   return (
     <>
