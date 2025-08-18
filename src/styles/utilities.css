@@ -6,4 +6,18 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
+  .auto-complete-color:-webkit-autofill,
+  .auto-complete-color:-webkit-autofill:hover,
+  .auto-complete-color:-webkit-autofill:focus,
+  .auto-complete-color:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset !important;
+    -webkit-text-fill-color: hsl(var(--foreground)) !important;
+    background-color: hsl(var(--background)) !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+  }
+
+  /* 추가적인 자동완성 스타일 제거 */
+  .auto-complete-color:-webkit-autofill::first-line {
+    color: hsl(var(--foreground)) !important;
+  }
 }

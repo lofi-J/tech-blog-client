@@ -1,30 +1,26 @@
 "use client";
 
-import Fuse from "fuse.js";
+import Fuse, { FuseResult } from "fuse.js";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchIndex } from "../lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Input } from "./ui/input";
 
-type SearchResultType = "post" | "skill" | "setting";
-
-// TODO : action callback?
-type SearchResult = {
-  type: SearchResultType;
-  icon: React.ReactNode;
+// 검색 인덱스 아이템 타입
+type SearchIndexItem = {
   title: string;
+  slug: string;
+  description: string;
+  date: string;
+  tags: string[];
+  content: string;
 };
 
-export type Index =
-  | {
-      title: string;
-      slug: string;
-      description: string;
-      date: string;
-      tags: string[];
-      content: string;
-    }[]
-  | undefined;
+// Fuse.js 검색 결과 타입 (fuse.search()가 반환하는 타입)
+type SearchResult = FuseResult<SearchIndexItem>;
+
+export type Index = SearchIndexItem[] | undefined;
 
 type SearchModalProps = {
   isOpen: boolean;
@@ -32,7 +28,7 @@ type SearchModalProps = {
 };
 
 // index 파일 경로
-const INDEX_PATH = "/search-index/dummy.json";
+const INDEX_PATH = "/search-index/index.json";
 
 export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
   const [keyword, setKeyword] = useState("");
@@ -88,28 +84,24 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
     [index]
   );
 
-  // search from index TODO : search and sosrting [post, skill, setting]
+  // search from index.json
   useEffect(() => {
     const result = fuse.search(keyword);
-    setSearchResult(result as unknown as SearchResult[]);
+    setSearchResult(result);
   }, [keyword, fuse]);
 
   useEffect(() => {
-    console.log("fetching index");
     fetchIndex(INDEX_PATH, setLoading).then(setIndex);
   }, []);
-
-  console.log("index");
-  console.log(index);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
         showCloseButton={false}
         disableDescription={true}
-        className="top-[40%] p-0 gap-0 min-h-[400px] max-h-[400px] overflow-y-auto min-w-[400px] max-w-[400px] scrollbar-hide"
+        className="top-[40%] p-0 gap-0 min-h-[400px] max-h-[400px] overflow-y-auto min-w-[400px] max-w-[400px] scrollbar-hide flex flex-col"
       >
-        <DialogHeader className="p-2 sticky top-0 left-0 right-0 bg-background z-10">
+        <DialogHeader className="p-2 sticky top-0 left-0 right-0 bg-background z-10 h-fit">
           <DialogTitle>
             <Input
               id="search-input"
@@ -125,26 +117,11 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
           {isEmptySearchResult && <EmptySearchResult isLoading={loading} />}
           {!isEmptySearchResult &&
             searchResult.map((result, index) => (
-              <div
+              <SearchArticleResultItem
                 key={`search-result-${index}`}
-                className="flex flex-wrap justify-between items-center"
-                onClick={() => {
-                  closeModal();
-                }}
-              >
-                <pre
-                  className="
-                    text-xs 
-                    whitespace-pre-wrap 
-                    break-words 
-                    overflow-wrap-anywhere
-                    w-full
-                    font-mono
-                  "
-                >
-                  {JSON.stringify(result, null, 2)}
-                </pre>
-              </div>
+                result={result}
+                closeModal={closeModal}
+              />
             ))}
         </div>
       </DialogContent>
@@ -162,5 +139,46 @@ const EmptySearchResult = ({ isLoading }: { isLoading: boolean }) => {
         <div className="text-muted-foreground text-sm">No results found</div>
       )}
     </div>
+  );
+};
+
+type SearchResultItemProps = {
+  result: SearchResult;
+  closeModal: () => void;
+};
+
+const SearchArticleResultItem = ({
+  result,
+  closeModal,
+}: SearchResultItemProps) => {
+  const { item, score, matches, refIndex } = result;
+  const { title, slug, description, date, tags } = item;
+
+  return (
+    <Link
+      href={`/posts/article/${slug}`}
+      onClick={closeModal}
+      className="p-3 hover:bg-muted/50 rounded-md cursor-pointer border border-border/50 hover:border-border transition-colors"
+    >
+      <div className="flex flex-col gap-2">
+        <h3 className="font-medium text-sm line-clamp-1">{title}</h3>
+        <p className="text-xs text-muted-foreground line-clamp-2">
+          {description}
+        </p>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-1 flex-wrap">
+            {tags.slice(0, 3).map((tag: string, index: number) => (
+              <span
+                key={index}
+                className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <span className="text-xs text-muted-foreground">{date}</span>
+        </div>
+      </div>
+    </Link>
   );
 };
