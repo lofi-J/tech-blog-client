@@ -14,7 +14,7 @@ export function cn(...inputs: ClassValue[]) {
  */
 export async function healthCheck(
   baseUrl?: string,
-  timeout: number = 5000
+  timeout: number = 5000,
 ): Promise<{ status: boolean; message: string }> {
   try {
     const url = `${baseUrl || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/health`;
@@ -54,7 +54,7 @@ export async function healthCheck(
 
 export async function fetchIndex(
   path: string,
-  setLoading: (loading: boolean) => void
+  setLoading: (loading: boolean) => void,
 ): Promise<Index> {
   try {
     setLoading(true);

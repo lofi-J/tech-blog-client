@@ -45,7 +45,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setKeyword(e.target.value);
     },
-    []
+    [],
   );
 
   // create fuse instance
@@ -81,7 +81,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
         // 검색 결과 최대 개수
         // limit: 50,
       }),
-    [index]
+    [index],
   );
 
   // search from index.json
@@ -151,7 +151,7 @@ const SearchArticleResultItem = ({
   result,
   closeModal,
 }: SearchResultItemProps) => {
-  const { item, score, matches, refIndex } = result;
+  const { item } = result;
   const { title, slug, description, date, tags } = item;
 
   return (
