@@ -1,5 +1,5 @@
 import { Footer } from "@/shared/components/footer";
-import { HeaderNavbar } from "@/shared/components/header-banner/header-navbar";
+import { HeaderNavbar } from "@/shared/components/header-navbar/header-navbar";
 import { ThemeProvider } from "@/shared/context/theme-provider";
 import { ApolloWrapper } from "@/shared/providers/apollo-provider";
 import "@/styles/fonts.css";
