@@ -179,7 +179,9 @@ export const SkillAvatar = ({
         ) {
           setIconComponent(
             () =>
-              mod[normalizedIconName as keyof typeof mod] as React.ComponentType
+              mod[
+                normalizedIconName as keyof typeof mod
+              ] as React.ComponentType,
           );
         } else {
           console.warn(`Icon not found: ${normalizedIconName}`);
@@ -204,7 +206,7 @@ export const SkillAvatar = ({
         <div
           className={cn(
             sizeClass,
-            "inline-flex items-center justify-center [&>svg]:size-full [&>svg]:block"
+            "inline-flex items-center justify-center [&>svg]:size-full [&>svg]:block",
           )}
         >
           <IconComponent />

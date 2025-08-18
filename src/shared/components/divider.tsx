@@ -46,7 +46,7 @@ export const Divider = ({
           color === "foreground" && "bg-foreground",
           color === "muted" && "bg-muted",
           color === "secondary" && "bg-secondary",
-          color === "primary" && "bg-primary"
+          color === "primary" && "bg-primary",
         )}
       />
     </div>
