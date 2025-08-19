@@ -18,7 +18,7 @@ export const HeaderModalTrigger = () => {
       e.stopPropagation();
       openModal();
     },
-    [openModal]
+    [openModal],
   );
 
   useEffect(() => {
