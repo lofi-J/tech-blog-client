@@ -10,9 +10,6 @@ importers:
       "@apollo/client":
         specifier: ^3.13.9
         version: 3.13.9(@types/react@19.1.8)(graphql-ws@6.0.6(graphql@16.11.0)(ws@8.18.3))(graphql@16.11.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      "@fdorantesm/react-skill-icons":
-        specifier: ^1.0.5
-        version: 1.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       "@mdx-js/loader":
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.15.0)
@@ -73,12 +70,12 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.1.0
+      react-colorful:
+        specifier: ^5.6.1
+        version: 5.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
-      react-skillicons:
-        specifier: ^1.0.2
-        version: 1.0.2
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -1213,15 +1210,6 @@ packages:
       {
         integrity: sha512-5DGmA8FTdB2XbDeEwc/5ZXBl6UbBAyBOOLlPuBnZ/N1SwdH9Ii+cOX3tBROlDgcTXxjOYnLMVoKk9+FXAw0CJw==,
       }
-
-  "@fdorantesm/react-skill-icons@1.0.5":
-    resolution:
-      {
-        integrity: sha512-yFH+ZMdokCbefYvHoAlhHLFxl61xQ+Vwlna+1fqzt7JwB3jfugq1sRlceUlTvhMYnTkJZnMOas3hHx3IZ8USLQ==,
-      }
-    peerDependencies:
-      react: ^16.8.0
-      react-dom: ^16.8.0
 
   "@graphql-codegen/add@5.0.3":
     resolution:
@@ -6323,6 +6311,15 @@ packages:
         integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==,
       }
 
+  react-colorful@5.6.1:
+    resolution:
+      {
+        integrity: sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==,
+      }
+    peerDependencies:
+      react: ">=16.8.0"
+      react-dom: ">=16.8.0"
+
   react-dom@19.1.0:
     resolution:
       {
@@ -6362,12 +6359,6 @@ packages:
     peerDependenciesMeta:
       "@types/react":
         optional: true
-
-  react-skillicons@1.0.2:
-    resolution:
-      {
-        integrity: sha512-SG9Qdb+dDlqHnmaQsXwtgeFZ3U15vAtosPrrH+2GupQg1H0RC/Zp+taRvnFRNyrjIpU1mA6S3d7+/LntBm8vhg==,
-      }
 
   react-style-singleton@2.2.3:
     resolution:
@@ -8556,11 +8547,6 @@ snapshots:
       levn: 0.4.1
 
   "@fastify/busboy@3.1.1": {}
-
-  "@fdorantesm/react-skill-icons@1.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)":
-    dependencies:
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
 
   "@graphql-codegen/add@5.0.3(graphql@16.11.0)":
     dependencies:
@@ -12233,6 +12219,11 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
+  react-colorful@5.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   react-dom@19.1.0(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -12258,8 +12249,6 @@ snapshots:
       use-sidecar: 1.1.3(@types/react@19.1.8)(react@19.1.0)
     optionalDependencies:
       "@types/react": 19.1.8
-
-  react-skillicons@1.0.2: {}
 
   react-style-singleton@2.2.3(@types/react@19.1.8)(react@19.1.0):
     dependencies:

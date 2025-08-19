@@ -2,6 +2,7 @@ import { Footer } from "@/shared/components/footer";
 import { HeaderNavbar } from "@/shared/components/header-navbar/header-navbar";
 import { SearchModal } from "@/shared/components/search-modal/search-modal";
 import { ApolloWrapper } from "@/shared/context/apollo-provider";
+import { ColorProvider } from "@/shared/context/color-provider";
 import { KeymapProvider } from "@/shared/context/keymap-provider";
 import { SearchModalProvider } from "@/shared/context/search-modal-provider";
 import { ThemeProvider } from "@/shared/context/theme-provider";
@@ -45,14 +46,16 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SearchModalProvider>
-              <KeymapProvider>
-                <HeaderNavbar />
-                {children}
-                <Footer />
-                <SearchModal />
-              </KeymapProvider>
-            </SearchModalProvider>
+            <ColorProvider>
+              <SearchModalProvider>
+                <KeymapProvider>
+                  <HeaderNavbar />
+                  {children}
+                  <Footer />
+                  <SearchModal />
+                </KeymapProvider>
+              </SearchModalProvider>
+            </ColorProvider>
           </ThemeProvider>
         </ApolloWrapper>
       </body>

@@ -70,4 +70,21 @@
       transform: rotate(360deg);
     }
   }
+
+  /* Highlight Color Utilities */
+  .bg-highlight {
+    background-color: var(--highlight-color);
+  }
+  .text-highlight {
+    color: var(--highlight-color);
+  }
+  .border-highlight {
+    border-color: var(--highlight-color);
+  }
+  .ring-highlight {
+    --tw-ring-color: var(--highlight-color);
+  }
+  .shadow-highlight {
+    --tw-shadow-color: var(--highlight-color);
+  }
 }
