@@ -1,7 +1,6 @@
 import { getPostBySlug } from "@/core-lib/mdx";
 import { Post } from "@/generated/graphql";
 import { getPreviewMDXComponents } from "@/mdx-components";
-import { SkillAvatar } from "@/shared/components/skill-avatar";
 import { Button } from "@/shared/components/ui/button";
 import {
   Card,
@@ -10,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card";
+import { SkillIcon, SkillName } from "@/shared/icons/skill-icon";
 import { formatDate } from "@/shared/lib/utils/date-fns";
 import { compile, run } from "@mdx-js/mdx";
 import Link from "next/link";
@@ -48,7 +48,7 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
           <span className="text-sm text-muted-foreground">
             {formatDate(published, "yyyy-MM-dd")}
           </span>
-          <SkillAvatar skillName={firstTag} sizeClass="size-6" />
+          <SkillIcon name={firstTag as SkillName} size="lg" />
         </div>
         <Link href={`/posts/article/${slug}`} className="hover:underline">
           <CardTitle>{title}</CardTitle>

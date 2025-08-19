@@ -3,6 +3,7 @@
 import Fuse, { FuseResult } from "fuse.js";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { SkillIcon, SkillName } from "../icons/skill-icon";
 import { fetchIndex } from "../lib/utils";
 import { Loader } from "./loader";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
@@ -116,14 +117,20 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
         </DialogHeader>
         <div className="flex flex-col flex-warp gap-2 p-2 flex-1">
           {isEmptySearchResult && <EmptySearchResult isLoading={loading} />}
-          {!isEmptySearchResult &&
-            searchResult.map((result, index) => (
-              <SearchArticleResultItem
-                key={`search-result-${index}`}
-                result={result}
-                closeModal={closeModal}
-              />
-            ))}
+          {!isEmptySearchResult && (
+            <div className="flex flex-col gap-1">
+              <div className="text-muted-foreground text-[12px] px-2">
+                Posts
+              </div>
+              {searchResult.map((result, index) => (
+                <SearchArticleResultItem
+                  key={`search-result-${index}`}
+                  result={result}
+                  closeModal={closeModal}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>
@@ -167,14 +174,13 @@ const SearchArticleResultItem = ({
           {description}
         </p>
         <div className="flex items-center justify-between">
-          <div className="flex gap-1 flex-wrap">
+          <div className="flex gap-1 items-center justify-start">
             {tags.slice(0, 3).map((tag: string, index: number) => (
-              <span
-                key={index}
-                className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full"
-              >
-                {tag}
-              </span>
+              <SkillIcon
+                key={`skill-avatar-${index}`}
+                name={tag as SkillName}
+                size="sm"
+              />
             ))}
           </div>
           <span className="text-xs text-muted-foreground">{date}</span>
