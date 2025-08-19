@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchIndex } from "../../lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
-import { SearchModalFeatures } from "./search-modal-features";
+import { SearchModalFeatureItem } from "./search-modal-feature-item";
 import {
   Index,
   SearchArticleResultItem,
@@ -35,7 +35,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setKeyword(e.target.value);
     },
-    [],
+    []
   );
 
   // create fuse instance
@@ -71,7 +71,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
         // 검색 결과 최대 개수
         // limit: 50,
       }),
-    [index],
+    [index]
   );
 
   // search from index.json
@@ -133,7 +133,20 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
               <div className="text-muted-foreground text-[12px] px-2">
                 Features
               </div>
-              <SearchModalFeatures closeModal={closeModal} />
+              <div className="flex flex-col gap-1">
+                <SearchModalFeatureItem
+                  feature="toggle-zen-mode"
+                  closeModal={closeModal}
+                />
+                <SearchModalFeatureItem
+                  feature="change-highlight-color"
+                  closeModal={closeModal}
+                />
+                <SearchModalFeatureItem
+                  feature="toggle-theme"
+                  closeModal={closeModal}
+                />
+              </div>
             </div>
           )}
         </div>

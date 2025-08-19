@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { CommandKeys, CommandKeyValues } from "../config/keymap-config";
+import { CommandKeys, CommandKeyValues } from "../config/keymap";
 
 export type RegisterKeyMap = {
   commandKey?: CommandKeys;

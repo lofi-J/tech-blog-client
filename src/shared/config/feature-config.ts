@@ -1,4 +1,4 @@
-import { KeyMap, KeyMapConfig } from "./keymap-config";
+import { KeyMap, KeyMapConfig } from "./keymap";
 
 export type FeatureName =
   | "toggle-theme"
