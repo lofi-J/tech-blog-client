@@ -1,28 +1,16 @@
 "use client";
 
-import Fuse, { FuseResult } from "fuse.js";
-import Link from "next/link";
+import Fuse from "fuse.js";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { SkillIcon, SkillName } from "../icons/skill-icon";
-import { fetchIndex } from "../lib/utils";
-import { Loader } from "./loader";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
-import { Input } from "./ui/input";
-
-// 검색 인덱스 아이템 타입
-type SearchIndexItem = {
-  title: string;
-  slug: string;
-  description: string;
-  date: string;
-  tags: string[];
-  content: string;
-};
-
-// Fuse.js 검색 결과 타입 (fuse.search()가 반환하는 타입)
-type SearchResult = FuseResult<SearchIndexItem>;
-
-export type Index = SearchIndexItem[] | undefined;
+import { fetchIndex } from "../../lib/utils";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Input } from "../ui/input";
+import { SearchModalFeatureItem } from "./search-modal-feature-item";
+import {
+  Index,
+  SearchArticleResultItem,
+  SearchResult,
+} from "./search-modal-result-article-item";
 
 type SearchModalProps = {
   isOpen: boolean;
@@ -90,6 +78,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
   useEffect(() => {
     const result = fuse.search(keyword);
     setSearchResult(result);
+    console.log(result);
   }, [keyword, fuse]);
 
   useEffect(() => {
@@ -103,6 +92,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
         disableDescription={true}
         className="top-[40%] p-0 gap-0 min-h-[400px] max-h-[400px] overflow-y-auto min-w-[400px] max-w-[400px] scrollbar-hide flex flex-col"
       >
+        {/* ==== Search Input ==== */}
         <DialogHeader className="p-2 sticky top-0 left-0 right-0 bg-background z-10 h-fit">
           <DialogTitle>
             <Input
@@ -115,8 +105,10 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
             />
           </DialogTitle>
         </DialogHeader>
+        {/* ==== /Search Input ==== */}
+
+        {/* ==== Search Results ==== */}
         <div className="flex flex-col flex-warp gap-2 p-2 flex-1">
-          {isEmptySearchResult && <EmptySearchResult isLoading={loading} />}
           {!isEmptySearchResult && (
             <div className="flex flex-col gap-1">
               <div className="text-muted-foreground text-[12px] px-2">
@@ -127,65 +119,20 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
                   key={`search-result-${index}`}
                   result={result}
                   closeModal={closeModal}
+                  loading={loading}
                 />
               ))}
             </div>
           )}
+          <div className="flex flex-col gap-1">
+            <div className="text-muted-foreground text-[12px] px-2">
+              Features
+            </div>
+            <SearchModalFeatureItem />
+          </div>
         </div>
+        {/* ==== /Search Results ==== */}
       </DialogContent>
     </Dialog>
-  );
-};
-
-// TODO: empty state content example: setting, recommend, etc...
-const EmptySearchResult = ({ isLoading }: { isLoading: boolean }) => {
-  return (
-    <div className="flex flex-col flex-1 justify-center items-center">
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className="text-muted-foreground text-sm">Empty</div>
-      )}
-    </div>
-  );
-};
-
-type SearchResultItemProps = {
-  result: SearchResult;
-  closeModal: () => void;
-};
-
-const SearchArticleResultItem = ({
-  result,
-  closeModal,
-}: SearchResultItemProps) => {
-  const { item } = result;
-  const { title, slug, description, date, tags } = item;
-
-  return (
-    <Link
-      href={`/posts/article/${slug}`}
-      onClick={closeModal}
-      className="p-3 hover:bg-muted/50 rounded-md cursor-pointer border border-border/50 hover:border-border transition-colors"
-    >
-      <div className="flex flex-col gap-2">
-        <h3 className="font-medium text-sm line-clamp-1">{title}</h3>
-        <p className="text-xs text-muted-foreground line-clamp-2">
-          {description}
-        </p>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1 items-center justify-start">
-            {tags.slice(0, 3).map((tag: string, index: number) => (
-              <SkillIcon
-                key={`skill-avatar-${index}`}
-                name={tag as SkillName}
-                size="sm"
-              />
-            ))}
-          </div>
-          <span className="text-xs text-muted-foreground">{date}</span>
-        </div>
-      </div>
-    </Link>
   );
 };
