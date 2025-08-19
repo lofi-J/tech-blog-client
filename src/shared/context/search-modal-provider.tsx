@@ -10,7 +10,7 @@ type SearchModalContextValue = {
 };
 
 const SearchModalContext = createContext<SearchModalContextValue | undefined>(
-  undefined
+  undefined,
 );
 
 type SearchModalProviderProps = {
