@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useRef } from "react";
+import { CommandKeys, CommandKeyValues } from "../config/keymap-config";
 
-type RegisterKeyMap = {
+export type RegisterKeyMap = {
   commandKey?: CommandKeys;
   key: string;
   callback: () => void;
 };
-
-type CommandKeys = "⌘" | "⌥" | "⇧" | "⌃";
-type CommandKeyValues = "meta" | "alt" | "shift" | "ctrl";
 
 export const useRegisterKeymap = () => {
   const registerKeyMap = useRef<RegisterKeyMap | null>(null);

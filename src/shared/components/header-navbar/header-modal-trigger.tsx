@@ -1,8 +1,8 @@
 "use client";
 
 import { useRegisterKeymap } from "@/shared/hooks/use-register-keymap";
-import { cn } from "@/shared/lib/utils";
 import { useCallback, useEffect, useState } from "react";
+import { Kbd } from "../kbd";
 import { SearchModal } from "../search-modal/search-modal";
 import { Button } from "../ui/button";
 
@@ -51,24 +51,5 @@ export const HeaderModalTrigger = () => {
         </span>
       </Button>
     </>
-  );
-};
-
-const Kbd = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <kbd
-      className={cn(
-        "text-foreground bg-background border border-border rounded-[4px] px-1 text-[11px] text-center w-5 h-5 flex items-center justify-center",
-        className
-      )}
-    >
-      {children}
-    </kbd>
   );
 };

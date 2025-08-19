@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchIndex } from "../../lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
-import { SearchModalFeatureItem } from "./search-modal-feature-item";
+import { SearchModalFeatures } from "./search-modal-features";
 import {
   Index,
   SearchArticleResultItem,
@@ -78,7 +78,6 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
   useEffect(() => {
     const result = fuse.search(keyword);
     setSearchResult(result);
-    console.log(result);
   }, [keyword, fuse]);
 
   useEffect(() => {
@@ -97,7 +96,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
           <DialogTitle>
             <Input
               id="search-input"
-              placeholder="Search any keywords..."
+              placeholder="Search Posts and Features..."
               type="search"
               className="w-full placeholder:text-[12px]"
               value={keyword}
@@ -124,12 +123,19 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
               ))}
             </div>
           )}
-          <div className="flex flex-col gap-1">
-            <div className="text-muted-foreground text-[12px] px-2">
-              Features
+          {isEmptySearchResult && (
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center justify-center min-h-30">
+                <em className="text-muted-foreground text-[12px]">
+                  검색 결과가 없습니다....
+                </em>
+              </div>
+              <div className="text-muted-foreground text-[12px] px-2">
+                Features
+              </div>
+              <SearchModalFeatures closeModal={closeModal} />
             </div>
-            <SearchModalFeatureItem />
-          </div>
+          )}
         </div>
         {/* ==== /Search Results ==== */}
       </DialogContent>
