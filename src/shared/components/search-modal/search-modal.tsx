@@ -25,14 +25,14 @@ export const SearchModal = () => {
 
   const closeModal = () => setIsOpen(false);
 
-  const isEmptySearchResult = searchResult.length === 0;
+  const isEmptyArticleResult = searchResult.length === 0;
 
   // Input onChange Fn
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setKeyword(e.target.value);
     },
-    [],
+    []
   );
 
   // create fuse instance
@@ -65,10 +65,10 @@ export const SearchModal = () => {
         // 대소문자 구분 안함
         isCaseSensitive: true,
 
-        // 검색 결과 최대 개수
-        // limit: 50,
+        // 검색 점수 기준 정렬
+        shouldSort: true,
       }),
-    [index],
+    [index]
   );
 
   // search from index.json
@@ -105,7 +105,7 @@ export const SearchModal = () => {
 
         {/* ==== Search Results ==== */}
         <div className="flex flex-col flex-warp gap-2 p-2 flex-1">
-          {!isEmptySearchResult && (
+          {!isEmptyArticleResult && (
             <div className="flex flex-col gap-1">
               <div className="text-muted-foreground text-[12px] px-2">
                 Posts
@@ -120,7 +120,7 @@ export const SearchModal = () => {
               ))}
             </div>
           )}
-          {isEmptySearchResult && (
+          {isEmptyArticleResult && (
             <div className="flex flex-col gap-1">
               <div className="flex items-center justify-center min-h-30">
                 <em className="text-muted-foreground text-[12px]">
