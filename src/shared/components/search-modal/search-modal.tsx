@@ -2,6 +2,7 @@
 
 import Fuse from "fuse.js";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchModal } from "../../context/search-modal-provider";
 import { fetchIndex } from "../../lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
@@ -12,15 +13,11 @@ import {
   SearchResult,
 } from "./search-modal-result-article-item";
 
-type SearchModalProps = {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-};
-
 // index 파일 경로
 const INDEX_PATH = "/search-index/index.json";
 
-export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
+export const SearchModal = () => {
+  const { isOpen, setIsOpen } = useSearchModal();
   const [keyword, setKeyword] = useState("");
   const [searchResult, setSearchResult] = useState<SearchResult[]>([]);
   const [index, setIndex] = useState<Index>();
