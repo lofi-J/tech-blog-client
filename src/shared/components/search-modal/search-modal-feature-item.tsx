@@ -4,7 +4,7 @@ import { featureConfig, FeatureName } from "@/shared/config/feature-config";
 import { Theme } from "@/shared/context/theme-provider";
 import { useFeature } from "@/shared/hooks/use-feature";
 import MoonIcon from "@/shared/icons/moon.svg";
-import SelectIcon from "@/shared/icons/select.svg";
+import PickerIcon from "@/shared/icons/picker.svg";
 import SunIcon from "@/shared/icons/sun.svg";
 import { ZenIcon } from "@/shared/icons/zen-icon";
 import { useTheme } from "next-themes";
@@ -31,7 +31,7 @@ export const SearchModalFeatureItem = ({
       return <ZenIcon theme={theme as Theme} />;
     }
     if (feature === "change-highlight-color") {
-      return <SelectIcon />;
+      return <PickerIcon />;
     }
   };
 
