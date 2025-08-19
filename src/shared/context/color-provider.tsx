@@ -19,27 +19,41 @@ type ColorProviderProps = {
   children: ReactNode;
 };
 
+const DEFAULT_HIGHLIGHT_COLOR = "#fff";
+
 export const ColorProvider = ({ children }: ColorProviderProps) => {
-  // 기본값은 기존 CSS 변수 또는 fallback 색상
-  const [highlightColor, setHighlightColor] = useState("#3b82f6");
+  // 기본값 설정 (SSR 고려)
+  const [highlightColor, setHighlightColor] = useState(DEFAULT_HIGHLIGHT_COLOR);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // 컴포넌트 마운트 시 기존 CSS 변수 값 읽어오기
-  useEffect(() => {
+  const setCSSVariable = (color: string) => {
     const root = document.documentElement;
-    const existingColor = getComputedStyle(root)
-      .getPropertyValue("--highlight-color")
-      .trim();
+    root.style.setProperty("--highlight-color", color);
+  };
 
-    if (existingColor) {
-      setHighlightColor(existingColor);
+  // 컴포넌트 마운트 시 localStorage에서 색상 로드
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedColor = localStorage.getItem("highlightColor");
+
+      if (savedColor) {
+        setHighlightColor(savedColor);
+        setCSSVariable(savedColor);
+      } else {
+        // localStorage가 비어있으면 기본값으로 CSS 변수 설정
+        setCSSVariable(DEFAULT_HIGHLIGHT_COLOR);
+      }
+      setIsInitialized(true);
     }
   }, []);
 
-  // 색상이 변경될 때마다 CSS 변수 업데이트
+  // 색상이 변경될 때마다 CSS 변수 및 localStorage 업데이트 (초기 로드 후에만)
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.setProperty("--highlight-color", highlightColor);
-  }, [highlightColor]);
+    if (isInitialized && highlightColor && typeof window !== "undefined") {
+      setCSSVariable(highlightColor);
+      localStorage.setItem("highlightColor", highlightColor);
+    }
+  }, [highlightColor, isInitialized]);
 
   const value: ColorContextValue = {
     highlightColor,
