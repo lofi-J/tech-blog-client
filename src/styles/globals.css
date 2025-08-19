@@ -141,27 +141,3 @@
     @apply cursor-pointer;
   }
 }
-
-@layer utilities {
-  .header-height {
-    height: 56px;
-  }
-}
-
-@layer components {
-  .plan-hover {
-    @apply hover:bg-plan-hover border-1 border-ring/50;
-  }
-  .only-pc {
-    @apply hidden md:block;
-  }
-  .only-mobile {
-    @apply block md:hidden;
-  }
-  .flex-center {
-    @apply flex items-center justify-center;
-  }
-  .flex-between {
-    @apply flex items-center justify-between;
-  }
-}

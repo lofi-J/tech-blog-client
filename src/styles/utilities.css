@@ -1,4 +1,8 @@
 @layer utilities {
+  .header-height {
+    height: 56px;
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -19,5 +23,51 @@
   /* 추가적인 자동완성 스타일 제거 */
   .auto-complete-color:-webkit-autofill::first-line {
     color: hsl(var(--foreground)) !important;
+  }
+
+  /* loader */
+  /* https://uiverse.io/krlozCJ/horrible-fish-14 */
+  .loader {
+    --size-loader: 30px;
+    --size-orbe: 6px;
+    --orbe-color: var(--color-red-500);
+    width: var(--size-loader);
+    height: var(--size-loader);
+    position: relative;
+    transform: rotate(45deg);
+  }
+
+  .orbe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    --delay: calc(var(--index) * 0.1s);
+    animation: orbit7456 ease-in-out 1.5s var(--delay) infinite;
+    opacity: calc(1 - calc(0.2 * var(--index)));
+  }
+
+  .orbe::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: var(--size-orbe);
+    height: var(--size-orbe);
+    background-color: var(--orbe-color);
+    box-shadow: 0px 0px 20px 2px var(--orbe-color);
+    border-radius: 50%;
+  }
+
+  @keyframes orbit7456 {
+    0% {
+    }
+
+    80% {
+      transform: rotate(360deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }

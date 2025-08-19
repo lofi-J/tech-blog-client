@@ -1,12 +1,27 @@
 /* Tailwind CSS v4 Components */
 
 @layer components {
+  .plan-hover {
+    @apply hover:bg-plan-hover border-1 border-ring/50;
+  }
+  .only-pc {
+    @apply hidden md:block;
+  }
+  .only-mobile {
+    @apply block md:hidden;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
   .flex-container {
     @apply flex flex-wrap w-full justify-center
            px-4 sm:px-6 lg:px-8
            [&>*]:flex-1;
   }
-
   .flex-col-container {
     @apply flex flex-col w-full justify-center
            px-4 sm:px-6 lg:px-8

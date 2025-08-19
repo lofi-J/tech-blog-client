@@ -4,6 +4,7 @@ import Fuse, { FuseResult } from "fuse.js";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchIndex } from "../lib/utils";
+import { Loader } from "./loader";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Input } from "./ui/input";
 
@@ -113,7 +114,7 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
             />
           </DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col flex-warp gap-2 p-2">
+        <div className="flex flex-col flex-warp gap-2 p-2 flex-1">
           {isEmptySearchResult && <EmptySearchResult isLoading={loading} />}
           {!isEmptySearchResult &&
             searchResult.map((result, index) => (
@@ -132,11 +133,11 @@ export const SearchModal = ({ isOpen, setIsOpen }: SearchModalProps) => {
 // TODO: empty state content example: setting, recommend, etc...
 const EmptySearchResult = ({ isLoading }: { isLoading: boolean }) => {
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex flex-col flex-1 justify-center items-center">
       {isLoading ? (
-        <div className="text-muted-foreground text-sm">Loading...</div>
+        <Loader />
       ) : (
-        <div className="text-muted-foreground text-sm">No results found</div>
+        <div className="text-muted-foreground text-sm">Empty</div>
       )}
     </div>
   );
