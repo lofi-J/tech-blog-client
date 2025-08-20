@@ -14,14 +14,14 @@ export const HeaderModalTrigger = () => {
       e.stopPropagation();
       openModal();
     },
-    [openModal],
+    [openModal]
   );
 
   return (
     <Button
       variant="ghost"
       onClick={onClick}
-      className="px-4 min-w-[200px] bg-secondary flex items-center justify-between hover:bg-secondary/80"
+      className="px-4 min-w-[200px] bg-secondary flex gap-4 items-center justify-between hover:bg-secondary/80"
     >
       <span className="text-muted-foreground text-[13px] font-light">
         Search any keywords...

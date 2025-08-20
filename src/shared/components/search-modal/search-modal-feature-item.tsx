@@ -55,12 +55,14 @@ export const SearchModalFeatureItem = ({
       className="flex items-center justify-between p-2 hover:bg-muted/50 rounded-md cursor-pointer border border-border/50 hover:border-border transition-colors"
       onClick={handleClick}
     >
-      <div className="flex items-center justify-center gap-2">
-        <div className="flex items-center justify-center size-4">
-          {getIcon()}
+      <div className="flex items-center justify-start gap-4">
+        <div className="flex items-center justify-start gap-2 w-[180px]">
+          <div className="flex items-center justify-center size-4">
+            {getIcon()}
+          </div>
+          <h3 className="text-[12px] font-semibold">{title}</h3>
         </div>
-        <h3 className="text-[12px] font-semibold">{title}</h3>
-        <p className="text-[11px] text-muted-foreground pl-5">{description}</p>
+        <p className="text-[11px] text-muted-foreground">{description}</p>
       </div>
 
       {keyMap && (
