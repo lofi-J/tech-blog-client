@@ -17,7 +17,7 @@ export const SearchModalFeatureItem = ({
   feature: FeatureName;
   closeModal: () => void;
 }) => {
-  const { toggleTheme, toggleZenMode } = useFeature();
+  const { toggleTheme, toggleZenMode, openColorPicker } = useFeature();
   const { theme, systemTheme } = useTheme();
   const { title, description, keyMap } = featureConfig[feature];
 
@@ -45,7 +45,8 @@ export const SearchModalFeatureItem = ({
         closeModal();
         break;
       case "change-highlight-color":
-        console.log("[wip] change-highlight-color");
+        openColorPicker();
+        closeModal();
         break;
     }
   };

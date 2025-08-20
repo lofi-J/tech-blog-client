@@ -1,12 +1,16 @@
 "use client";
 
 import { useColor } from "@/shared/context/color-provider";
-import { useEffect, useRef, useState } from "react";
+import { atom, useAtom } from "jotai";
+import { useEffect, useRef } from "react";
 import * as ColorPicker from "react-colorful";
+
+// Jota global variable
+export const openColorPicker = atom(false);
 
 export const HeaderColorPicker = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useAtom(openColorPicker);
   const { highlightColor, setHighlightColor } = useColor();
 
   const handleColorChange = (newColor: string) => {
@@ -28,7 +32,7 @@ export const HeaderColorPicker = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [open]);
+  }, [open, setOpen]);
 
   return (
     <div

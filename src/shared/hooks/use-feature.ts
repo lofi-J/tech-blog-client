@@ -1,7 +1,10 @@
+import { useSetAtom } from "jotai";
 import { useTheme } from "next-themes";
+import { openColorPicker } from "../components/header-navbar/header-color-picker";
 
 export const useFeature = () => {
   const { theme, setTheme, systemTheme } = useTheme();
+  const setOpenColorPicker = useSetAtom(openColorPicker);
 
   const toggleTheme = () => {
     if (theme === "undefined") {
@@ -15,5 +18,9 @@ export const useFeature = () => {
     console.log("[wip] toggle-zen-mode");
   };
 
-  return { toggleTheme, toggleZenMode };
+  const pickerOpen = () => {
+    setOpenColorPicker(true);
+  };
+
+  return { toggleTheme, toggleZenMode, openColorPicker: pickerOpen };
 };
