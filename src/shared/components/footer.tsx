@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="w-full">
+    <footer data-zen-hideable="slide-down" className="w-full">
       <div>Footer</div>
     </footer>
   );

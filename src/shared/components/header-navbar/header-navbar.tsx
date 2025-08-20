@@ -9,6 +9,7 @@ export const HeaderNavbar = () => {
   return (
     <header
       role="banner"
+      data-zen-hideable="slide-up"
       className="bg-background sticky top-0 z-50 w-full header-height flex items-center  container mx-auto"
     >
       <div className="px-4 flex-between w-full">

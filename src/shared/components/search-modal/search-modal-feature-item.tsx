@@ -79,6 +79,6 @@ export const SearchModalFeatureItem = ({
 };
 
 const formatKeyLikeEmoji = (key: string) => {
-  if (key === "enter") return "⏎";
+  if (key.toLowerCase() === "enter") return "⏎";
   return key;
 };
