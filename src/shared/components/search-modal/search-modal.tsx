@@ -86,10 +86,10 @@ export const SearchModal = () => {
       <DialogContent
         showCloseButton={false}
         disableDescription={true}
-        className="top-[40%] p-0 gap-0 min-h-[400px] max-h-[400px] overflow-y-auto min-w-[400px] max-w-[400px] scrollbar-hide flex flex-col"
+        className="top-[40%] p-0 gap-0 min-h-[400px] min-w-[400px] max-w-[400px] flex flex-col justify-start"
       >
         {/* ==== Search Input ==== */}
-        <DialogHeader className="p-2 sticky top-0 left-0 right-0 bg-background z-10 h-fit">
+        <DialogHeader className="p-2 bg-background h-fit rounded-t-lg">
           <DialogTitle>
             <Input
               id="search-input"
@@ -104,7 +104,7 @@ export const SearchModal = () => {
         {/* ==== /Search Input ==== */}
 
         {/* ==== Search Results ==== */}
-        <div className="flex flex-col flex-warp gap-2 p-2 flex-1">
+        <div className="flex flex-col flex-1 flex-warp gap-2 p-2">
           {!isEmptyArticleResult && (
             <div className="flex flex-col gap-1">
               <div className="text-muted-foreground text-[12px] px-2">
@@ -121,28 +121,30 @@ export const SearchModal = () => {
             </div>
           )}
           {isEmptyArticleResult && (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col flex-1 justify-start">
               <div className="flex items-center justify-center min-h-30">
                 <em className="text-muted-foreground text-[12px]">
                   검색 결과가 없습니다....
                 </em>
               </div>
-              <div className="text-muted-foreground text-[12px] px-2">
-                Features
-              </div>
-              <div className="flex flex-col gap-1">
-                <SearchModalFeatureItem
-                  feature="toggle-zen-mode"
-                  closeModal={closeModal}
-                />
-                <SearchModalFeatureItem
-                  feature="toggle-theme"
-                  closeModal={closeModal}
-                />
-                <SearchModalFeatureItem
-                  feature="change-highlight-color"
-                  closeModal={closeModal}
-                />
+              <div className="mt-auto space-y-1">
+                <div className="text-muted-foreground text-[12px] px-2">
+                  Features
+                </div>
+                <div className="flex flex-col gap-1">
+                  <SearchModalFeatureItem
+                    feature="toggle-zen-mode"
+                    closeModal={closeModal}
+                  />
+                  <SearchModalFeatureItem
+                    feature="toggle-theme"
+                    closeModal={closeModal}
+                  />
+                  <SearchModalFeatureItem
+                    feature="change-highlight-color"
+                    closeModal={closeModal}
+                  />
+                </div>
               </div>
             </div>
           )}
