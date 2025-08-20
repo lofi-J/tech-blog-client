@@ -9,7 +9,7 @@ import * as ColorPicker from "react-colorful";
 export const openColorPicker = atom(false);
 
 export const HeaderColorPicker = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useAtom(openColorPicker);
   const { highlightColor, setHighlightColor } = useColor();
 
@@ -17,10 +17,17 @@ export const HeaderColorPicker = () => {
     setHighlightColor(newColor);
   };
 
+  const handleToggle = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setOpen((prev) => !prev);
+  };
+
   // 외부 클릭 시 컬러 피커 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      const container = containerRef.current;
+      if (container && !container.contains(event.target as Node)) {
         setOpen(false);
       }
     };
@@ -35,12 +42,11 @@ export const HeaderColorPicker = () => {
   }, [open, setOpen]);
 
   return (
-    <div
-      ref={ref}
-      className="size-9 cursor-pointer relative"
-      onClick={() => setOpen(!open)}
-    >
-      <div className="flex items-center justify-center w-full h-full rounded-sm border border-border hover:border-border/80 transition-colors">
+    <div ref={containerRef} className="size-9 cursor-pointer relative">
+      <div
+        onClick={handleToggle}
+        className="flex items-center justify-center w-full h-full rounded-sm border border-border hover:border-border/80 transition-colors"
+      >
         <div
           className="w-[65%] h-[65%] rounded-full border border-border/20"
           style={{ backgroundColor: highlightColor }}
