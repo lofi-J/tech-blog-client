@@ -6,11 +6,19 @@ export type KeyMap = {
   key: string;
 };
 
-export type KeyMapName = "toggle-zen-mode";
+export type KeyMapName = "search-modal" | "toggle-zen-mode" | "toggle-theme";
 
 export const KeyMapConfig: Record<KeyMapName, KeyMap> = {
+  "search-modal": {
+    commandKey: "⌘",
+    key: "k",
+  },
   "toggle-zen-mode": {
     commandKey: "⌘",
-    key: "j",
+    key: "enter",
+  },
+  "toggle-theme": {
+    commandKey: "⌘",
+    key: "d",
   },
 };

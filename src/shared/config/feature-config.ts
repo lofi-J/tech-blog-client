@@ -15,6 +15,7 @@ export const featureConfig: Record<FeatureName, SearchModalFeatureConfig> = {
   "toggle-theme": {
     title: "Toggle Theme",
     description: "블로그 테마를 변경합니다",
+    keyMap: KeyMapConfig["toggle-theme"],
   },
   "toggle-zen-mode": {
     title: "Toggle Zen mode",

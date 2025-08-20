@@ -6,6 +6,7 @@ import { ColorProvider } from "@/shared/context/color-provider";
 import { KeymapProvider } from "@/shared/context/keymap-provider";
 import { SearchModalProvider } from "@/shared/context/search-modal-provider";
 import { ThemeProvider } from "@/shared/context/theme-provider";
+import { ZenModeProvider } from "@/shared/context/zen-mode-provider";
 import "@/styles/fonts.css";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -46,16 +47,18 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ColorProvider>
-              <SearchModalProvider>
-                <KeymapProvider>
-                  <HeaderNavbar />
-                  {children}
-                  <Footer />
-                  <SearchModal />
-                </KeymapProvider>
-              </SearchModalProvider>
-            </ColorProvider>
+            <ZenModeProvider>
+              <ColorProvider>
+                <SearchModalProvider>
+                  <KeymapProvider>
+                    <HeaderNavbar />
+                    {children}
+                    <Footer />
+                    <SearchModal />
+                  </KeymapProvider>
+                </SearchModalProvider>
+              </ColorProvider>
+            </ZenModeProvider>
           </ThemeProvider>
         </ApolloWrapper>
       </body>

@@ -1,10 +1,12 @@
 import { useSetAtom } from "jotai";
 import { useTheme } from "next-themes";
-import { openColorPicker } from "../components/header-navbar/header-color-picker";
+import { openColorPicker as openColorPickerAtom } from "../components/header-navbar/header-color-picker";
+import { useZenMode } from "../context/zen-mode-provider";
 
 export const useFeature = () => {
   const { theme, setTheme, systemTheme } = useTheme();
-  const setOpenColorPicker = useSetAtom(openColorPicker);
+  const { toggleZenMode } = useZenMode();
+  const setOpenColorPicker = useSetAtom(openColorPickerAtom);
 
   const toggleTheme = () => {
     if (theme === "undefined") {
@@ -14,13 +16,9 @@ export const useFeature = () => {
     }
   };
 
-  const toggleZenMode = () => {
-    console.log("[wip] toggle-zen-mode");
-  };
-
-  const pickerOpen = () => {
+  const openColorPicker = () => {
     setOpenColorPicker(true);
   };
 
-  return { toggleTheme, toggleZenMode, openColorPicker: pickerOpen };
+  return { toggleTheme, openColorPicker, toggleZenMode };
 };

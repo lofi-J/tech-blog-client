@@ -70,10 +70,15 @@ export const SearchModalFeatureItem = ({
         <div className="flex items-center justify-center">
           <span className="flex items-center gap-1">
             <Kbd className="text-[14px]">{keyMap.commandKey}</Kbd>
-            <Kbd>{keyMap.key}</Kbd>
+            <Kbd>{formatKeyLikeEmoji(keyMap.key)}</Kbd>
           </span>
         </div>
       )}
     </button>
   );
+};
+
+const formatKeyLikeEmoji = (key: string) => {
+  if (key === "enter") return "⏎";
+  return key;
 };

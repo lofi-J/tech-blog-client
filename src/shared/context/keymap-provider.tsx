@@ -1,9 +1,17 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useEffect } from "react";
+import { KeyMapConfig, KeyMapName } from "../config/keymap";
+import { useFeature } from "../hooks/use-feature";
 import { useSearchModal } from "./search-modal-provider";
+import { useZenMode } from "./zen-mode-provider";
 
-type KeymapContextValue = Record<string, unknown>; // 추후 제공할 기능이 생길경우 수정
+type KeymapAction = () => void;
+
+type KeymapContextValue = {
+  registerKeymap: (name: KeyMapName, action: KeymapAction) => void;
+  unregisterKeymap: (name: KeyMapName) => void;
+};
 
 const KeymapContext = createContext<KeymapContextValue | undefined>(undefined);
 
@@ -13,14 +21,43 @@ type KeymapProviderProps = {
 
 export const KeymapProvider = ({ children }: KeymapProviderProps) => {
   const { openModal } = useSearchModal();
+  const { toggleZenMode } = useZenMode();
+  const { toggleTheme } = useFeature();
+
+  // 각 기능별 단축키
+  const searchModalKey = KeyMapConfig["search-modal"].key;
+  const toggleZenModeKey = KeyMapConfig["toggle-zen-mode"].key;
+  const toggleThemeKey = KeyMapConfig["toggle-theme"].key;
 
   useEffect(() => {
+    const keymapActions: Record<KeyMapName, KeymapAction> = {
+      "search-modal": openModal,
+      "toggle-zen-mode": toggleZenMode,
+      "toggle-theme": toggleTheme,
+    };
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Cmd+K (Mac) 또는 Ctrl+K (Windows/Linux)
-      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+      const { metaKey, ctrlKey, key } = event;
+      const isMacCmd = metaKey || ctrlKey;
+
+      const blockDefaultEvent = () => {
         event.preventDefault();
         event.stopPropagation();
-        openModal();
+      };
+
+      if (isMacCmd && key.toLowerCase() === searchModalKey) {
+        blockDefaultEvent();
+        keymapActions["search-modal"]();
+      }
+
+      if (isMacCmd && key.toLowerCase() === toggleZenModeKey) {
+        blockDefaultEvent();
+        keymapActions["toggle-zen-mode"]();
+      }
+
+      if (isMacCmd && key.toLowerCase() === toggleThemeKey) {
+        blockDefaultEvent();
+        keymapActions["toggle-theme"]();
       }
     };
 
@@ -29,9 +66,30 @@ export const KeymapProvider = ({ children }: KeymapProviderProps) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [openModal]);
+  }, [
+    openModal,
+    toggleZenMode,
+    toggleTheme,
+    toggleThemeKey,
+    toggleZenModeKey,
+    searchModalKey,
+  ]);
 
-  const value: KeymapContextValue = {};
+  const registerKeymap = (name: KeyMapName, action: KeymapAction) => {
+    // 동적 키맵 등록 기능 (추후 필요시 구현)
+    console.log(`Registering keymap: ${name}`);
+    console.log(name, action);
+  };
+
+  const unregisterKeymap = (name: KeyMapName) => {
+    // 동적 키맵 해제 기능 (추후 필요시 구현)
+    console.log(`Unregistering keymap: ${name}`);
+  };
+
+  const value: KeymapContextValue = {
+    registerKeymap,
+    unregisterKeymap,
+  };
 
   return (
     <KeymapContext.Provider value={value}>{children}</KeymapContext.Provider>

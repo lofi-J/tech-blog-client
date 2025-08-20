@@ -32,7 +32,7 @@ export const SearchModal = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setKeyword(e.target.value);
     },
-    []
+    [],
   );
 
   // create fuse instance
@@ -68,7 +68,7 @@ export const SearchModal = () => {
         // 검색 점수 기준 정렬
         shouldSort: true,
       }),
-    [index]
+    [index],
   );
 
   // search from index.json
