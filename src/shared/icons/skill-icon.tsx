@@ -60,7 +60,7 @@ export const SkillIcon = ({
       <div
         className={cn(
           "font-semibold flex items-center justify-center",
-          className
+          className,
         )}
       >
         {name.slice(0, fallbackLength)}
