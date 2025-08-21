@@ -1,6 +1,6 @@
 import client from "@/client";
-import { PostCard } from "@/features/posts/components/post-card";
-import { PostCardSkeletons } from "@/features/posts/components/post-card-skeleton";
+import { ArticlesCardSkeletons } from "@/features/articles/components/articles-card-skeleton";
+import { PostCard } from "@/features/articles/components/post-card";
 import { GetAllPostsDocument, GetAllPostsQuery } from "@/generated/graphql";
 import { Suspense } from "react";
 
@@ -49,7 +49,7 @@ export const RecomendedPostSection = () => {
             최근 포스트
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-            <PostCardSkeletons count={SKELETON_COUNT} />
+            <ArticlesCardSkeletons count={SKELETON_COUNT} />
           </div>
         </section>
       }

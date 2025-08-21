@@ -1,0 +1,22 @@
+fragment PostBaseFields on Post {
+  id
+}
+
+fragment PostMetadataFields on Post {
+  ...PostBaseFields
+  slug
+  title
+  hash_code
+  published
+  updated_at
+  tags {
+    ...TagAllFields
+  }
+}
+
+fragment PostAllFields on Post {
+  ...PostMetadataFields
+  stats {
+    ...PostStatsAllFields
+  }
+}

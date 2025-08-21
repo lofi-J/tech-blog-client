@@ -20,6 +20,7 @@ type PostCardProps = {
   maxContentLine?: number;
 };
 
+// SSR로 렌더링할 때 사용
 export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
   const { slug, title, published, tags } = post;
 

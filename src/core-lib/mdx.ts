@@ -48,6 +48,6 @@ export function getAllPosts(): Post[] {
     .sort(
       (a, b) =>
         new Date(b.metadata.date).getTime() -
-        new Date(a.metadata.date).getTime(),
+        new Date(a.metadata.date).getTime()
     );
 }

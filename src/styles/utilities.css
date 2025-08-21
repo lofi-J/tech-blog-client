@@ -30,7 +30,7 @@
   .loader {
     --size-loader: 30px;
     --size-orbe: 6px;
-    --orbe-color: var(--color-red-500);
+    --orbe-color: var(--highlight-color);
     width: var(--size-loader);
     height: var(--size-loader);
     position: relative;
