@@ -87,4 +87,9 @@
   .shadow-highlight {
     --tw-shadow-color: var(--highlight-color);
   }
+
+  /* Color */
+  .text-link {
+    color: var(--link);
+  }
 }
