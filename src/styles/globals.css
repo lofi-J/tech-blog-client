@@ -84,8 +84,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-
   --gray: #282828;
+
+  /* MDX Components Color */
+  --mdx-text: oklch(0.269 0 0);
+  --mdx-code: oklch(0.145 0 0);
+  --mdx-code-bg: oklch(97% 0% 68deg);
 
   ::selection {
     color: var(--color-background);
@@ -127,6 +131,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* MDX Components Color */
+  --mdx-text: oklch(0.87 0 0);
+  --mdx-code: oklch(0.87 0 0);
+  --mdx-code-bg: oklch(27% 0% 68deg);
 }
 
 @layer base {

@@ -89,7 +89,13 @@
   }
 
   /* Color */
-  .text-link {
-    color: var(--link);
+  .mdx-text {
+    color: var(--mdx-text);
+  }
+  .mdx-code {
+    color: var(--mdx-code);
+  }
+  .mdx-bg {
+    background-color: var(--mdx-code-bg);
   }
 }
