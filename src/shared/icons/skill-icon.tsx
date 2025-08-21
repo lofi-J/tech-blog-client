@@ -8,13 +8,12 @@ import NextJsIcon from "@/shared/icons/next.svg";
 import ReactIcon from "@/shared/icons/react.svg";
 import TailwindIcon from "@/shared/icons/tailwind.svg";
 import TypescriptIcon from "@/shared/icons/typescript.svg";
-import { Badge } from "../components/ui/badge";
 import { cn } from "../lib/utils";
 
 export type SkillName =
   | "react"
-  | "next"
-  | "nest"
+  | "nextjs"
+  | "nestjs"
   | "typescript"
   | "javascript"
   | "tailwind"
@@ -23,10 +22,13 @@ export type SkillName =
   | "git"
   | "github";
 
-const skillIconMap = {
+const skillIconMap: Record<
+  SkillName,
+  React.FC<React.SVGProps<SVGSVGElement>>
+> = {
   react: ReactIcon,
-  next: NextJsIcon,
-  nest: NestJsIcon,
+  nextjs: NextJsIcon,
+  nestjs: NestJsIcon,
   typescript: TypescriptIcon,
   javascript: JavascriptIcon,
   tailwind: TailwindIcon,
@@ -39,22 +41,30 @@ const skillIconMap = {
 type SkillIconProps = {
   name: SkillName;
   size?: "sm" | "md" | "lg";
+  fallbackLength?: number;
   className?: string;
 };
 
-export const SkillIcon = ({ name, size = "md", className }: SkillIconProps) => {
+export const SkillIcon = ({
+  name,
+  size = "md",
+  className,
+  fallbackLength,
+}: SkillIconProps) => {
   const Icon = skillIconMap[name];
   const sizeClass =
     size === "sm" ? "size-4" : size === "md" ? "size-5" : "size-6";
 
   if (!Icon) {
     return (
-      <Badge
-        variant="outline"
-        className={cn("text-[10px] font-semibold py-0 px-1", className)}
+      <div
+        className={cn(
+          "font-semibold flex items-center justify-center",
+          className
+        )}
       >
-        {name}
-      </Badge>
+        {name.slice(0, fallbackLength)}
+      </div>
     );
   }
 

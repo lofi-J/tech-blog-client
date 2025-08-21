@@ -62,7 +62,7 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
       <CardFooter>
         <Button variant="outline" size="sm" className="w-full">
           <Link
-            href={`/posts/article/${slug}`}
+            href={`/articles/${slug}`}
             className="text-sm text-muted-foreground"
           >
             Read More

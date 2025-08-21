@@ -15,14 +15,24 @@ export const HeaderNavbar = () => {
       <div className="px-4 flex-between w-full">
         <nav className="flex items-center gap-10">
           <Link href="/">
-            <TypoLogo />
+            <TypoLogo className="text-xl font-bold cursor-pointer" />
           </Link>
-          <ul className="flex-center gap-4 text-sm">
+          <ul className="flex-center gap-5 text-sm">
             <li>
-              <Link href="/posts">Posts</Link>
+              <Link
+                href="/articles"
+                className="font-semibold hover:text-[var(--highlight-color)]"
+              >
+                Articles
+              </Link>
             </li>
             <li>
-              <Link href="/toys">Toys</Link>
+              <Link
+                href="/toys"
+                className="font-semibold hover:text-[var(--highlight-color)]"
+              >
+                Toy Projects
+              </Link>
             </li>
           </ul>
         </nav>
