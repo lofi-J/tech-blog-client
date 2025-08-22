@@ -25,7 +25,7 @@ export const ToggleThemeButton = ({ className }: { className?: string }) => {
       <AnimatePresence mode="wait" initial={false}>
         <motion.button
           aria-label="Toggle theme"
-          className="plan-hover rounded-md p-2 border-0"
+          className="rounded-md p-2 border-0 hover:bg-plan-hover"
           onClick={toggleTheme}
           animate={{
             scale: mobileTap ? 1.2 : 1,

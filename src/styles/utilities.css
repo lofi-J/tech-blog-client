@@ -1,42 +1,130 @@
-@layer utilities {
-  .header-height {
-    height: 56px;
-  }
+@utility only-pc {
+  @apply hidden md:block;
+}
+@utility only-mobile {
+  @apply block md:hidden;
+}
 
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+/* Responsive Text Size */
+@utility rts-18 {
+  font-size: 16px;
+  @media (min-width: 768px) {
+    font-size: 17px;
   }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+  @media (min-width: 1024px) {
+    font-size: 18px;
   }
-  .auto-complete-color:-webkit-autofill,
-  .auto-complete-color:-webkit-autofill:hover,
-  .auto-complete-color:-webkit-autofill:focus,
-  .auto-complete-color:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset !important;
-    -webkit-text-fill-color: hsl(var(--foreground)) !important;
-    background-color: hsl(var(--background)) !important;
-    transition: background-color 5000s ease-in-out 0s !important;
+}
+@utility rts-17 {
+  font-size: 15px;
+  @media (min-width: 768px) {
+    font-size: 16px;
   }
+}
+@utility rts-16 {
+  font-size: 14px;
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+}
+@utility rts-14 {
+  font-size: 12px;
+  @media (min-width: 768px) {
+    font-size: 13px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+}
+@utility rts-12 {
+  font-size: 10px;
+  @media (min-width: 768px) {
+    font-size: 11px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 12px;
+  }
+}
+@utility rts-10 {
+  font-size: 8px;
+  @media (min-width: 768px) {
+    font-size: 9px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 10px;
+  }
+}
 
-  /* 추가적인 자동완성 스타일 제거 */
-  .auto-complete-color:-webkit-autofill::first-line {
-    color: hsl(var(--foreground)) !important;
-  }
+/* MDX Components Color */
+@utility mdx-text {
+  @apply rts-14;
+  color: var(--mdx-text);
+}
+@utility mdx-code {
+  @apply rts-12;
+  color: var(--mdx-code);
+}
+@utility mdx-bg {
+  background-color: var(--mdx-code-bg);
+}
 
-  /* loader */
-  /* https://uiverse.io/krlozCJ/horrible-fish-14 */
-  .loader {
-    --size-loader: 30px;
-    --size-orbe: 6px;
-    --orbe-color: var(--highlight-color);
-    width: var(--size-loader);
-    height: var(--size-loader);
-    position: relative;
-    transform: rotate(45deg);
-  }
+/* Color Utilities */
+@utility bg-highlight {
+  background-color: var(--highlight-color);
+}
+@utility text-highlight {
+  color: var(--highlight-color);
+}
+@utility border-highlight {
+  border-color: var(--highlight-color);
+}
+@utility ring-highlight {
+  --tw-ring-color: var(--highlight-color);
+}
+@utility shadow-highlight {
+  box-shadow: 0 0 10px 5px var(--highlight-color);
+}
+@utility shadow-inset-highlight {
+  box-shadow: inset 0 0 5px 2px var(--highlight-color);
+}
 
+@utility header-height {
+  height: 56px;
+}
+
+/* Layout Utilities */
+@utility f-row {
+  @apply flex flex-row;
+}
+@utility f-col {
+  @apply flex flex-col;
+}
+@utility f-center {
+  @apply flex items-center justify-center;
+}
+@utility f-between {
+  @apply flex items-center justify-between;
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility loader {
+  --size-loader: 30px;
+  --size-orbe: 6px;
+  --orbe-color: var(--highlight-color);
+  width: var(--size-loader);
+  height: var(--size-loader);
+  position: relative;
+  transform: rotate(45deg);
   .orbe {
     position: absolute;
     width: 100%;
@@ -44,61 +132,38 @@
     --delay: calc(var(--index) * 0.1s);
     animation: orbit7456 ease-in-out 1.5s var(--delay) infinite;
     opacity: calc(1 - calc(0.2 * var(--index)));
-  }
-
-  .orbe::after {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 0;
-    width: var(--size-orbe);
-    height: var(--size-orbe);
-    background-color: var(--orbe-color);
-    box-shadow: 0px 0px 20px 2px var(--orbe-color);
-    border-radius: 50%;
-  }
-
-  @keyframes orbit7456 {
-    0% {
-    }
-
-    80% {
-      transform: rotate(360deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
+    &::after {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: var(--size-orbe);
+      height: var(--size-orbe);
+      background-color: var(--orbe-color);
+      box-shadow: 0px 0px 20px 2px var(--orbe-color);
+      border-radius: 50%;
     }
   }
+}
 
-  /* Highlight Color Utilities */
-  .bg-highlight {
-    background-color: var(--highlight-color);
+@keyframes orbit7456 {
+  0% {
   }
-  .text-highlight {
-    color: var(--highlight-color);
+  80% {
+    transform: rotate(360deg);
   }
-  .border-highlight {
-    border-color: var(--highlight-color);
+  100% {
+    transform: rotate(360deg);
   }
-  .ring-highlight {
-    --tw-ring-color: var(--highlight-color);
-  }
-  .shadow-highlight {
-    box-shadow: 0 0 10px 5px var(--highlight-color);
-  }
-  .shadow-inset-highlight {
-    box-shadow: inset 0 0 5px 2px var(--highlight-color);
-  }
+}
 
-  /* Color */
-  .mdx-text {
-    color: var(--mdx-text);
-  }
-  .mdx-code {
-    color: var(--mdx-code);
-  }
-  .mdx-bg {
-    background-color: var(--mdx-code-bg);
-  }
+@utility flex-container {
+  @apply flex flex-wrap w-full justify-center
+         px-4 sm:px-6 lg:px-8
+         [&>*]:flex-1;
+}
+@utility flex-col-container {
+  @apply flex flex-col w-full justify-center
+         px-4 sm:px-6 lg:px-8
+         [&>*]:flex-1;
 }

@@ -23,8 +23,8 @@ async function PostsList() {
     const posts = data?.getAllPosts.posts ?? [];
 
     return (
-      <section className="flex flex-col gap-3">
-        <h2 className="md:text-[16px] text-[14px] font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
+      <section className="f-col gap-3">
+        <h2 className="rts-14 font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
           최근 포스팅
         </h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
@@ -45,7 +45,7 @@ export const RecomendedPostSection = () => {
     <Suspense
       fallback={
         <section className="flex-col-container gap-3">
-          <h2 className="md:text-[16px] text-[14px] font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
+          <h2 className="rts-14 font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
             최근 포스팅
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">

@@ -23,7 +23,7 @@ export const ClientPostCard = ({ post }: ClientPostCardProps) => {
   const formattedDate = formatDate(updated_at ?? published, "yyyy-MM-dd");
 
   return (
-    <Card className="flex flex-col justify-between bg-background w-full h-[250px] py-4">
+    <Card className="f-col justify-between bg-background w-full h-[250px] py-4">
       <CardHeader className="flex flex-col gap-2">
         <div className="flex w-full justify-between items-center">
           <span className="text-sm text-muted-foreground">{formattedDate}</span>
@@ -33,7 +33,7 @@ export const ClientPostCard = ({ post }: ClientPostCardProps) => {
           <CardTitle>{title}</CardTitle>
         </Link>
       </CardHeader>
-      <div className="flex flex-col justify-between flex-1">
+      <div className="f-col justify-between flex-1">
         <CardContent>
           <div className="prose prose-sm max-w-none">
             <p className="text-muted-foreground text-sm">{description}</p>

@@ -18,7 +18,7 @@ export const HeaderNavbar = () => {
           <Link href="/">
             <TypoLogo className="text-xl font-bold cursor-pointer" />
           </Link>
-          <ul className="flex-center gap-5 text-sm md:flex hidden">
+          <ul className="f-center gap-5 text-sm md:flex hidden">
             <li>
               <Link
                 href="/articles"

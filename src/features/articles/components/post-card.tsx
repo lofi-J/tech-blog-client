@@ -52,7 +52,7 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
           <SkillIcon name={firstTag as SkillName} size="lg" />
         </div>
         <Link href={`/articles/${slug}`} className="hover:underline">
-          <CardTitle>{title}</CardTitle>
+          <CardTitle className="rts-test">{title}</CardTitle>
         </Link>
       </CardHeader>
       <div className="flex flex-col flex-1 justify-between">

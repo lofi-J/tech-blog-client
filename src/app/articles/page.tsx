@@ -24,10 +24,10 @@ export default function PostsPage() {
         <PostIcon className="size-10" />
         Articles
       </h1>
-      <p className="text-sm text-center">
+      <p className="rts-18 text-center">
         추천하는 카테고리를 선택하고 원하시는 포스트를 확인해 보세요.
       </p>
-      <div className="flex flex-col items-center gap-3 mt-20 px-4">
+      <div className="f-col items-center gap-3 mt-20 px-4">
         <h2 className="font-semibold w-full text-center px-4">
           Recommend category
         </h2>
@@ -36,7 +36,7 @@ export default function PostsPage() {
           setSelectedCategory={setSelectedCategory}
         />
       </div>
-      <div className="flex flex-col items-center gap-3 mt-20 px-4">
+      <div className="f-col items-center gap-3 mt-20 px-4">
         <h2 className="font-semibold w-full text-left px-2">
           {selectedCategory} articles
         </h2>

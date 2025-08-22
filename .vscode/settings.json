@@ -7,6 +7,9 @@
     ["cn\\(([^)]*)\\)", "([\"'`][^\"'`]*.*?[\"'`])"],
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
+  "tailwindCSS.files": {
+    "config": "src/styles/globals.css"
+  },
   "editor.quickSuggestions": {
     "strings": true
   },
