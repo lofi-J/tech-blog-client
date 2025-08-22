@@ -29,12 +29,8 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
   const { content } = getPostBySlug(slug);
   const components = getPreviewMDXComponents();
 
-  // # heading 제거
-  const formattedContent = content.replace(/#+\s/g, "");
-
-  // 2 ~ maxContentLine 줄까지만 렌더
-  const lines = formattedContent.split("\n");
-  const restContent = lines.slice(2, maxContentLine).join("\n");
+  const lines = content.split("\n");
+  const restContent = lines.slice(0, maxContentLine).join("\n");
 
   const compiled = await compile(restContent, {
     outputFormat: "function-body",

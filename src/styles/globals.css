@@ -152,4 +152,18 @@
   a {
     @apply cursor-pointer;
   }
+  li.list-bullet {
+    position: relative;
+    padding-left: 1rem;
+    list-style: none;
+  }
+
+  li.list-bullet::before {
+    font-size: 1.2rem;
+    content: "•";
+    position: absolute;
+    left: 0px;
+    top: 0;
+    line-height: inherit;
+  }
 }

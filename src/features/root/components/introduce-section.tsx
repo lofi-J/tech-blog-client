@@ -5,7 +5,7 @@ export const IntroduceSection = () => {
   return (
     <section className="flex flex-1 flex-col items-center justify-center md:py-20 py-15">
       <a href="https://github.com/lofi-J" target="_blank">
-        <Badge variant="secondary" style={{ color: "var(--foreground)" }}>
+        <Badge variant="highlight">
           <GithubIcon fill="currentColor" />
           <span className="text-sm">Github/lofi-J</span>
         </Badge>
