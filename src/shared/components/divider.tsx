@@ -1,4 +1,3 @@
-import { CSSProperties } from "react";
 import { cn } from "../lib/utils";
 
 type DividerProps = {
@@ -7,48 +6,39 @@ type DividerProps = {
   className?: string;
   color?: "foreground" | "muted" | "secondary" | "primary";
 };
+
 export const Divider = ({
   size,
   direction,
   className,
   color = "foreground",
 }: DividerProps) => {
-  const sizeMap = {
-    sm: "1px",
-    md: "2.5px",
-    lg: "4px",
+  // 크기별 Tailwind 클래스
+  const sizeClasses = {
+    sm: direction === "horizontal" ? "h-px" : "w-px",
+    md: direction === "horizontal" ? "h-0.5" : "w-0.5",
+    lg: direction === "horizontal" ? "h-1" : "w-1",
   };
 
-  const horizontalStyle: CSSProperties = {
-    display: "flex",
-    flexDirection: "row",
-    minWidth: "1px",
-    height: sizeMap[size],
-    alignSelf: "stretch",
+  // 방향별 기본 클래스
+  const directionClasses = {
+    horizontal: "flex flex-row min-w-px self-stretch",
+    vertical: "flex flex-col min-h-px self-stretch",
   };
 
-  const verticalStyle: CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    width: sizeMap[size],
-    minHeight: "1px",
-    alignSelf: "stretch",
+  // 색상별 클래스
+  const colorClasses = {
+    foreground: "bg-foreground",
+    muted: "bg-muted",
+    secondary: "bg-secondary",
+    primary: "bg-primary",
   };
 
   return (
     <div
-      className={className}
-      style={direction === "horizontal" ? horizontalStyle : verticalStyle}
+      className={cn(directionClasses[direction], sizeClasses[size], className)}
     >
-      <div
-        className={cn(
-          "h-full w-full rounded-sm",
-          color === "foreground" && "bg-foreground",
-          color === "muted" && "bg-muted",
-          color === "secondary" && "bg-secondary",
-          color === "primary" && "bg-primary",
-        )}
-      />
+      <div className={cn("h-full w-full rounded-sm", colorClasses[color])} />
     </div>
   );
 };

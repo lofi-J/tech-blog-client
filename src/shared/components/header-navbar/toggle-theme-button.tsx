@@ -2,11 +2,12 @@
 
 import MoonIcon from "@/shared/icons/moon.svg";
 import SunIcon from "@/shared/icons/sun.svg";
+import { cn } from "@/shared/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 
-export const ToggleThemeButton = () => {
+export const ToggleThemeButton = ({ className }: { className?: string }) => {
   const { theme, setTheme } = useTheme();
   const [mobileTap, setMobileTap] = useState(false);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
@@ -20,7 +21,7 @@ export const ToggleThemeButton = () => {
   };
 
   return (
-    <div className="bg-secondary rounded-sm">
+    <div className={cn("bg-secondary rounded-sm", className)}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.button
           aria-label="Toggle theme"

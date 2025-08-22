@@ -1,6 +1,7 @@
 "use client";
 
 import { useColor } from "@/shared/context/color-provider";
+import { cn } from "@/shared/lib/utils";
 import { atom, useAtom } from "jotai";
 import { useEffect, useRef } from "react";
 import * as ColorPicker from "react-colorful";
@@ -8,7 +9,7 @@ import * as ColorPicker from "react-colorful";
 // Jota global variable
 export const openColorPicker = atom(false);
 
-export const HeaderColorPicker = () => {
+export const HeaderColorPicker = ({ className }: { className?: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useAtom(openColorPicker);
   const { highlightColor, setHighlightColor } = useColor();
@@ -42,7 +43,10 @@ export const HeaderColorPicker = () => {
   }, [open, setOpen]);
 
   return (
-    <div ref={containerRef} className="size-9 cursor-pointer relative">
+    <div
+      ref={containerRef}
+      className={cn("size-9 cursor-pointer relative", className)}
+    >
       <div
         onClick={handleToggle}
         className="flex items-center justify-center w-full h-full rounded-sm border border-border hover:border-border/80 transition-colors"

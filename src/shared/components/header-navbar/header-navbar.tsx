@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Divider } from "../divider";
 import { TypoLogo } from "../typo-logo";
 import { HeaderColorPicker } from "./header-color-picker";
+import { HeaderMobileHamburger } from "./header-mobile-hamburger";
 import { HeaderModalTrigger } from "./header-modal-trigger";
 import { ToggleThemeButton } from "./toggle-theme-button";
 
@@ -17,7 +18,7 @@ export const HeaderNavbar = () => {
           <Link href="/">
             <TypoLogo className="text-xl font-bold cursor-pointer" />
           </Link>
-          <ul className="flex-center gap-5 text-sm">
+          <ul className="flex-center gap-5 text-sm md:flex hidden">
             <li>
               <Link
                 href="/articles"
@@ -36,7 +37,7 @@ export const HeaderNavbar = () => {
             </li>
           </ul>
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <HeaderModalTrigger />
           <Divider
             size="sm"
@@ -44,14 +45,15 @@ export const HeaderNavbar = () => {
             className="py-1"
             color="secondary"
           />
-          <HeaderColorPicker />
+          <HeaderColorPicker className="hidden md:block" />
           <Divider
             size="sm"
             direction="vertical"
-            className="py-1"
+            className="py-1 hidden md:block"
             color="secondary"
           />
-          <ToggleThemeButton />
+          <ToggleThemeButton className="hidden md:block" />
+          <HeaderMobileHamburger />
         </div>
       </div>
     </header>

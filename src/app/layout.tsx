@@ -1,5 +1,6 @@
 import { Footer } from "@/shared/components/footer";
 import { HeaderNavbar } from "@/shared/components/header-navbar/header-navbar";
+import { MobileMenuSidebar } from "@/shared/components/header-navbar/mobile-menu-sidebar";
 import { SearchModal } from "@/shared/components/search-modal/search-modal";
 import { ApolloWrapper } from "@/shared/context/apollo-provider";
 import { ColorProvider } from "@/shared/context/color-provider";
@@ -54,6 +55,7 @@ export default function RootLayout({
                 <SearchModalProvider>
                   <KeymapProvider>
                     <HeaderNavbar />
+                    <MobileMenuSidebar />
                     {children}
                     <Footer />
                     <SearchModal />

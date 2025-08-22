@@ -98,6 +98,8 @@ export const SearchModal = () => {
               className="w-full placeholder:text-[12px]"
               value={keyword}
               onChange={handleSearchChange}
+              autoFocus={true}
+              autoComplete="off"
             />
           </DialogTitle>
         </DialogHeader>
