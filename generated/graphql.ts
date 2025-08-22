@@ -375,24 +375,24 @@ export function useGetAllPostsQuery(
     (
       | { variables: GetAllPostsQueryVariables; skip?: boolean }
       | { skip: boolean }
-    )
+    ),
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(
     GetAllPostsDocument,
-    options
+    options,
   );
 }
 export function useGetAllPostsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetAllPostsQuery,
     GetAllPostsQueryVariables
-  >
+  >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(
     GetAllPostsDocument,
-    options
+    options,
   );
 }
 export function useGetAllPostsSuspenseQuery(
@@ -401,7 +401,7 @@ export function useGetAllPostsSuspenseQuery(
     | Apollo.SuspenseQueryHookOptions<
         GetAllPostsQuery,
         GetAllPostsQueryVariables
-      >
+      >,
 ) {
   const options =
     baseOptions === Apollo.skipToken
@@ -409,7 +409,7 @@ export function useGetAllPostsSuspenseQuery(
       : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(
     GetAllPostsDocument,
-    options
+    options,
   );
 }
 export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
@@ -461,24 +461,24 @@ export function useGetPostsByTagQuery(
     (
       | { variables: GetPostsByTagQueryVariables; skip?: boolean }
       | { skip: boolean }
-    )
+    ),
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(
     GetPostsByTagDocument,
-    options
+    options,
   );
 }
 export function useGetPostsByTagLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetPostsByTagQuery,
     GetPostsByTagQueryVariables
-  >
+  >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(
     GetPostsByTagDocument,
-    options
+    options,
   );
 }
 export function useGetPostsByTagSuspenseQuery(
@@ -487,7 +487,7 @@ export function useGetPostsByTagSuspenseQuery(
     | Apollo.SuspenseQueryHookOptions<
         GetPostsByTagQuery,
         GetPostsByTagQueryVariables
-      >
+      >,
 ) {
   const options =
     baseOptions === Apollo.skipToken
@@ -540,30 +540,33 @@ export function useGetAllTagsQuery(
   baseOptions?: Apollo.QueryHookOptions<
     GetAllTagsQuery,
     GetAllTagsQueryVariables
-  >
+  >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
     GetAllTagsDocument,
-    options
+    options,
   );
 }
 export function useGetAllTagsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetAllTagsQuery,
     GetAllTagsQueryVariables
-  >
+  >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
     GetAllTagsDocument,
-    options
+    options,
   );
 }
 export function useGetAllTagsSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>
+    | Apollo.SuspenseQueryHookOptions<
+        GetAllTagsQuery,
+        GetAllTagsQueryVariables
+      >,
 ) {
   const options =
     baseOptions === Apollo.skipToken
@@ -571,7 +574,7 @@ export function useGetAllTagsSuspenseQuery(
       : { ...defaultOptions, ...baseOptions };
   return Apollo.useSuspenseQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
     GetAllTagsDocument,
-    options
+    options,
   );
 }
 export type GetAllTagsQueryHookResult = ReturnType<typeof useGetAllTagsQuery>;

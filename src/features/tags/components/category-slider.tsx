@@ -44,7 +44,7 @@ export const CategorySlider = ({
 
   return (
     <div className="w-full relative">
-      <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto">
         <Slider {...settings} ref={sliderRef}>
           {data?.getAllTags.map((tag) => (
             <TagItem

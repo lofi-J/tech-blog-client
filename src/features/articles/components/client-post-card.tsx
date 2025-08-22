@@ -33,21 +33,23 @@ export const ClientPostCard = ({ post }: ClientPostCardProps) => {
           <CardTitle>{title}</CardTitle>
         </Link>
       </CardHeader>
-      <CardContent>
-        <div className="prose prose-sm max-w-none">
-          <p className="text-muted-foreground text-sm">{description}</p>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button variant="outline" size="sm" className="w-full">
-          <Link
-            href={`/articles/${slug}`}
-            className="text-sm text-muted-foreground"
-          >
-            Read More
-          </Link>
-        </Button>
-      </CardFooter>
+      <div className="flex flex-col justify-between flex-1">
+        <CardContent>
+          <div className="prose prose-sm max-w-none">
+            <p className="text-muted-foreground text-sm">{description}</p>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button variant="outline" size="sm" className="w-full">
+            <Link
+              href={`/articles/${slug}`}
+              className="text-sm text-muted-foreground"
+            >
+              Read More
+            </Link>
+          </Button>
+        </CardFooter>
+      </div>
     </Card>
   );
 };

@@ -28,7 +28,7 @@ export default function PostsPage() {
         추천하는 카테고리를 선택하고 원하시는 포스트를 확인해 보세요.
       </p>
       <div className="flex flex-col items-center gap-3 mt-20 px-4">
-        <h2 className="font-semibold w-full text-left px-4">
+        <h2 className="font-semibold w-full text-center px-4">
           Recommend category
         </h2>
         <CategorySlider
@@ -37,10 +37,10 @@ export default function PostsPage() {
         />
       </div>
       <div className="flex flex-col items-center gap-3 mt-20 px-4">
-        <h2 className="font-semibold w-full text-left px-4">
+        <h2 className="font-semibold w-full text-left px-2">
           {selectedCategory} articles
         </h2>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {loading ? (
             <Loader />
           ) : (
