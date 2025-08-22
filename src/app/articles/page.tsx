@@ -45,11 +45,7 @@ export default function PostsPage() {
             <Loader />
           ) : (
             articles?.map((article) => (
-              <ClientPostCard
-                key={article.hash_code}
-                post={article}
-                maxContentLine={5}
-              />
+              <ClientPostCard key={article.hash_code} post={article} />
             ))
           )}
         </div>

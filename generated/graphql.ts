@@ -1,81 +1,95 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import * as Apollo from "@apollo/client";
+import { gql } from "@apollo/client";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
+    };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  DateTime: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  DateTime: { input: any; output: any };
 };
 
 export type GetPostsInput = {
   /** 가져올 포스트 수 */
-  limit?: Scalars['Int']['input'];
+  limit?: Scalars["Int"]["input"];
   /** 건너뛸 포스트 수 */
-  offset?: Scalars['Int']['input'];
+  offset?: Scalars["Int"]["input"];
   /** 정렬 순서 */
   order?: SortOrder;
   /** 정렬 기준 */
   orderBy?: PostsOrderBy;
   /** 검색 키워드 */
-  search?: InputMaybe<Scalars['String']['input']>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type Post = {
-  __typename?: 'Post';
-  hash_code: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
-  published?: Maybe<Scalars['DateTime']['output']>;
-  slug: Scalars['String']['output'];
+  __typename?: "Post";
+  description: Scalars["String"]["output"];
+  hash_code: Scalars["String"]["output"];
+  id: Scalars["Int"]["output"];
+  published?: Maybe<Scalars["DateTime"]["output"]>;
+  slug: Scalars["String"]["output"];
   stats?: Maybe<PostStats>;
   tags?: Maybe<Array<Tags>>;
-  title: Scalars['String']['output'];
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
+  title: Scalars["String"]["output"];
+  updated_at?: Maybe<Scalars["DateTime"]["output"]>;
 };
 
 export type PostStats = {
-  __typename?: 'PostStats';
-  id?: Maybe<Scalars['Int']['output']>;
-  likes: Scalars['Int']['output'];
-  post_id?: Maybe<Scalars['Int']['output']>;
-  updated_at?: Maybe<Scalars['DateTime']['output']>;
-  views: Scalars['Int']['output'];
+  __typename?: "PostStats";
+  id?: Maybe<Scalars["Int"]["output"]>;
+  likes: Scalars["Int"]["output"];
+  post_id?: Maybe<Scalars["Int"]["output"]>;
+  updated_at?: Maybe<Scalars["DateTime"]["output"]>;
+  views: Scalars["Int"]["output"];
 };
 
 /** 포스트 정렬 기준 */
 export type PostsOrderBy =
   /** ID순 */
-  | 'ID'
+  | "ID"
   /** 최신순 (발행일 기준) */
-  | 'LATEST'
+  | "LATEST"
   /** 인기순 (좋아요 기준) */
-  | 'POPULAR_LIKES'
+  | "POPULAR_LIKES"
   /** 인기순 (조회수 기준) */
-  | 'POPULAR_VIEWS'
+  | "POPULAR_VIEWS"
   /** 제목순 */
-  | 'TITLE'
+  | "TITLE"
   /** 업데이트순 (수정일 기준) */
-  | 'UPDATED';
+  | "UPDATED";
 
 export type PostsResponse = {
-  __typename?: 'PostsResponse';
-  hasMore: Scalars['Boolean']['output'];
+  __typename?: "PostsResponse";
+  hasMore: Scalars["Boolean"]["output"];
   posts: Array<Post>;
-  totalCount: Scalars['Int']['output'];
+  totalCount: Scalars["Int"]["output"];
 };
 
 export type Query = {
-  __typename?: 'Query';
+  __typename?: "Query";
   getAllPosts: PostsResponse;
   getAllTags: Array<Tags>;
   getPostBySlug?: Maybe<Post>;
@@ -84,164 +98,258 @@ export type Query = {
   tagUsageStats: Array<Tags>;
 };
 
-
 export type QueryGetAllPostsArgs = {
   input: GetPostsInput;
 };
-
 
 export type QueryGetAllTagsArgs = {
   orderBy?: TagsOrderBy;
 };
 
-
 export type QueryGetPostBySlugArgs = {
-  slug: Scalars['String']['input'];
+  slug: Scalars["String"]["input"];
 };
-
 
 export type QueryGetPostsByTagArgs = {
-  tag: Scalars['String']['input'];
+  tag: Scalars["String"]["input"];
 };
 
-
 export type QueryPopularTagsArgs = {
-  limit?: Scalars['Int']['input'];
+  limit?: Scalars["Int"]["input"];
 };
 
 /** 정렬 순서 */
 export type SortOrder =
   /** 오름차순 */
-  | 'ASC'
+  | "ASC"
   /** 내림차순 */
-  | 'DESC';
+  | "DESC";
 
 export type Tags = {
-  __typename?: 'Tags';
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['Int']['output'];
-  tag_name: Scalars['String']['output'];
-  usage_count?: Maybe<Scalars['Int']['output']>;
+  __typename?: "Tags";
+  created_at: Scalars["DateTime"]["output"];
+  id: Scalars["Int"]["output"];
+  tag_name: Scalars["String"]["output"];
+  usage_count?: Maybe<Scalars["Int"]["output"]>;
 };
 
 /** 정렬 기준 */
-export type TagsOrderBy =
-  | 'CREATED_AT'
-  | 'ID'
-  | 'POPULAR'
-  | 'TAG_NAME';
+export type TagsOrderBy = "CREATED_AT" | "ID" | "POPULAR" | "TAG_NAME";
 
-export type PostStatsBaseFieldsFragment = { __typename?: 'PostStats', id?: number | null };
+export type PostStatsBaseFieldsFragment = {
+  __typename?: "PostStats";
+  id?: number | null;
+};
 
-export type PostStatsAllFieldsFragment = { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null };
+export type PostStatsAllFieldsFragment = {
+  __typename?: "PostStats";
+  post_id?: number | null;
+  views: number;
+  likes: number;
+  updated_at?: any | null;
+  id?: number | null;
+};
 
-export type PostBaseFieldsFragment = { __typename?: 'Post', id: number };
+export type PostBaseFieldsFragment = { __typename?: "Post"; id: number };
 
-export type PostMetadataFieldsFragment = { __typename?: 'Post', slug: string, title: string, hash_code: string, published?: any | null, updated_at?: any | null, id: number, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null };
+export type PostMetadataFieldsFragment = {
+  __typename?: "Post";
+  slug: string;
+  hash_code: string;
+  title: string;
+  description: string;
+  published?: any | null;
+  updated_at?: any | null;
+  tags?: Array<{
+    __typename?: "Tags";
+    tag_name: string;
+    created_at: any;
+    id: number;
+  }> | null;
+};
 
-export type PostAllFieldsFragment = { __typename?: 'Post', slug: string, title: string, hash_code: string, published?: any | null, updated_at?: any | null, id: number, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null };
+export type PostAllFieldsFragment = {
+  __typename?: "Post";
+  id: number;
+  slug: string;
+  hash_code: string;
+  title: string;
+  description: string;
+  published?: any | null;
+  updated_at?: any | null;
+  stats?: {
+    __typename?: "PostStats";
+    post_id?: number | null;
+    views: number;
+    likes: number;
+    updated_at?: any | null;
+    id?: number | null;
+  } | null;
+  tags?: Array<{
+    __typename?: "Tags";
+    tag_name: string;
+    created_at: any;
+    id: number;
+  }> | null;
+};
 
 export type GetAllPostsQueryVariables = Exact<{
   inputs: GetPostsInput;
 }>;
 
-
-export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, title: string, hash_code: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null }> } };
+export type GetAllPostsQuery = {
+  __typename?: "Query";
+  getAllPosts: {
+    __typename?: "PostsResponse";
+    totalCount: number;
+    posts: Array<{
+      __typename?: "Post";
+      id: number;
+      slug: string;
+      hash_code: string;
+      title: string;
+      description: string;
+      published?: any | null;
+      updated_at?: any | null;
+      stats?: {
+        __typename?: "PostStats";
+        post_id?: number | null;
+        views: number;
+        likes: number;
+        updated_at?: any | null;
+        id?: number | null;
+      } | null;
+      tags?: Array<{
+        __typename?: "Tags";
+        tag_name: string;
+        created_at: any;
+        id: number;
+      }> | null;
+    }>;
+  };
+};
 
 export type GetPostsByTagQueryVariables = Exact<{
-  tag: Scalars['String']['input'];
+  tag: Scalars["String"]["input"];
 }>;
 
+export type GetPostsByTagQuery = {
+  __typename?: "Query";
+  getPostsByTag: {
+    __typename?: "PostsResponse";
+    totalCount: number;
+    posts: Array<{
+      __typename?: "Post";
+      id: number;
+      slug: string;
+      hash_code: string;
+      title: string;
+      description: string;
+      published?: any | null;
+      updated_at?: any | null;
+      tags?: Array<{
+        __typename?: "Tags";
+        tag_name: string;
+        created_at: any;
+        id: number;
+      }> | null;
+    }>;
+  };
+};
 
-export type GetPostsByTagQuery = { __typename?: 'Query', getPostsByTag: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', slug: string, title: string, hash_code: string, published?: any | null, updated_at?: any | null, id: number, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
+export type TagBaseFieldsFragment = { __typename?: "Tags"; id: number };
 
-export type TagBaseFieldsFragment = { __typename?: 'Tags', id: number };
-
-export type TagAllFieldsFragment = { __typename?: 'Tags', tag_name: string, created_at: any, id: number };
+export type TagAllFieldsFragment = {
+  __typename?: "Tags";
+  tag_name: string;
+  created_at: any;
+  id: number;
+};
 
 export type GetAllTagsQueryVariables = Exact<{
   orderBy?: InputMaybe<TagsOrderBy>;
 }>;
 
-
-export type GetAllTagsQuery = { __typename?: 'Query', getAllTags: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> };
+export type GetAllTagsQuery = {
+  __typename?: "Query";
+  getAllTags: Array<{
+    __typename?: "Tags";
+    tag_name: string;
+    created_at: any;
+    id: number;
+  }>;
+};
 
 export const PostBaseFieldsFragmentDoc = gql`
-    fragment PostBaseFields on Post {
-  id
-}
-    `;
+  fragment PostBaseFields on Post {
+    id
+  }
+`;
 export const TagBaseFieldsFragmentDoc = gql`
-    fragment TagBaseFields on Tags {
-  id
-}
-    `;
+  fragment TagBaseFields on Tags {
+    id
+  }
+`;
 export const TagAllFieldsFragmentDoc = gql`
-    fragment TagAllFields on Tags {
-  ...TagBaseFields
-  tag_name
-  created_at
-}
-    ${TagBaseFieldsFragmentDoc}`;
+  fragment TagAllFields on Tags {
+    ...TagBaseFields
+    tag_name
+    created_at
+  }
+  ${TagBaseFieldsFragmentDoc}
+`;
 export const PostMetadataFieldsFragmentDoc = gql`
-    fragment PostMetadataFields on Post {
-  ...PostBaseFields
-  slug
-  title
-  hash_code
-  published
-  updated_at
-  tags {
-    ...TagAllFields
+  fragment PostMetadataFields on Post {
+    slug
+    hash_code
+    title
+    description
+    published
+    updated_at
+    tags {
+      ...TagAllFields
+    }
   }
-}
-    ${PostBaseFieldsFragmentDoc}
-${TagAllFieldsFragmentDoc}`;
+  ${TagAllFieldsFragmentDoc}
+`;
 export const PostStatsBaseFieldsFragmentDoc = gql`
-    fragment PostStatsBaseFields on PostStats {
-  id
-}
-    `;
-export const PostStatsAllFieldsFragmentDoc = gql`
-    fragment PostStatsAllFields on PostStats {
-  ...PostStatsBaseFields
-  post_id
-  views
-  likes
-  updated_at
-}
-    ${PostStatsBaseFieldsFragmentDoc}`;
-export const PostAllFieldsFragmentDoc = gql`
-    fragment PostAllFields on Post {
-  ...PostMetadataFields
-  stats {
-    ...PostStatsAllFields
+  fragment PostStatsBaseFields on PostStats {
+    id
   }
-}
-    ${PostMetadataFieldsFragmentDoc}
-${PostStatsAllFieldsFragmentDoc}`;
+`;
+export const PostStatsAllFieldsFragmentDoc = gql`
+  fragment PostStatsAllFields on PostStats {
+    ...PostStatsBaseFields
+    post_id
+    views
+    likes
+    updated_at
+  }
+  ${PostStatsBaseFieldsFragmentDoc}
+`;
+export const PostAllFieldsFragmentDoc = gql`
+  fragment PostAllFields on Post {
+    ...PostBaseFields
+    ...PostMetadataFields
+    stats {
+      ...PostStatsAllFields
+    }
+  }
+  ${PostBaseFieldsFragmentDoc}
+  ${PostMetadataFieldsFragmentDoc}
+  ${PostStatsAllFieldsFragmentDoc}
+`;
 export const GetAllPostsDocument = gql`
-    query GetAllPosts($inputs: GetPostsInput!) {
-  getAllPosts(input: $inputs) {
-    totalCount
-    posts {
-      id
-      slug
-      title
-      hash_code
-      published
-      updated_at
-      tags {
-        ...TagAllFields
-      }
-      stats {
-        ...PostStatsAllFields
+  query GetAllPosts($inputs: GetPostsInput!) {
+    getAllPosts(input: $inputs) {
+      totalCount
+      posts {
+        ...PostAllFields
       }
     }
   }
-}
-    ${TagAllFieldsFragmentDoc}
-${PostStatsAllFieldsFragmentDoc}`;
+  ${PostAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetAllPostsQuery__
@@ -259,32 +367,75 @@ ${PostStatsAllFieldsFragmentDoc}`;
  *   },
  * });
  */
-export function useGetAllPostsQuery(baseOptions: Apollo.QueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables> & ({ variables: GetAllPostsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
-      }
-export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
-        }
-export function useGetAllPostsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
-        }
+export function useGetAllPostsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAllPostsQuery,
+    GetAllPostsQueryVariables
+  > &
+    (
+      | { variables: GetAllPostsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(
+    GetAllPostsDocument,
+    options
+  );
+}
+export function useGetAllPostsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllPostsQuery,
+    GetAllPostsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(
+    GetAllPostsDocument,
+    options
+  );
+}
+export function useGetAllPostsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetAllPostsQuery,
+        GetAllPostsQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(
+    GetAllPostsDocument,
+    options
+  );
+}
 export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
-export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
-export type GetAllPostsSuspenseQueryHookResult = ReturnType<typeof useGetAllPostsSuspenseQuery>;
-export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export type GetAllPostsLazyQueryHookResult = ReturnType<
+  typeof useGetAllPostsLazyQuery
+>;
+export type GetAllPostsSuspenseQueryHookResult = ReturnType<
+  typeof useGetAllPostsSuspenseQuery
+>;
+export type GetAllPostsQueryResult = Apollo.QueryResult<
+  GetAllPostsQuery,
+  GetAllPostsQueryVariables
+>;
 export const GetPostsByTagDocument = gql`
-    query GetPostsByTag($tag: String!) {
-  getPostsByTag(tag: $tag) {
-    totalCount
-    posts {
-      ...PostMetadataFields
+  query GetPostsByTag($tag: String!) {
+    getPostsByTag(tag: $tag) {
+      totalCount
+      posts {
+        ...PostBaseFields
+        ...PostMetadataFields
+      }
     }
   }
-}
-    ${PostMetadataFieldsFragmentDoc}`;
+  ${PostBaseFieldsFragmentDoc}
+  ${PostMetadataFieldsFragmentDoc}
+`;
 
 /**
  * __useGetPostsByTagQuery__
@@ -302,29 +453,72 @@ export const GetPostsByTagDocument = gql`
  *   },
  * });
  */
-export function useGetPostsByTagQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByTagQuery, GetPostsByTagQueryVariables> & ({ variables: GetPostsByTagQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(GetPostsByTagDocument, options);
-      }
-export function useGetPostsByTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByTagQuery, GetPostsByTagQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(GetPostsByTagDocument, options);
-        }
-export function useGetPostsByTagSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPostsByTagQuery, GetPostsByTagQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(GetPostsByTagDocument, options);
-        }
-export type GetPostsByTagQueryHookResult = ReturnType<typeof useGetPostsByTagQuery>;
-export type GetPostsByTagLazyQueryHookResult = ReturnType<typeof useGetPostsByTagLazyQuery>;
-export type GetPostsByTagSuspenseQueryHookResult = ReturnType<typeof useGetPostsByTagSuspenseQuery>;
-export type GetPostsByTagQueryResult = Apollo.QueryResult<GetPostsByTagQuery, GetPostsByTagQueryVariables>;
-export const GetAllTagsDocument = gql`
-    query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
-  getAllTags(orderBy: $orderBy) {
-    ...TagAllFields
-  }
+export function useGetPostsByTagQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPostsByTagQuery,
+    GetPostsByTagQueryVariables
+  > &
+    (
+      | { variables: GetPostsByTagQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(
+    GetPostsByTagDocument,
+    options
+  );
 }
-    ${TagAllFieldsFragmentDoc}`;
+export function useGetPostsByTagLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPostsByTagQuery,
+    GetPostsByTagQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetPostsByTagQuery, GetPostsByTagQueryVariables>(
+    GetPostsByTagDocument,
+    options
+  );
+}
+export function useGetPostsByTagSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetPostsByTagQuery,
+        GetPostsByTagQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<
+    GetPostsByTagQuery,
+    GetPostsByTagQueryVariables
+  >(GetPostsByTagDocument, options);
+}
+export type GetPostsByTagQueryHookResult = ReturnType<
+  typeof useGetPostsByTagQuery
+>;
+export type GetPostsByTagLazyQueryHookResult = ReturnType<
+  typeof useGetPostsByTagLazyQuery
+>;
+export type GetPostsByTagSuspenseQueryHookResult = ReturnType<
+  typeof useGetPostsByTagSuspenseQuery
+>;
+export type GetPostsByTagQueryResult = Apollo.QueryResult<
+  GetPostsByTagQuery,
+  GetPostsByTagQueryVariables
+>;
+export const GetAllTagsDocument = gql`
+  query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
+    getAllTags(orderBy: $orderBy) {
+      ...TagAllFields
+    }
+  }
+  ${TagAllFieldsFragmentDoc}
+`;
 
 /**
  * __useGetAllTagsQuery__
@@ -342,19 +536,52 @@ export const GetAllTagsDocument = gql`
  *   },
  * });
  */
-export function useGetAllTagsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, options);
-      }
-export function useGetAllTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, options);
-        }
-export function useGetAllTagsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(GetAllTagsDocument, options);
-        }
+export function useGetAllTagsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllTagsQuery,
+    GetAllTagsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
+    GetAllTagsDocument,
+    options
+  );
+}
+export function useGetAllTagsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllTagsQuery,
+    GetAllTagsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
+    GetAllTagsDocument,
+    options
+  );
+}
+export function useGetAllTagsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetAllTagsQuery, GetAllTagsQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetAllTagsQuery, GetAllTagsQueryVariables>(
+    GetAllTagsDocument,
+    options
+  );
+}
 export type GetAllTagsQueryHookResult = ReturnType<typeof useGetAllTagsQuery>;
-export type GetAllTagsLazyQueryHookResult = ReturnType<typeof useGetAllTagsLazyQuery>;
-export type GetAllTagsSuspenseQueryHookResult = ReturnType<typeof useGetAllTagsSuspenseQuery>;
-export type GetAllTagsQueryResult = Apollo.QueryResult<GetAllTagsQuery, GetAllTagsQueryVariables>;
+export type GetAllTagsLazyQueryHookResult = ReturnType<
+  typeof useGetAllTagsLazyQuery
+>;
+export type GetAllTagsSuspenseQueryHookResult = ReturnType<
+  typeof useGetAllTagsSuspenseQuery
+>;
+export type GetAllTagsQueryResult = Apollo.QueryResult<
+  GetAllTagsQuery,
+  GetAllTagsQueryVariables
+>;

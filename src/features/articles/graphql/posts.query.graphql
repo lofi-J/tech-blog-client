@@ -2,18 +2,7 @@ query GetAllPosts($inputs: GetPostsInput!) {
   getAllPosts(input: $inputs) {
     totalCount
     posts {
-      id
-      slug
-      title
-      hash_code
-      published
-      updated_at
-      tags {
-        ...TagAllFields
-      }
-      stats {
-        ...PostStatsAllFields
-      }
+      ...PostAllFields
     }
   }
 }
@@ -22,6 +11,7 @@ query GetPostsByTag($tag: String!) {
   getPostsByTag(tag: $tag) {
     totalCount
     posts {
+      ...PostBaseFields
       ...PostMetadataFields
     }
   }

@@ -3,10 +3,10 @@ fragment PostBaseFields on Post {
 }
 
 fragment PostMetadataFields on Post {
-  ...PostBaseFields
   slug
-  title
   hash_code
+  title
+  description
   published
   updated_at
   tags {
@@ -15,6 +15,7 @@ fragment PostMetadataFields on Post {
 }
 
 fragment PostAllFields on Post {
+  ...PostBaseFields
   ...PostMetadataFields
   stats {
     ...PostStatsAllFields
