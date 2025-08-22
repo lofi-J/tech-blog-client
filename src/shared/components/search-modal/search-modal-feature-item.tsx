@@ -63,7 +63,9 @@ export const SearchModalFeatureItem = ({
           </div>
           <h3 className="text-[12px] font-semibold">{title}</h3>
         </div>
-        <p className="text-[11px] text-muted-foreground">{description}</p>
+        <p className="text-[11px] text-muted-foreground truncate">
+          {description}
+        </p>
       </div>
 
       {keyMap && (

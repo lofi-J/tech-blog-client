@@ -24,8 +24,8 @@ async function PostsList() {
 
     return (
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
-          최근 포스트
+        <h2 className="md:text-[16px] text-[14px] font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
+          최근 포스팅
         </h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
           {posts.map((post) => (
@@ -45,8 +45,8 @@ export const RecomendedPostSection = () => {
     <Suspense
       fallback={
         <section className="flex-col-container gap-3">
-          <h2 className="text-xl font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
-            최근 포스트
+          <h2 className="md:text-[16px] text-[14px] font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
+            최근 포스팅
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
             <ArticlesCardSkeletons count={SKELETON_COUNT} />

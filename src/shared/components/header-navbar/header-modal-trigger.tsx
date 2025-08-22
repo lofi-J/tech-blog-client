@@ -22,8 +22,8 @@ export const HeaderModalTrigger = () => {
 
   if (isSmallerThanTablet) {
     return (
-      <div className="flex items-center justify-center bg-secondary rounded-sm size-9">
-        <Button variant="ghost" onClick={onClick}>
+      <div className="flex items-center justify-center bg-secondary rounded-sm">
+        <Button variant="ghost" onClick={onClick} className="size-9">
           <SearchIcon width={20} height={20} />
         </Button>
       </div>

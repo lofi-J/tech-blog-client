@@ -59,7 +59,7 @@ export const SkillIcon = ({
     return (
       <div
         className={cn(
-          "font-semibold flex items-center justify-center",
+          "font-semibold flex items-center justify-center text-xs",
           className,
         )}
       >

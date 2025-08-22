@@ -51,25 +51,27 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
           </span>
           <SkillIcon name={firstTag as SkillName} size="lg" />
         </div>
-        <Link href={`/posts/article/${slug}`} className="hover:underline">
+        <Link href={`/articles/${slug}`} className="hover:underline">
           <CardTitle>{title}</CardTitle>
         </Link>
       </CardHeader>
-      <CardContent>
-        <div className="prose prose-sm max-w-none">
-          <Content components={components} />
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button variant="outline" size="sm" className="w-full">
-          <Link
-            href={`/articles/${slug}`}
-            className="text-sm text-muted-foreground"
-          >
-            Read More
-          </Link>
-        </Button>
-      </CardFooter>
+      <div className="flex flex-col flex-1 justify-between">
+        <CardContent>
+          <div className="prose prose-sm max-w-none">
+            <Content components={components} />
+          </div>
+        </CardContent>
+        <CardFooter className="md:mt-4 mt-3">
+          <Button variant="outline" size="sm" className="w-full">
+            <Link
+              href={`/articles/${slug}`}
+              className="text-sm text-muted-foreground"
+            >
+              Read More
+            </Link>
+          </Button>
+        </CardFooter>
+      </div>
     </Card>
   );
 };
