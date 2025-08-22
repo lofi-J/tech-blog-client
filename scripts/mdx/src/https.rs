@@ -25,8 +25,9 @@ pub async fn upsert_post_metadata(
         slug: post_metadata.slug.clone(),
         title: post_metadata.title.clone(),
         description: post_metadata.description.clone(),
-        hash_code: hash_code_string.clone(), // u64 -> String 변환
+        hash_code: hash_code_string.clone(),
         tags: Some(post_metadata.tags.clone()),
+        published: post_metadata.published.clone(),
     };
 
     println!("🚀 Sending request for slug: {}", post_metadata.slug);

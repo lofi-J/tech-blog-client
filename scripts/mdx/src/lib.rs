@@ -72,7 +72,7 @@ fn extract_metadata_value(yaml_str: &str, key: &PostMetadataKey) -> Option<Strin
             PostMetadataKey::Title => Some(metadata.title),
             PostMetadataKey::Slug => Some(metadata.slug),
             PostMetadataKey::Description => Some(metadata.description),
-            PostMetadataKey::Date => Some(metadata.date),
+            PostMetadataKey::Published => Some(metadata.published),
             PostMetadataKey::Tags => Some(metadata.tags.join(", ")),
         },
         Err(_) => None,
@@ -119,8 +119,9 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
                 "Missing description in metadata for file: {}",
                 file_name
             ));
-        let date = extract_metadata_value(&metadata_str, &PostMetadataKey::Date)
-            .expect(&format!("Missing date in metadata for file: {}", file_name));
+        let published = extract_metadata_value(&metadata_str, &PostMetadataKey::Published).expect(
+            &format!("Missing published in metadata for file: {}", file_name),
+        );
         let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags)
             .expect(&format!("Missing tags in metadata for file: {}", file_name));
 
@@ -133,7 +134,7 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
             title,
             slug,
             description,
-            date,
+            published,
             tags: tags
                 .split(", ")
                 .map(|s| s.to_string())
@@ -204,8 +205,8 @@ pub fn execute_mdx_indexing() {
         let title = extract_metadata_value(&metadata_str, &PostMetadataKey::Title).unwrap();
         let description =
             extract_metadata_value(&metadata_str, &PostMetadataKey::Description).unwrap();
-        let date =
-            extract_metadata_value(&metadata_str, &PostMetadataKey::Date).unwrap_or_default();
+        let published =
+            extract_metadata_value(&metadata_str, &PostMetadataKey::Published).unwrap_or_default();
         let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags)
             .unwrap()
             .split(", ")
@@ -216,7 +217,7 @@ pub fn execute_mdx_indexing() {
             title,
             slug: file_name.clone(),
             description,
-            date,
+            published,
             tags,
             content: only_article_content,
         };

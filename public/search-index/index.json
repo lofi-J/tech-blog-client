@@ -3,7 +3,7 @@
     "title": "TypeScript 기초",
     "slug": "01-typescript",
     "description": "TypeScript의 기본 개념과 사용법을 알아봅니다",
-    "date": "2025-08-13",
+    "published": "2025-08-13",
     "tags": ["typescript", "javascript", "web development"],
     "content": "## 주요 특징- **정적 타입 검사**: 컴파일 시점에 타입 오류를 잡을 수 있습니다- **최신 JavaScript 기능 지원**: ES6+ 기능을 사용할 수 있습니다- **강력한 IDE 지원**: 자동완성과 리팩토링 기능이 향상됩니다## 기본 타입들- `string`: 문자열- `number`: 숫자- `boolean`: 불리언"
   },
@@ -11,7 +11,7 @@
     "title": "Test Description",
     "slug": "test-description",
     "description": "미리보기에 사용될 descriptions입니다 ConfigModule dependenciesinitializing + 1ms",
-    "date": "2025-08-22",
+    "published": "2025-08-22",
     "tags": ["test"],
     "content": "미리보기에 사용될 descriptions입니다 ConfigModule dependenciesinitializing + 1ms미리보기에 사용될 descriptions입니다 ConfigModule dependenciesinitializing + 1ms미리보기에 사용될 descriptions입니다 ConfigModule dependenciesinitializing + 1ms## H2입니다미리보기에 사용될 descriptions입니다 ConfigModule dependenciesinitializing + 1ms"
   },
@@ -19,7 +19,7 @@
     "title": "React 기초",
     "slug": "01-react",
     "description": "React의 기본 개념과 컴포넌트 작성법을 배워봅니다",
-    "date": "2025-08-12",
+    "published": "2025-08-12",
     "tags": ["react", "javascript", "frontend"],
     "content": "## 주요 특징- **컴포넌트 기반**: 재사용 가능한 UI 컴포넌트를 만들 수 있습니다- **가상 DOM**: 효율적인 렌더링을 제공합니다- **단방향 데이터 흐름**: 예측 가능한 앱 상태 관리가 가능합니다## 기본 개념- JSX: JavaScript XML- Props: 컴포넌트 간 데이터 전달- State: 컴포넌트 내부 상태 관리"
   }

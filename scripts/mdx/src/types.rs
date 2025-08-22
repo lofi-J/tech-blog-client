@@ -7,7 +7,7 @@ pub enum PostMetadataKey {
     Title,
     Slug,
     Description,
-    Date,
+    Published,
     Tags,
 }
 
@@ -16,7 +16,7 @@ pub struct PostMetadataOnlyParse {
     pub title: String,
     pub slug: String,
     pub description: String,
-    pub date: String,
+    pub published: String,
     pub tags: Vec<String>,
 }
 
@@ -25,7 +25,7 @@ pub struct PostMetadata {
     pub title: String,
     pub slug: String, // file name 과 매칭
     pub description: String,
-    pub date: String,
+    pub published: String,
     pub tags: Vec<String>,
     pub hash_code: u64,
 }
@@ -59,6 +59,7 @@ pub struct UpsertRequestBody {
     pub description: String,
     pub hash_code: String, // 백엔드에서 문자열로 받음
     pub tags: Option<Vec<String>>,
+    pub published: String,
 }
 
 // ---------------------------------------------  SEARCH INDEX  -----------------------------------------
@@ -69,7 +70,7 @@ pub struct SearchIndex {
     pub title: String,
     pub slug: String,
     pub description: String,
-    pub date: String,
+    pub published: String,
     pub tags: Vec<String>,
     pub content: String,
 }
