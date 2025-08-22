@@ -70,6 +70,7 @@ fn extract_metadata_value(yaml_str: &str, key: &PostMetadataKey) -> Option<Strin
     match parse_yaml_metadata(yaml_str) {
         Ok(metadata) => match key {
             PostMetadataKey::Title => Some(metadata.title),
+            PostMetadataKey::Slug => Some(metadata.slug),
             PostMetadataKey::Description => Some(metadata.description),
             PostMetadataKey::Date => Some(metadata.date),
             PostMetadataKey::Tags => Some(metadata.tags.join(", ")),
@@ -96,20 +97,41 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
             .replace(".mdx", "");
 
         let content = fs::read_to_string(file_path).unwrap();
+        let metadata_str = if let Some(metadata) = extract_metadata(content.clone()) {
+            metadata
+        } else {
+            panic!(
+                "Error file: '{}' due to missing or invalid frontmatter.",
+                file_name
+            );
+        };
+
         let generated_hash_code = get_hash_as_u64(&content);
 
-        let metadata_str = extract_metadata(content).unwrap();
-
         // 메타데이터 추출
-        let title = extract_metadata_value(&metadata_str, &PostMetadataKey::Title).unwrap();
-        let description =
-            extract_metadata_value(&metadata_str, &PostMetadataKey::Description).unwrap();
-        let date = extract_metadata_value(&metadata_str, &PostMetadataKey::Date).unwrap();
-        let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags).unwrap();
+        let title = extract_metadata_value(&metadata_str, &PostMetadataKey::Title).expect(
+            &format!("Missing title in metadata for file: {}", file_name),
+        );
+        let slug = extract_metadata_value(&metadata_str, &PostMetadataKey::Slug)
+            .expect(&format!("Missing slug in metadata for file: {}", file_name));
+        let description = extract_metadata_value(&metadata_str, &PostMetadataKey::Description)
+            .expect(&format!(
+                "Missing description in metadata for file: {}",
+                file_name
+            ));
+        let date = extract_metadata_value(&metadata_str, &PostMetadataKey::Date)
+            .expect(&format!("Missing date in metadata for file: {}", file_name));
+        let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags)
+            .expect(&format!("Missing tags in metadata for file: {}", file_name));
+
+        // 메타데이터 추출 후 파일명과 slug 매칭 확인
+        if slug != file_name {
+            panic!("Slug and File name mismatch: {} != {}", slug, file_name);
+        }
 
         let post_metadata = PostMetadata {
             title,
-            slug: file_name,
+            slug,
             description,
             date,
             tags: tags
@@ -182,7 +204,8 @@ pub fn execute_mdx_indexing() {
         let title = extract_metadata_value(&metadata_str, &PostMetadataKey::Title).unwrap();
         let description =
             extract_metadata_value(&metadata_str, &PostMetadataKey::Description).unwrap();
-        let date = extract_metadata_value(&metadata_str, &PostMetadataKey::Date).unwrap();
+        let date =
+            extract_metadata_value(&metadata_str, &PostMetadataKey::Date).unwrap_or_default();
         let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags)
             .unwrap()
             .split(", ")

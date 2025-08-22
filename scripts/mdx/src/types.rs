@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum PostMetadataKey {
     Title,
+    Slug,
     Description,
     Date,
     Tags,
@@ -13,6 +14,7 @@ pub enum PostMetadataKey {
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct PostMetadataOnlyParse {
     pub title: String,
+    pub slug: String,
     pub description: String,
     pub date: String,
     pub tags: Vec<String>,
@@ -43,6 +45,7 @@ pub struct PostResponse {
     pub id: i32,
     pub slug: String,
     pub title: String,
+    pub description: String,
     pub hash_code: String,
     pub published: Option<String>,
     pub updated_at: String,
@@ -53,8 +56,8 @@ pub struct PostResponse {
 pub struct UpsertRequestBody {
     pub slug: String,
     pub title: String,
-    pub hash_code: String,         // 백엔드에서 문자열로 받음
-    pub published: Option<String>, // ISO 날짜 문자열
+    pub description: String,
+    pub hash_code: String, // 백엔드에서 문자열로 받음
     pub tags: Option<Vec<String>>,
 }
 

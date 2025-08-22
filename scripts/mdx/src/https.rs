@@ -19,11 +19,13 @@ pub async fn upsert_post_metadata(
     let remote_base_url = get_remote_base_url();
     let request_url = format!("{}/api/build-sync/posts", remote_base_url);
 
+    let hash_code_string = post_metadata.hash_code.to_string();
+
     let filtered_post_metadata = UpsertRequestBody {
         slug: post_metadata.slug.clone(),
         title: post_metadata.title.clone(),
-        hash_code: post_metadata.hash_code.to_string(), // u64 -> String 변환
-        published: Some(post_metadata.date.clone()),    // ISO 날짜 문자열
+        description: post_metadata.description.clone(),
+        hash_code: hash_code_string.clone(), // u64 -> String 변환
         tags: Some(post_metadata.tags.clone()),
     };
 
@@ -74,10 +76,10 @@ pub async fn upsert_post_metadata(
             println!("   🕐 Updated: {}", data.updated_at);
         }
         None => {
-            println!(
-                "⚠️  Success but no data returned for slug: {}",
-                post_metadata.slug
-            );
+            // println!(
+            //     "⚠️  Success but no data returned for slug: {}",
+            //     post_metadata.slug
+            // );
         }
     }
 
