@@ -16,3 +16,13 @@ query GetPostsByTag($input: GetPostsByTagInput!) {
     }
   }
 }
+
+query GetPostsByCategory($input: GetPostsByCategoryInput!) {
+  getPostsByCategory(input: $input) {
+    totalCount
+    posts {
+      ...PostBaseFields
+      ...PostMetadataFields
+    }
+  }
+}

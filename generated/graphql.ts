@@ -190,6 +190,13 @@ export type GetPostsByTagQueryVariables = Exact<{
 
 export type GetPostsByTagQuery = { __typename?: 'Query', getPostsByTag: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
 
+export type GetPostsByCategoryQueryVariables = Exact<{
+  input: GetPostsByCategoryInput;
+}>;
+
+
+export type GetPostsByCategoryQuery = { __typename?: 'Query', getPostsByCategory: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
+
 export type TagBaseFieldsFragment = { __typename?: 'Tags', id: number };
 
 export type TagAllFieldsFragment = { __typename?: 'Tags', tag_name: string, created_at: any, id: number };
@@ -344,6 +351,51 @@ export type GetPostsByTagQueryHookResult = ReturnType<typeof useGetPostsByTagQue
 export type GetPostsByTagLazyQueryHookResult = ReturnType<typeof useGetPostsByTagLazyQuery>;
 export type GetPostsByTagSuspenseQueryHookResult = ReturnType<typeof useGetPostsByTagSuspenseQuery>;
 export type GetPostsByTagQueryResult = Apollo.QueryResult<GetPostsByTagQuery, GetPostsByTagQueryVariables>;
+export const GetPostsByCategoryDocument = gql`
+    query GetPostsByCategory($input: GetPostsByCategoryInput!) {
+  getPostsByCategory(input: $input) {
+    totalCount
+    posts {
+      ...PostBaseFields
+      ...PostMetadataFields
+    }
+  }
+}
+    ${PostBaseFieldsFragmentDoc}
+${PostMetadataFieldsFragmentDoc}`;
+
+/**
+ * __useGetPostsByCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetPostsByCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsByCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsByCategoryQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetPostsByCategoryQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables> & ({ variables: GetPostsByCategoryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables>(GetPostsByCategoryDocument, options);
+      }
+export function useGetPostsByCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables>(GetPostsByCategoryDocument, options);
+        }
+export function useGetPostsByCategorySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables>(GetPostsByCategoryDocument, options);
+        }
+export type GetPostsByCategoryQueryHookResult = ReturnType<typeof useGetPostsByCategoryQuery>;
+export type GetPostsByCategoryLazyQueryHookResult = ReturnType<typeof useGetPostsByCategoryLazyQuery>;
+export type GetPostsByCategorySuspenseQueryHookResult = ReturnType<typeof useGetPostsByCategorySuspenseQuery>;
+export type GetPostsByCategoryQueryResult = Apollo.QueryResult<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables>;
 export const GetAllTagsDocument = gql`
     query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
   getAllTags(orderBy: $orderBy) {

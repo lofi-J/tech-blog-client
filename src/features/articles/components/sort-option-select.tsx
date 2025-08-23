@@ -1,3 +1,4 @@
+import { PostsOrderBy } from "@/generated/graphql";
 import {
   Select,
   SelectContent,
@@ -6,11 +7,20 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select";
 import { POSTS_ORDER_BY_OPTIONS } from "@/shared/config/filter-config";
+import { cn } from "@/shared/lib/utils";
 
-export const SortOptionSelect = () => {
+export const SortOptionSelect = ({
+  selectedSortOption,
+  setSelectedSortOption,
+  className,
+}: {
+  selectedSortOption: PostsOrderBy;
+  setSelectedSortOption: (sortOption: PostsOrderBy) => void;
+  className?: string;
+}) => {
   return (
-    <Select>
-      <SelectTrigger className="w-[180px]">
+    <Select value={selectedSortOption} onValueChange={setSelectedSortOption}>
+      <SelectTrigger className={cn("w-[180px]", className)}>
         <SelectValue placeholder="Select a tag" />
       </SelectTrigger>
       <SelectContent>
