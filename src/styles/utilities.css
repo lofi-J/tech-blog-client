@@ -111,9 +111,6 @@
 @utility border-highlight {
   border-color: var(--highlight-color);
 }
-@utility ring-highlight {
-  --tw-ring-color: var(--highlight-color);
-}
 @utility shadow-highlight {
   box-shadow: 0 0 10px 5px var(--highlight-color);
 }

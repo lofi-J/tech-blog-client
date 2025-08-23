@@ -14,7 +14,7 @@ const badgeVariants = cva(
         secondary:
           "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
         highlight:
-          "border-transparent bg-highlight/20 text-highlight [a&]:hover:bg-highlight/90",
+          "border-transparent bg-highlight/20 text-highlight [a&]:hover:bg-highlight/90 hover:border-highlight transition-all duration-300",
         destructive:
           "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -24,7 +24,7 @@ const badgeVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );
 
 function Badge({
