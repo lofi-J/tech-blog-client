@@ -1,57 +1,53 @@
 "use client";
 
-import { ClientPostCard } from "@/features/articles/components/client-post-card";
-import { CategorySlider } from "@/features/tags/components/category-slider";
-import { useGetPostsByTagQuery } from "@/generated/graphql";
-import { Loader } from "@/shared/components/loader";
-import PostIcon from "@/shared/icons/post.svg";
+import { SortOptionSelect } from "@/features/articles/components/sort-option-select";
+import { useGetAllTagsQuery } from "@/generated/graphql";
+import FullPageLoading from "@/shared/components/full-page-loading";
+import { Badge } from "@/shared/components/ui/badge";
+import OptionIcon from "@/shared/icons/option.svg";
 import { useState } from "react";
 
-const FETCH_LIMIT = 6;
-
 export default function PostsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>();
+  const [selectedTag, setSelectedTag] = useState<string>();
 
-  const { data, loading } = useGetPostsByTagQuery({
-    variables: {
-      input: { tagName: selectedCategory ?? "", offset: 0, limit: FETCH_LIMIT },
-    },
-    skip: !selectedCategory,
+  const { data: tagsData, loading: tagsLoading } = useGetAllTagsQuery({
+    variables: { orderBy: "POPULAR" },
     fetchPolicy: "cache-and-network",
+    onCompleted: (data) => {
+      if (data.getAllTags.length > 0) {
+        setSelectedTag(data.getAllTags[0].tag_name);
+      }
+    },
   });
+  const tags = tagsData?.getAllTags;
 
-  const articles = data?.getPostsByTag.posts;
+  // category posts quert
+
+  if (tagsLoading) return <FullPageLoading />;
 
   return (
-    <div className="py-8">
-      <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center">
-        <PostIcon className="size-10" />
-        Articles
-      </h1>
-      <p className="rts-18 text-center">
-        추천하는 카테고리를 선택하고 원하시는 포스트를 확인해 보세요.
-      </p>
-      <div className="f-col items-center gap-3 mt-20 px-4">
-        <h2 className="font-semibold w-full text-center px-4">
-          Recommend category
-        </h2>
-        <CategorySlider
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
+    <div className="flex-col-container container mx-auto">
+      <h1 className="text-[25px] font-bold">Articles</h1>
+      <div className="flex items-center overflow-x-scroll gap-2.5 mt-4">
+        {tags?.map((tag) => (
+          <Badge
+            key={tag.tag_name}
+            variant={selectedTag === tag.tag_name ? "highlight" : "outline"}
+            className="cursor-pointer px-4 py-2 rounded-2xl"
+            onClick={() => setSelectedTag(tag.tag_name)}
+          >
+            {tag.tag_name}
+          </Badge>
+        ))}
       </div>
-      <div className="f-col items-center gap-3 mt-20 px-4">
-        <h2 className="font-semibold w-full text-left px-2">
-          {selectedCategory} articles
-        </h2>
-        <div className="w-full grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {loading ? (
-            <Loader />
-          ) : (
-            articles?.map((article) => (
-              <ClientPostCard key={article.hash_code} post={article} />
-            ))
-          )}
+
+      <div className="flex items-center mt-10">
+        <div className="flex items-center gap-1">
+          <OptionIcon className="size-9 text-muted-foreground border-input border-1 rounded-md p-1.5" />
+          <SortOptionSelect />
+          <span className="text-muted-foreground font-semibold text-sm">
+            Sort by
+          </span>
         </div>
       </div>
     </div>

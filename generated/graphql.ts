@@ -18,6 +18,19 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type GetPostsByCategoryInput = {
+  /** 카테고리 이름 */
+  categoryName: Scalars['String']['input'];
+  /** 가져올 포스트 수 */
+  limit?: Scalars['Int']['input'];
+  /** 건너뛸 포스트 수 */
+  offset?: Scalars['Int']['input'];
+  /** 정렬 순서 */
+  order?: SortOrder;
+  /** 정렬 기준 */
+  orderBy?: PostsOrderBy;
+};
+
 export type GetPostsByTagInput = {
   /** 가져올 포스트 수 */
   limit?: Scalars['Int']['input'];
@@ -46,6 +59,8 @@ export type GetPostsInput = {
 
 export type Post = {
   __typename?: 'Post';
+  /** 첫 번째 태그를 카테고리로 사용 */
+  category?: Maybe<Scalars['String']['output']>;
   description: Scalars['String']['output'];
   hash_code: Scalars['String']['output'];
   id: Scalars['Int']['output'];
@@ -68,17 +83,17 @@ export type PostStats = {
 
 /** 포스트 정렬 기준 */
 export type PostsOrderBy =
-  /** ID순 */
+  /** ID순 - id 필드로 정렬 */
   | 'ID'
-  /** 최신순 (발행일 기준) */
+  /** 최신순 (발행일 기준) - published 필드로 정렬 */
   | 'LATEST'
-  /** 인기순 (좋아요 기준) */
+  /** 인기순 (좋아요 기준) - post_stats.likes로 정렬, stats가 없으면 0으로 처리 */
   | 'POPULAR_LIKES'
-  /** 인기순 (조회수 기준) */
+  /** 인기순 (조회수 기준) - post_stats.views로 정렬, stats가 없으면 0으로 처리 */
   | 'POPULAR_VIEWS'
-  /** 제목순 */
+  /** 제목순 - title 필드로 정렬 */
   | 'TITLE'
-  /** 업데이트순 (수정일 기준) */
+  /** 업데이트순 (수정일 기준) - updated_at 필드로 정렬 */
   | 'UPDATED';
 
 export type PostsResponse = {
@@ -93,6 +108,7 @@ export type Query = {
   getAllPosts: PostsResponse;
   getAllTags: Array<Tags>;
   getPostBySlug?: Maybe<Post>;
+  getPostsByCategory: PostsResponse;
   getPostsByTag: PostsResponse;
   popularTags: Array<Tags>;
   tagUsageStats: Array<Tags>;
@@ -111,6 +127,11 @@ export type QueryGetAllTagsArgs = {
 
 export type QueryGetPostBySlugArgs = {
   slug: Scalars['String']['input'];
+};
+
+
+export type QueryGetPostsByCategoryArgs = {
+  input: GetPostsByCategoryInput;
 };
 
 
