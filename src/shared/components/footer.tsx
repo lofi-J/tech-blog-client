@@ -7,12 +7,12 @@ export const Footer = () => {
   return (
     <footer
       data-zen-hideable="slide-down"
-      className="w-full border-t border-accent mt-20"
+      className="w-full border-t border-accent mt-20 flex-container"
     >
       <div className="container mx-auto mt-9">
-        <div className="flex items-start justify-between">
+        <div className="f-col md:flex-row md:items-start md:justify-between">
           {/* Blog Info */}
-          <div className="flex flex-col items-start justify-start">
+          <div className="f-col items-start justify-start">
             <TypoLogo className="text-2xl font-bold mb-8" />
             <h3 className="sr-only">Lofi-J Tech Story</h3>
             <p className="mb-4 text-sm">
@@ -20,7 +20,7 @@ export const Footer = () => {
               <br /> 프론트엔드, 백엔드, 그리고 새로운 기술 트렌드에 대한
               인사이트를 공유합니다.
             </p>
-            <div className="flex space-x-4">
+            <div className="hidden md:flex space-x-4">
               <a
                 href="mailto:lofi2505@gmail.com"
                 className="text-foreground transition-colors"
@@ -39,10 +39,10 @@ export const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="flex gap-15">
-            <div className="flex flex-col justify-start gap-4">
+          <div className="flex gap-15 mt-10 md:mt-0">
+            <div className="f-col justify-start gap-4">
               <h4 className="text-sm font-semibold">Resources</h4>
-              <ul className="flex flex-col justify-between gap-2">
+              <ul className="f-col justify-between gap-2">
                 <li>
                   <FooterQuickLinks href="/">Home</FooterQuickLinks>
                 </li>
@@ -59,9 +59,9 @@ export const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div className="flex flex-col justify-start gap-4">
+            <div className="f-col justify-start gap-4">
               <h4 className="text-sm font-semibold">Categories</h4>
-              <ul className="flex flex-col justify-between gap-2">
+              <ul className="f-col justify-between gap-2">
                 <li>
                   <FooterQuickLinks href="/posts">Frontend</FooterQuickLinks>
                 </li>
@@ -77,10 +77,26 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-accent mt-4 py-4 flex flex-col md:flex-row justify-start items-center">
+        <div className="border-t border-accent mt-4 py-4 flex justify-between items-center">
           <p className="text-sm text-muted-foreground">
             Copyright © 2025, All rights reserved.
           </p>
+          <div className="flex gap-4 items-center md:hidden only-mobile">
+            <a
+              href="mailto:lofi2505@gmail.com"
+              className="text-foreground transition-colors"
+            >
+              <span className="sr-only">Email</span>
+              <MailIcon className="size-5" />
+            </a>
+            <a
+              href="https://github.com/lofi-J"
+              className="text-foreground transition-colors"
+            >
+              <span className="sr-only">GitHub</span>
+              <GithubIcon className="size-5" fill="currentColor" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
