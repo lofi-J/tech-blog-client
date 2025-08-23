@@ -7,8 +7,8 @@ query GetAllPosts($inputs: GetPostsInput!) {
   }
 }
 
-query GetPostsByTag($tag: String!) {
-  getPostsByTag(tag: $tag) {
+query GetPostsByTag($input: GetPostsByTagInput!) {
+  getPostsByTag(input: $input) {
     totalCount
     posts {
       ...PostBaseFields

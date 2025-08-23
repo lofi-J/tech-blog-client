@@ -77,7 +77,7 @@ const TagItem = ({
         onClick={() => setSelectedTag(tagName)}
         className={cn(
           "flex flex-col items-center justify-center w-30 h-20 bg-muted rounded-md hover:bg-muted/50 transition-colors",
-          isSelected && "shadow-inset-highlight",
+          isSelected && "shadow-inset-highlight"
         )}
       >
         <SkillIcon
@@ -113,7 +113,7 @@ const CustomSlider = ({
         "size-8 bg-muted/50 rounded-full flex items-center justify-center absolute top-1/2 -translate-y-1/2 z-20",
         direction === "left" && "-left-6",
         direction === "right" && "-right-6",
-        "hover:bg-highlight hover:shadow-highlight transition-all",
+        "hover:shadow-highlight transition-all duration-300"
       )}
       onClick={(e) => {
         e.stopPropagation();

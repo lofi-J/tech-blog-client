@@ -7,11 +7,15 @@ import { Loader } from "@/shared/components/loader";
 import PostIcon from "@/shared/icons/post.svg";
 import { useState } from "react";
 
+const FETCH_LIMIT = 6;
+
 export default function PostsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>();
 
   const { data, loading } = useGetPostsByTagQuery({
-    variables: { tag: selectedCategory ?? "" },
+    variables: {
+      input: { tagName: selectedCategory ?? "", offset: 0, limit: FETCH_LIMIT },
+    },
     skip: !selectedCategory,
     fetchPolicy: "cache-and-network",
   });
