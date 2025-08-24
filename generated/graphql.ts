@@ -18,6 +18,21 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type Categories = {
+  __typename?: 'Categories';
+  category_name: Scalars['String']['output'];
+  created_at: Scalars['DateTime']['output'];
+  id: Scalars['Int']['output'];
+  usage_count?: Maybe<Scalars['Int']['output']>;
+};
+
+/** 카테고리 정렬 기준 */
+export type CategoriesOrderBy =
+  | 'CATEGORY_NAME'
+  | 'CREATED_AT'
+  | 'ID'
+  | 'POPULAR';
+
 export type GetPostsByCategoryInput = {
   /** 카테고리 이름 */
   categoryName: Scalars['String']['input'];
@@ -105,13 +120,21 @@ export type PostsResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  categoryUsageStats: Array<Categories>;
+  getAllCategories: Array<Categories>;
   getAllPosts: PostsResponse;
   getAllTags: Array<Tags>;
   getPostBySlug?: Maybe<Post>;
   getPostsByCategory: PostsResponse;
   getPostsByTag: PostsResponse;
+  popularCategories: Array<Categories>;
   popularTags: Array<Tags>;
   tagUsageStats: Array<Tags>;
+};
+
+
+export type QueryGetAllCategoriesArgs = {
+  orderBy?: CategoriesOrderBy;
 };
 
 
@@ -137,6 +160,11 @@ export type QueryGetPostsByCategoryArgs = {
 
 export type QueryGetPostsByTagArgs = {
   input: GetPostsByTagInput;
+};
+
+
+export type QueryPopularCategoriesArgs = {
+  limit?: Scalars['Int']['input'];
 };
 
 
@@ -196,6 +224,17 @@ export type GetPostsByCategoryQueryVariables = Exact<{
 
 
 export type GetPostsByCategoryQuery = { __typename?: 'Query', getPostsByCategory: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
+
+export type CategoryBaseFieldsFragment = { __typename?: 'Categories', id: number };
+
+export type CategoryAllFieldsFragment = { __typename?: 'Categories', category_name: string, created_at: any, usage_count?: number | null, id: number };
+
+export type GetAllCategoriesQueryVariables = Exact<{
+  orderBy?: InputMaybe<CategoriesOrderBy>;
+}>;
+
+
+export type GetAllCategoriesQuery = { __typename?: 'Query', getAllCategories: Array<{ __typename?: 'Categories', category_name: string, created_at: any, usage_count?: number | null, id: number }> };
 
 export type TagBaseFieldsFragment = { __typename?: 'Tags', id: number };
 
@@ -263,6 +302,19 @@ export const PostAllFieldsFragmentDoc = gql`
     ${PostBaseFieldsFragmentDoc}
 ${PostMetadataFieldsFragmentDoc}
 ${PostStatsAllFieldsFragmentDoc}`;
+export const CategoryBaseFieldsFragmentDoc = gql`
+    fragment CategoryBaseFields on Categories {
+  id
+}
+    `;
+export const CategoryAllFieldsFragmentDoc = gql`
+    fragment CategoryAllFields on Categories {
+  ...CategoryBaseFields
+  category_name
+  created_at
+  usage_count
+}
+    ${CategoryBaseFieldsFragmentDoc}`;
 export const GetAllPostsDocument = gql`
     query GetAllPosts($inputs: GetPostsInput!) {
   getAllPosts(input: $inputs) {
@@ -396,6 +448,46 @@ export type GetPostsByCategoryQueryHookResult = ReturnType<typeof useGetPostsByC
 export type GetPostsByCategoryLazyQueryHookResult = ReturnType<typeof useGetPostsByCategoryLazyQuery>;
 export type GetPostsByCategorySuspenseQueryHookResult = ReturnType<typeof useGetPostsByCategorySuspenseQuery>;
 export type GetPostsByCategoryQueryResult = Apollo.QueryResult<GetPostsByCategoryQuery, GetPostsByCategoryQueryVariables>;
+export const GetAllCategoriesDocument = gql`
+    query GetAllCategories($orderBy: CategoriesOrderBy) {
+  getAllCategories(orderBy: $orderBy) {
+    ...CategoryAllFields
+  }
+}
+    ${CategoryAllFieldsFragmentDoc}`;
+
+/**
+ * __useGetAllCategoriesQuery__
+ *
+ * To run a query within a React component, call `useGetAllCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCategoriesQuery({
+ *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useGetAllCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>(GetAllCategoriesDocument, options);
+      }
+export function useGetAllCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>(GetAllCategoriesDocument, options);
+        }
+export function useGetAllCategoriesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>(GetAllCategoriesDocument, options);
+        }
+export type GetAllCategoriesQueryHookResult = ReturnType<typeof useGetAllCategoriesQuery>;
+export type GetAllCategoriesLazyQueryHookResult = ReturnType<typeof useGetAllCategoriesLazyQuery>;
+export type GetAllCategoriesSuspenseQueryHookResult = ReturnType<typeof useGetAllCategoriesSuspenseQuery>;
+export type GetAllCategoriesQueryResult = Apollo.QueryResult<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>;
 export const GetAllTagsDocument = gql`
     query GetAllTags($orderBy: TagsOrderBy = CREATED_AT) {
   getAllTags(orderBy: $orderBy) {

@@ -1,0 +1,10 @@
+fragment CategoryBaseFields on Categories {
+  id
+}
+
+fragment CategoryAllFields on Categories {
+  ...CategoryBaseFields
+  category_name
+  created_at
+  usage_count
+}

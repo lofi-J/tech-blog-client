@@ -3,7 +3,7 @@
 import { SortOptionSelect } from "@/features/articles/components/sort-option-select";
 import {
   PostsOrderBy,
-  useGetAllTagsQuery,
+  useGetAllCategoriesQuery,
   useGetPostsByCategoryQuery,
 } from "@/generated/graphql";
 import FullPageLoading from "@/shared/components/full-page-loading";
@@ -21,17 +21,12 @@ export default function PostsPage() {
   const [selectedSortOption, setSelectedSortOption] =
     useState<PostsOrderBy>("LATEST");
 
-  // all tags TODO ALL Categorys(api 추가 필요)
-  const { data: tagsData, loading: tagsLoading } = useGetAllTagsQuery({
-    variables: { orderBy: "POPULAR" },
-    fetchPolicy: "cache-and-network",
-    onCompleted: (data) => {
-      if (data.getAllTags.length > 0) {
-        setSelectedTag(data.getAllTags[0].tag_name);
-      }
-    },
-  });
-  const tags = tagsData?.getAllTags;
+  const { data: categoriesData, loading: categoriesLoading } =
+    useGetAllCategoriesQuery({
+      variables: { orderBy: "POPULAR" },
+      fetchPolicy: "cache-and-network",
+    });
+  const categories = categoriesData?.getAllCategories;
 
   // category posts query
   const { data: categoryPostsData, loading: categoryPostsLoading } =
@@ -49,20 +44,22 @@ export default function PostsPage() {
   const totalPosts = categoryPostsData?.getPostsByCategory.totalCount ?? 0;
   const posts = categoryPostsData?.getPostsByCategory.posts;
 
-  if (tagsLoading) return <FullPageLoading />;
+  if (categoriesLoading) return <FullPageLoading />;
 
   return (
     <div className="flex-col-container container mx-auto">
       <h1 className="text-[25px] font-bold">Articles</h1>
       <div className="flex items-center overflow-x-scroll gap-2.5 mt-4">
-        {tags?.map((tag) => (
+        {categories?.map((category) => (
           <Badge
-            key={tag.tag_name}
-            variant={selectedTag === tag.tag_name ? "highlight" : "outline"}
+            key={category.id}
+            variant={
+              selectedTag === category.category_name ? "highlight" : "outline"
+            }
             className="cursor-pointer px-4 py-2 rounded-2xl"
-            onClick={() => setSelectedTag(tag.tag_name)}
+            onClick={() => setSelectedTag(category.category_name)}
           >
-            {tag.tag_name}
+            {category.category_name}
           </Badge>
         ))}
       </div>

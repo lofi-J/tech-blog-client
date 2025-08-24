@@ -1,0 +1,5 @@
+query GetAllCategories($orderBy: CategoriesOrderBy) {
+  getAllCategories(orderBy: $orderBy) {
+    ...CategoryAllFields
+  }
+}
