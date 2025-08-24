@@ -1,7 +1,7 @@
 use dotenv::dotenv;
 use std::env;
 
-use crate::types::{PostMetadata, UpsertRequestBody, UpsertResponse};
+use crate::types::{Metadata, PostMetadata, UpsertBody, UpsertResponse};
 
 // Next.js 프로젝트 루트의 .env 파일에서 환경변수 읽기
 fn get_remote_base_url() -> String {
@@ -21,13 +21,16 @@ pub async fn upsert_post_metadata(
 
     let hash_code_string = post_metadata.hash_code.to_string();
 
-    let filtered_post_metadata = UpsertRequestBody {
-        slug: post_metadata.slug.clone(),
-        title: post_metadata.title.clone(),
-        description: post_metadata.description.clone(),
+    let filtered_post_metadata = UpsertBody {
+        metadata: Metadata {
+            title: post_metadata.title,
+            slug: post_metadata.slug.clone(),
+            description: post_metadata.description,
+            category: post_metadata.category,
+            published: post_metadata.published,
+            tags: post_metadata.tags,
+        },
         hash_code: hash_code_string.clone(),
-        tags: Some(post_metadata.tags.clone()),
-        published: post_metadata.published.clone(),
     };
 
     println!("🚀 Sending request for slug: {}", post_metadata.slug);

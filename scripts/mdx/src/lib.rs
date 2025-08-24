@@ -6,7 +6,7 @@ use std::fs;
 use std::fs::read_dir;
 use std::path::{Path, PathBuf};
 
-use crate::types::{PostMetadata, PostMetadataKey, PostMetadataOnlyParse, SearchIndex};
+use crate::types::{Metadata, PostMetadata, SearchIndex};
 
 use sha2::{Digest, Sha256};
 
@@ -66,21 +66,22 @@ fn get_hash_as_u64(text: &String) -> u64 {
 }
 
 // 메타데이터에서 특정 키의 값만 추출
-fn extract_metadata_value(yaml_str: &str, key: &PostMetadataKey) -> Option<String> {
-    match parse_yaml_metadata(yaml_str) {
-        Ok(metadata) => match key {
-            PostMetadataKey::Title => Some(metadata.title),
-            PostMetadataKey::Slug => Some(metadata.slug),
-            PostMetadataKey::Description => Some(metadata.description),
-            PostMetadataKey::Published => Some(metadata.published),
-            PostMetadataKey::Tags => Some(metadata.tags.join(", ")),
-        },
-        Err(_) => None,
+fn extract_metadata_value(yaml_str: &str, key: &str) -> Option<String> {
+    let metadata = parse_yaml_metadata(yaml_str).expect("YAML PASING ERROR");
+
+    match key {
+        "title" => Some(metadata.title),
+        "slug" => Some(metadata.slug),
+        "description" => Some(metadata.description),
+        "category" => Some(metadata.category),
+        "tags" => Some(metadata.tags.join(", ")),
+        "published" => Some(metadata.published),
+        _ => panic!("{:?} is not a valid metadata", key),
     }
 }
 
-// YAML 메타데이터를 PostMetadata 구조체로 파싱
-fn parse_yaml_metadata(yaml_str: &str) -> Result<PostMetadataOnlyParse, serde_yaml::Error> {
+// YAML 메타데이터를 Metadata 구조체로 파싱
+fn parse_yaml_metadata(yaml_str: &str) -> Result<Metadata, serde_yaml::Error> {
     serde_yaml::from_str(yaml_str)
 }
 
@@ -109,21 +110,12 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
         let generated_hash_code = get_hash_as_u64(&content);
 
         // 메타데이터 추출
-        let title = extract_metadata_value(&metadata_str, &PostMetadataKey::Title).expect(
-            &format!("Missing title in metadata for file: {}", file_name),
-        );
-        let slug = extract_metadata_value(&metadata_str, &PostMetadataKey::Slug)
-            .expect(&format!("Missing slug in metadata for file: {}", file_name));
-        let description = extract_metadata_value(&metadata_str, &PostMetadataKey::Description)
-            .expect(&format!(
-                "Missing description in metadata for file: {}",
-                file_name
-            ));
-        let published = extract_metadata_value(&metadata_str, &PostMetadataKey::Published).expect(
-            &format!("Missing published in metadata for file: {}", file_name),
-        );
-        let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags)
-            .expect(&format!("Missing tags in metadata for file: {}", file_name));
+        let title = extract_metadata_value(&metadata_str, "title").unwrap();
+        let slug = extract_metadata_value(&metadata_str, "slug").unwrap();
+        let description = extract_metadata_value(&metadata_str, "description").unwrap();
+        let category = extract_metadata_value(&metadata_str, "category").unwrap();
+        let published = extract_metadata_value(&metadata_str, "published").unwrap();
+        let tags = extract_metadata_value(&metadata_str, "tags").unwrap();
 
         // 메타데이터 추출 후 파일명과 slug 매칭 확인
         if slug != file_name {
@@ -134,6 +126,7 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
             title,
             slug,
             description,
+            category,
             published,
             tags: tags
                 .split(", ")
@@ -202,23 +195,25 @@ pub fn execute_mdx_indexing() {
 
         let metadata_str = extract_metadata(content.clone()).unwrap();
 
-        let title = extract_metadata_value(&metadata_str, &PostMetadataKey::Title).unwrap();
-        let description =
-            extract_metadata_value(&metadata_str, &PostMetadataKey::Description).unwrap();
-        let published =
-            extract_metadata_value(&metadata_str, &PostMetadataKey::Published).unwrap_or_default();
-        let tags = extract_metadata_value(&metadata_str, &PostMetadataKey::Tags)
+        let title = extract_metadata_value(&metadata_str, "title").unwrap();
+        let description = extract_metadata_value(&metadata_str, "description").unwrap();
+        let published = extract_metadata_value(&metadata_str, "published").unwrap_or_default();
+        let category = extract_metadata_value(&metadata_str, "category").unwrap_or_default();
+        let tags = extract_metadata_value(&metadata_str, "tags")
             .unwrap()
             .split(", ")
             .map(|s| s.to_string())
             .collect::<Vec<String>>();
 
         let search_index = SearchIndex {
-            title,
-            slug: file_name.clone(),
-            description,
-            published,
-            tags,
+            metadata: Metadata {
+                title,
+                slug: file_name.clone(),
+                description,
+                category,
+                published,
+                tags,
+            },
             content: only_article_content,
         };
 
