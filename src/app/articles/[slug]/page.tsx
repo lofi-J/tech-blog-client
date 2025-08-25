@@ -1,5 +1,5 @@
-import { getAllPostSlugs, getPostBySlug } from "@/core-lib/mdx";
 import { getMDXComponents } from "@/mdx-components";
+import { getAllPostSlugs, getPostBySlug } from "@/mdx/mdx";
 import { compile, run } from "@mdx-js/mdx";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     // @ts-expect-error 타입 에러 무시
     const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg"),
+      rule.test?.test?.(".svg")
     );
 
     config.module.rules.push(
@@ -37,16 +37,31 @@ const nextConfig: NextConfig = {
             },
           },
         ],
-      },
+      }
     );
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
   },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+
+  // 이미지 도메인 허용
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
 };
 
 const withMDX = createMDX({
-  // Add markdown plugins here, as desired
+  // MDX 관련 옵션들을 여기에 설정
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    providerImportSource: "@mdx-js/react",
+  },
 });
 
 export default withMDX(nextConfig);

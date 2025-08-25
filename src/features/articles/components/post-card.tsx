@@ -1,6 +1,6 @@
-import { getPostBySlug } from "@/core-lib/mdx";
 import { Post } from "@/generated/graphql";
 import { getPreviewMDXComponents } from "@/mdx-components";
+import { getPostBySlug } from "@/mdx/mdx";
 import { Button } from "@/shared/components/ui/button";
 import {
   Card,
@@ -46,7 +46,7 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
           <SkillIcon name={category as SkillName} size="lg" />
         </div>
         <Link href={`/articles/${slug}`} className="hover:underline">
-          <CardTitle className="rts-test">{title}</CardTitle>
+          <CardTitle className="rts-14 font-semibold">{title}</CardTitle>
         </Link>
       </CardHeader>
       <div className="flex flex-col flex-1 justify-between">
