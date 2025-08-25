@@ -1,6 +1,7 @@
 "use client";
 
 import { Post } from "@/generated/graphql";
+import { Skeleton } from "@/shared/components/ui/skeleton";
 import { cn } from "@/shared/lib/utils";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -8,9 +9,13 @@ import { PropsWithChildren } from "react";
 
 type ArticlesTableDisplayProps = {
   posts: Post[];
+  loading: boolean;
 };
 
-export const ArticlesTableDisplay = ({ posts }: ArticlesTableDisplayProps) => {
+export const ArticlesTableDisplay = ({
+  posts,
+  loading,
+}: ArticlesTableDisplayProps) => {
   const router = useRouter();
 
   const formattedDate = (date?: string) => {
@@ -18,8 +23,16 @@ export const ArticlesTableDisplay = ({ posts }: ArticlesTableDisplayProps) => {
     return format(new Date(date), "yyyy.MM.dd");
   };
 
+  if (loading) {
+    return (
+      <div className="w-full border border-input rounded-md">
+        <Skeleton className="w-full h-18" />
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full py-5">
+    <div className="w-full">
       <div className="border border-input rounded-md overflow-x-auto">
         <table className="w-full min-w-[800px] table-fixed border-collapse">
           <thead>

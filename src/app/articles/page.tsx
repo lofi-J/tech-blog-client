@@ -98,35 +98,37 @@ export default function PostsPage() {
             setSelectedDisplayStyle={setDisplayStyle}
             className="mr-4"
           />
-          <div className="text-muted-foreground text-sm font-semibold">
-            {page} of {Math.ceil(totalPosts / POSTS_PER_PAGE)}
+          <div className="items-center gap-3 hidden md:flex">
+            <div className="text-muted-foreground text-sm font-semibold">
+              {page} of {Math.ceil(totalPosts / POSTS_PER_PAGE)}
+            </div>
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={() => setPage(Math.max(page - 1, 1))}
+              disabled={page === 1}
+            >
+              <ChevronLeftIcon className="size-4" />
+            </Button>
+            <Button
+              variant="secondary"
+              size="icon"
+              disabled={page === Math.ceil(totalPosts / POSTS_PER_PAGE)}
+              onClick={() =>
+                setPage(
+                  Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE))
+                )
+              }
+            >
+              <ChevronRightIcon className="size-4" />
+            </Button>
           </div>
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={() => setPage(Math.max(page - 1, 1))}
-            disabled={page === 1}
-          >
-            <ChevronLeftIcon className="size-4" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="icon"
-            disabled={page === Math.ceil(totalPosts / POSTS_PER_PAGE)}
-            onClick={() =>
-              setPage(
-                Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE))
-              )
-            }
-          >
-            <ChevronRightIcon className="size-4" />
-          </Button>
         </div>
       </div>
 
-      <div className="mt-10">
+      <div className="mt-5">
         {displayStyle === "table" && posts && (
-          <ArticlesTableDisplay posts={posts} />
+          <ArticlesTableDisplay posts={posts} loading={categoryPostsLoading} />
         )}
         {displayStyle === "grid" && posts && (
           <ArticlesGridDisplay posts={posts} />
@@ -135,6 +137,31 @@ export default function PostsPage() {
           <ArticlesListDisplay posts={posts} />
         )}
         {!posts && <div>No posts found</div>}
+      </div>
+
+      {/* mobile pagination */}
+      <div className="items-center gap-3 flex md:hidden mt-3 mx-auto">
+        <Button
+          variant="secondary"
+          size="icon"
+          onClick={() => setPage(Math.max(page - 1, 1))}
+          disabled={page === 1}
+        >
+          <ChevronLeftIcon className="size-4" />
+        </Button>
+        <div className="text-muted-foreground text-sm font-semibold">
+          {page}
+        </div>
+        <Button
+          variant="secondary"
+          size="icon"
+          disabled={page === Math.ceil(totalPosts / POSTS_PER_PAGE)}
+          onClick={() =>
+            setPage(Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE)))
+          }
+        >
+          <ChevronRightIcon className="size-4" />
+        </Button>
       </div>
     </div>
   );
