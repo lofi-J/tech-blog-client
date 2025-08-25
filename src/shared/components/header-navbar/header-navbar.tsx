@@ -11,6 +11,7 @@ export const HeaderNavbar = () => {
     <header
       role="banner"
       data-zen-hideable="slide-up"
+      data-zen-hoverable="slide-up"
       className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 w-full header-height flex items-center flex-container"
     >
       <div className="px-4 flex-between w-full">
