@@ -4,7 +4,7 @@ import { PostCard } from "@/features/articles/components/post-card";
 import { GetAllPostsDocument, GetAllPostsQuery } from "@/generated/graphql";
 import { Suspense } from "react";
 
-const SKELETON_COUNT = 3;
+const SKELETON_COUNT = 6;
 
 async function PostsList() {
   try {

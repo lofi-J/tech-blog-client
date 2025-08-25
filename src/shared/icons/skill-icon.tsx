@@ -6,6 +6,7 @@ import JavascriptIcon from "@/shared/icons/javascript.svg";
 import NestJsIcon from "@/shared/icons/nestjs.svg";
 import NextJsIcon from "@/shared/icons/next.svg";
 import ReactIcon from "@/shared/icons/react.svg";
+import RustIcon from "@/shared/icons/rust.svg";
 import TailwindIcon from "@/shared/icons/tailwind.svg";
 import TypescriptIcon from "@/shared/icons/typescript.svg";
 import { cn } from "../lib/utils";
@@ -20,12 +21,14 @@ export type SkillName =
   | "html"
   | "css"
   | "git"
-  | "github";
+  | "github"
+  | "Rust";
 
 const skillIconMap: Record<
   SkillName,
   React.FC<React.SVGProps<SVGSVGElement>>
 > = {
+  Rust: RustIcon,
   react: ReactIcon,
   nextjs: NextJsIcon,
   nestjs: NestJsIcon,
@@ -60,7 +63,7 @@ export const SkillIcon = ({
       <div
         className={cn(
           "font-semibold flex items-center justify-center text-xs",
-          className,
+          className
         )}
       >
         {name.slice(0, fallbackLength)}

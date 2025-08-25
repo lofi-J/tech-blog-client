@@ -200,30 +200,30 @@ export type PostStatsAllFieldsFragment = { __typename?: 'PostStats', post_id?: n
 
 export type PostBaseFieldsFragment = { __typename?: 'Post', id: number };
 
-export type PostMetadataFieldsFragment = { __typename?: 'Post', slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null };
+export type PostMetadataFieldsFragment = { __typename?: 'Post', slug: string, hash_code: string, title: string, description: string, category?: string | null, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null };
 
-export type PostAllFieldsFragment = { __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null };
+export type PostAllFieldsFragment = { __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, category?: string | null, published?: any | null, updated_at?: any | null, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null };
 
 export type GetAllPostsQueryVariables = Exact<{
   inputs: GetPostsInput;
 }>;
 
 
-export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
+export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, category?: string | null, published?: any | null, updated_at?: any | null, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
 
 export type GetPostsByTagQueryVariables = Exact<{
   input: GetPostsByTagInput;
 }>;
 
 
-export type GetPostsByTagQuery = { __typename?: 'Query', getPostsByTag: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
+export type GetPostsByTagQuery = { __typename?: 'Query', getPostsByTag: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, category?: string | null, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
 
 export type GetPostsByCategoryQueryVariables = Exact<{
   input: GetPostsByCategoryInput;
 }>;
 
 
-export type GetPostsByCategoryQuery = { __typename?: 'Query', getPostsByCategory: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
+export type GetPostsByCategoryQuery = { __typename?: 'Query', getPostsByCategory: { __typename?: 'PostsResponse', totalCount: number, posts: Array<{ __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, category?: string | null, published?: any | null, updated_at?: any | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null }> } };
 
 export type CategoryBaseFieldsFragment = { __typename?: 'Categories', id: number };
 
@@ -270,6 +270,7 @@ export const PostMetadataFieldsFragmentDoc = gql`
   hash_code
   title
   description
+  category
   published
   updated_at
   tags {

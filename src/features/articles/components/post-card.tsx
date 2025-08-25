@@ -22,9 +22,7 @@ type PostCardProps = {
 
 // SSR로 렌더링할 때 사용
 export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
-  const { slug, title, published, tags } = post;
-
-  const firstTag = (tags && tags[0]?.tag_name) ?? "";
+  const { slug, title, published, category } = post;
 
   const { content } = getPostBySlug(slug);
   const components = getPreviewMDXComponents();
@@ -45,7 +43,7 @@ export const PostCard = async ({ post, maxContentLine = 8 }: PostCardProps) => {
           <span className="text-sm text-muted-foreground">
             {formatDate(published, "yyyy-MM-dd")}
           </span>
-          <SkillIcon name={firstTag as SkillName} size="lg" />
+          <SkillIcon name={category as SkillName} size="lg" />
         </div>
         <Link href={`/articles/${slug}`} className="hover:underline">
           <CardTitle className="rts-test">{title}</CardTitle>
