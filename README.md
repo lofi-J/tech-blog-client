@@ -4,6 +4,7 @@
 
 2. mdx 포스팅 반응형 테스트
 3. 헤더 hover이 zen모드여도 나타나도록 수정
+4. 헤더 flex-container 지정하기 mx 제거 확인후 진행
 
 - 복잡도 낮추기 위한 post테이블에 preview 필드 추가
 - 불필요한 로직 및 파일 제거
