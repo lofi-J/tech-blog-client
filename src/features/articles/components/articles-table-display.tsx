@@ -91,7 +91,6 @@ const Th = ({
   minWidth,
   className,
   isFirst,
-  isLast,
 }: PropsWithChildren<{
   className?: string;
   width?: string;
