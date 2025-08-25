@@ -1,5 +1,6 @@
 "use client";
 
+import { SelectorArticlesStyle } from "@/features/articles/components/selector-articles-style";
 import { SortOptionSelect } from "@/features/articles/components/sort-option-select";
 import {
   PostsOrderBy,
@@ -15,16 +16,25 @@ import { useState } from "react";
 
 const POSTS_PER_PAGE = 10;
 
+export type PostDisplayStyle = "table" | "grid" | "list";
+
 export default function PostsPage() {
-  const [selectedTag, setSelectedTag] = useState<string>();
+  const [selectedCategory, setSelectedCategory] = useState<string>();
   const [page, setPage] = useState(1);
   const [selectedSortOption, setSelectedSortOption] =
     useState<PostsOrderBy>("LATEST");
+  const [selectedArticlesStyle, setSelectedArticlesStyle] =
+    useState<PostDisplayStyle>("table");
 
   const { data: categoriesData, loading: categoriesLoading } =
     useGetAllCategoriesQuery({
       variables: { orderBy: "POPULAR" },
       fetchPolicy: "cache-and-network",
+      onCompleted: (data) => {
+        if (data.getAllCategories.length > 0) {
+          setSelectedCategory(data.getAllCategories[0].category_name);
+        }
+      },
     });
   const categories = categoriesData?.getAllCategories;
 
@@ -33,13 +43,14 @@ export default function PostsPage() {
     useGetPostsByCategoryQuery({
       variables: {
         input: {
-          categoryName: selectedTag ?? "",
+          categoryName: selectedCategory ?? "",
           limit: POSTS_PER_PAGE,
-          offset: 0,
+          offset: (page - 1) * POSTS_PER_PAGE,
           orderBy: selectedSortOption,
         },
       },
       fetchPolicy: "cache-and-network",
+      skip: !selectedCategory,
     });
   const totalPosts = categoryPostsData?.getPostsByCategory.totalCount ?? 0;
   const posts = categoryPostsData?.getPostsByCategory.posts;
@@ -54,10 +65,12 @@ export default function PostsPage() {
           <Badge
             key={category.id}
             variant={
-              selectedTag === category.category_name ? "highlight" : "outline"
+              selectedCategory === category.category_name
+                ? "highlight"
+                : "outline"
             }
             className="cursor-pointer px-4 py-2 rounded-2xl"
-            onClick={() => setSelectedTag(category.category_name)}
+            onClick={() => setSelectedCategory(category.category_name)}
           >
             {category.category_name}
           </Badge>
@@ -77,7 +90,12 @@ export default function PostsPage() {
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <div className="text-muted-foreground text-sm">
+          <SelectorArticlesStyle
+            selectedArticlesStyle={selectedArticlesStyle}
+            setSelectedArticlesStyle={setSelectedArticlesStyle}
+            className="mr-4"
+          />
+          <div className="text-muted-foreground text-sm font-semibold">
             {page} of {Math.ceil(totalPosts / POSTS_PER_PAGE)}
           </div>
           <Button
