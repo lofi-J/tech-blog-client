@@ -1,5 +1,8 @@
 "use client";
 
+import { ArticlesGridDisplay } from "@/features/articles/components/articles-grid-display";
+import { ArticlesListDisplay } from "@/features/articles/components/articles-list-display";
+import { ArticlesTableDisplay } from "@/features/articles/components/articles-table-display";
 import { SelectorArticlesStyle } from "@/features/articles/components/selector-articles-style";
 import { SortOptionSelect } from "@/features/articles/components/sort-option-select";
 import {
@@ -16,15 +19,15 @@ import { useState } from "react";
 
 const POSTS_PER_PAGE = 10;
 
-export type PostDisplayStyle = "table" | "grid" | "list";
+export type ArticleDisplayStyle = "table" | "grid" | "list";
 
 export default function PostsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>();
   const [page, setPage] = useState(1);
   const [selectedSortOption, setSelectedSortOption] =
     useState<PostsOrderBy>("LATEST");
-  const [selectedArticlesStyle, setSelectedArticlesStyle] =
-    useState<PostDisplayStyle>("table");
+  const [displayStyle, setDisplayStyle] =
+    useState<ArticleDisplayStyle>("table");
 
   const { data: categoriesData, loading: categoriesLoading } =
     useGetAllCategoriesQuery({
@@ -91,8 +94,8 @@ export default function PostsPage() {
         </div>
         <div className="flex items-center gap-3">
           <SelectorArticlesStyle
-            selectedArticlesStyle={selectedArticlesStyle}
-            setSelectedArticlesStyle={setSelectedArticlesStyle}
+            selectedDisplayStyle={displayStyle}
+            setSelectedDisplayStyle={setDisplayStyle}
             className="mr-4"
           />
           <div className="text-muted-foreground text-sm font-semibold">
@@ -121,13 +124,17 @@ export default function PostsPage() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 mt-10">
-        {posts?.map((post) => (
-          <div key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.description}</p>
-          </div>
-        ))}
+      <div className="mt-10">
+        {displayStyle === "table" && posts && (
+          <ArticlesTableDisplay posts={posts} />
+        )}
+        {displayStyle === "grid" && posts && (
+          <ArticlesGridDisplay posts={posts} />
+        )}
+        {displayStyle === "list" && posts && (
+          <ArticlesListDisplay posts={posts} />
+        )}
+        {!posts && <div>No posts found</div>}
       </div>
     </div>
   );

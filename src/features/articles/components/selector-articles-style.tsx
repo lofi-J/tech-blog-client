@@ -1,20 +1,20 @@
-import { PostDisplayStyle } from "@/app/articles/page";
+import { ArticleDisplayStyle } from "@/app/articles/page";
 import { cn } from "@/shared/lib/utils";
 import { LayoutGridIcon, LayoutListIcon, Table2Icon } from "lucide-react";
 
 type SelectorArticlesStyleProps = {
-  selectedArticlesStyle: PostDisplayStyle;
-  setSelectedArticlesStyle: (style: PostDisplayStyle) => void;
+  selectedDisplayStyle: ArticleDisplayStyle;
+  setSelectedDisplayStyle: (style: ArticleDisplayStyle) => void;
   className?: string;
 };
 
 export const SelectorArticlesStyle = ({
-  selectedArticlesStyle,
-  setSelectedArticlesStyle,
+  selectedDisplayStyle,
+  setSelectedDisplayStyle,
   className,
 }: SelectorArticlesStyleProps) => {
-  const handleClick = (style: PostDisplayStyle) => {
-    setSelectedArticlesStyle(style);
+  const handleClick = (style: ArticleDisplayStyle) => {
+    setSelectedDisplayStyle(style);
   };
 
   return (
@@ -27,7 +27,7 @@ export const SelectorArticlesStyle = ({
       <button
         className={cn(
           "text-muted-foreground px-3 hover:bg-muted py-2",
-          selectedArticlesStyle === "table" &&
+          selectedDisplayStyle === "table" &&
             "bg-input text-foreground hover:bg-input"
         )}
         onClick={() => handleClick("table")}
@@ -37,7 +37,7 @@ export const SelectorArticlesStyle = ({
       <button
         className={cn(
           "text-muted-foreground px-3 py-2 hover:bg-muted hover:text-foreground",
-          selectedArticlesStyle === "grid" &&
+          selectedDisplayStyle === "grid" &&
             "bg-input text-foreground hover:bg-input"
         )}
         onClick={() => handleClick("grid")}
@@ -47,7 +47,7 @@ export const SelectorArticlesStyle = ({
       <button
         className={cn(
           "text-muted-foreground px-3 py-2 hover:bg-muted hover:text-foreground",
-          selectedArticlesStyle === "list" &&
+          selectedDisplayStyle === "list" &&
             "bg-input text-foreground hover:bg-input"
         )}
         onClick={() => handleClick("list")}
