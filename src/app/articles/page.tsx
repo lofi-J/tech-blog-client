@@ -131,10 +131,10 @@ export default function PostsPage() {
           <ArticlesTableDisplay posts={posts} loading={categoryPostsLoading} />
         )}
         {displayStyle === "grid" && posts && (
-          <ArticlesGridDisplay posts={posts} />
+          <ArticlesGridDisplay posts={posts} loading={categoryPostsLoading} />
         )}
         {displayStyle === "list" && posts && (
-          <ArticlesListDisplay posts={posts} />
+          <ArticlesListDisplay posts={posts} loading={categoryPostsLoading} />
         )}
         {!posts && <div>No posts found</div>}
       </div>
