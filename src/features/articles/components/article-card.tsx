@@ -3,6 +3,7 @@ import {
   CategoryName,
 } from "@/features/categories/category-icon";
 import { Post } from "@/generated/graphql";
+import { Badge } from "@/shared/components/ui/badge";
 import { cn } from "@/shared/lib/utils";
 import { formatDate } from "date-fns";
 import Image from "next/image";
@@ -18,11 +19,14 @@ export const ArticleCard = async ({
   maxLine,
   className,
 }: ArticleCardProps) => {
-  const { title, published, category, thumbnail, description } = post;
+  const { title, published, category, thumbnail, description, tags } = post;
 
   return (
     <article
-      className={cn("flex flex-col rounded-md shadow-card bg-card", className)}
+      className={cn(
+        "flex flex-col rounded-md shadow-md bg-card w-full",
+        className
+      )}
     >
       {thumbnail && (
         <Image
@@ -35,14 +39,22 @@ export const ArticleCard = async ({
       )}
 
       <div className="flex flex-col p-4">
-        <h3 className="text-rts-14 font-bold">{title}</h3>
-        <p className={cn("rts-12 mt-2 min-h-[70px]", `line-clamp-${maxLine}`)}>
+        <h3 className="text-rts-15 font-bold">{title}</h3>
+        <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
           {description}
         </p>
 
+        <div className="flex items-center gap-2 mt-2">
+          {tags?.map((tag) => (
+            <Badge key={tag.id} variant="outline">
+              {tag.tag_name}
+            </Badge>
+          ))}
+        </div>
+
         <div className="mt-2 flex items-center justify-between">
           <CategoryIcon categoryName={category as CategoryName} size={24} />
-          <p className="text-sm text-gray-500">
+          <p className="rts-12 text-muted-foreground">
             {formatDate(new Date(published), "yyyy.MM.dd")}
           </p>
         </div>
