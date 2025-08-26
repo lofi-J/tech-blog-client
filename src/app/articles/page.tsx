@@ -13,7 +13,6 @@ import {
 import FullPageLoading from "@/shared/components/full-page-loading";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
-import OptionIcon from "@/shared/icons/option.svg";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -82,7 +81,6 @@ export default function PostsPage() {
 
       <div className="flex items-center mt-10 justify-between">
         <div className="flex items-center gap-1">
-          <OptionIcon className="size-9 text-muted-foreground border-input border-1 rounded-md p-1.5" />
           <SortOptionSelect
             className="w-[120px]"
             selectedSortOption={selectedSortOption}
