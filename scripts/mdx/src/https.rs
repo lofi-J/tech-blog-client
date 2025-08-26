@@ -25,6 +25,7 @@ pub async fn upsert_post_metadata(
         metadata: Metadata {
             title: post_metadata.title,
             slug: post_metadata.slug.clone(),
+            thumbnail: post_metadata.thumbnail,
             description: post_metadata.description,
             category: post_metadata.category,
             published: post_metadata.published,

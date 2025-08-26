@@ -1,46 +1,31 @@
 import client from "@/client";
+import { ArticleCard } from "@/features/articles/components/article-card";
 import { ArticlesCardSkeletons } from "@/features/articles/components/articles-card-skeleton";
-import { PostCard } from "@/features/articles/components/post-card";
 import { GetAllPostsDocument, GetAllPostsQuery } from "@/generated/graphql";
 import { Suspense } from "react";
 
 const SKELETON_COUNT = 6;
 
-async function PostsList() {
-  try {
-    const { data } = await client.query<GetAllPostsQuery>({
-      query: GetAllPostsDocument,
-      variables: {
-        inputs: {
-          orderBy: "LATEST",
-          limit: SKELETON_COUNT,
-          offset: 0,
-        },
+export const RecomendedPostSection = async () => {
+  const { data, error } = await client.query<GetAllPostsQuery>({
+    query: GetAllPostsDocument,
+    variables: {
+      inputs: {
+        orderBy: "LATEST",
+        limit: SKELETON_COUNT,
+        offset: 0,
       },
-      fetchPolicy: "cache-first",
-    });
+    },
+    fetchPolicy: "cache-first",
+  });
 
-    const posts = data?.getAllPosts.posts ?? [];
-
-    return (
-      <section className="f-col gap-3">
-        <h2 className="rts-14 font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
-          최근 포스팅
-        </h2>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
-          {posts.map((post) => (
-            <PostCard post={post} key={post.id} />
-          ))}
-        </div>
-      </section>
-    );
-  } catch (error) {
+  if (error) {
     console.error("Failed to fetch posts:", error);
     return null;
   }
-}
 
-export const RecomendedPostSection = () => {
+  const posts = data?.getAllPosts.posts ?? [];
+
   return (
     <Suspense
       fallback={
@@ -54,7 +39,21 @@ export const RecomendedPostSection = () => {
         </section>
       }
     >
-      <PostsList />
+      <section className="f-col gap-3">
+        <h2 className="rts-14 font-semibold grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 justify-start">
+          최근 포스팅
+        </h2>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+          {posts.map((post) => (
+            <ArticleCard
+              key={post.id}
+              post={post}
+              maxLine={3}
+              className="max-w-[25%]"
+            />
+          ))}
+        </div>
+      </section>
     </Suspense>
   );
 };

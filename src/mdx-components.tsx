@@ -69,7 +69,7 @@ const previewComponents: MDXComponents = {
     </pre>
   ),
   Image: (props: ImageProps) => {
-    return <Image {...props} />;
+    return <Image {...props} className="w-full h-auto" />;
   },
 };
 

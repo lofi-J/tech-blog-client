@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct PostMetadata {
     pub title: String,
+    pub thumbnail: String,
     pub slug: String, // file name 과 매칭
     pub hash_code: u64,
     pub description: String,
@@ -15,6 +16,7 @@ pub struct PostMetadata {
 pub struct Metadata {
     pub title: String,
     pub slug: String,
+    pub thumbnail: String,
     pub description: String,
     pub category: String,
     pub tags: Vec<String>,
@@ -28,8 +30,18 @@ pub struct UpsertBody {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct SearchIndexMetadata {
+    pub title: String,
+    pub slug: String,
+    pub description: String,
+    pub category: String,
+    pub tags: Vec<String>,
+    pub published: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct SearchIndex {
-    pub metadata: Metadata,
+    pub metadata: SearchIndexMetadata,
     pub content: String,
 }
 

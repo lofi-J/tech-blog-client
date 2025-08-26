@@ -6,7 +6,7 @@ use std::fs;
 use std::fs::read_dir;
 use std::path::{Path, PathBuf};
 
-use crate::types::{Metadata, PostMetadata, SearchIndex};
+use crate::types::{Metadata, PostMetadata, SearchIndex, SearchIndexMetadata};
 
 use sha2::{Digest, Sha256};
 
@@ -71,6 +71,7 @@ fn extract_metadata_value(yaml_str: &str, key: &str) -> Option<String> {
 
     match key {
         "title" => Some(metadata.title),
+        "thumbnail" => Some(metadata.thumbnail),
         "slug" => Some(metadata.slug),
         "description" => Some(metadata.description),
         "category" => Some(metadata.category),
@@ -111,6 +112,7 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
 
         // 메타데이터 추출
         let title = extract_metadata_value(&metadata_str, "title").unwrap();
+        let thumbnail = extract_metadata_value(&metadata_str, "thumbnail").unwrap();
         let slug = extract_metadata_value(&metadata_str, "slug").unwrap();
         let description = extract_metadata_value(&metadata_str, "description").unwrap();
         let category = extract_metadata_value(&metadata_str, "category").unwrap();
@@ -124,6 +126,7 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
 
         let post_metadata = PostMetadata {
             title,
+            thumbnail,
             slug,
             description,
             category,
@@ -206,7 +209,7 @@ pub fn execute_mdx_indexing() {
             .collect::<Vec<String>>();
 
         let search_index = SearchIndex {
-            metadata: Metadata {
+            metadata: SearchIndexMetadata {
                 title,
                 slug: file_name.clone(),
                 description,

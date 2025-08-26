@@ -7,6 +7,7 @@ fragment PostMetadataFields on Post {
   hash_code
   title
   description
+  thumbnail
   category
   published
   updated_at
