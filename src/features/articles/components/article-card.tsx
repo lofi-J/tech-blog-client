@@ -7,6 +7,7 @@ import { Badge } from "@/shared/components/ui/badge";
 import { cn } from "@/shared/lib/utils";
 import { formatDate } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 
 type ArticleCardProps = {
   post: Post;
@@ -14,51 +15,49 @@ type ArticleCardProps = {
   className?: string;
 };
 
-export const ArticleCard = async ({
-  post,
-  maxLine,
-  className,
-}: ArticleCardProps) => {
+export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
   const { title, published, category, thumbnail, description, tags } = post;
 
   return (
-    <article
-      className={cn(
-        "flex flex-col rounded-md shadow-md bg-card w-full",
-        className
-      )}
+    <Link
+      href={`/articles/${post.slug}`}
+      className="w-full hover:opacity-85 transition-all"
     >
-      {thumbnail && (
-        <Image
-          src={thumbnail}
-          alt={title}
-          width={300}
-          height={160}
-          className="w-full h-auto object-cover rounded-t-md"
-        />
-      )}
+      <article
+        className={cn("flex flex-col rounded-md shadow-md bg-card", className)}
+      >
+        {thumbnail && (
+          <Image
+            src={thumbnail}
+            alt={title}
+            width={300}
+            height={160}
+            className="w-full h-auto object-cover rounded-t-md"
+          />
+        )}
 
-      <div className="flex flex-col p-4">
-        <h3 className="text-rts-15 font-bold">{title}</h3>
-        <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
-          {description}
-        </p>
-
-        <div className="flex items-center gap-2 mt-2">
-          {tags?.map((tag) => (
-            <Badge key={tag.id} variant="outline">
-              {tag.tag_name}
-            </Badge>
-          ))}
-        </div>
-
-        <div className="mt-2 flex items-center justify-between">
-          <CategoryIcon categoryName={category as CategoryName} size={24} />
-          <p className="rts-12 text-muted-foreground">
-            {formatDate(new Date(published), "yyyy.MM.dd")}
+        <div className="flex flex-col p-4">
+          <h3 className="text-rts-15 font-bold">{title}</h3>
+          <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
+            {description}
           </p>
+
+          <div className="flex items-center gap-2 mt-2">
+            {tags?.map((tag) => (
+              <Badge key={tag.id} variant="outline">
+                {tag.tag_name}
+              </Badge>
+            ))}
+          </div>
+
+          <div className="mt-2 flex items-center justify-between">
+            <CategoryIcon categoryName={category as CategoryName} size={24} />
+            <p className="rts-12 text-muted-foreground">
+              {formatDate(new Date(published), "yyyy.MM.dd")}
+            </p>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 };

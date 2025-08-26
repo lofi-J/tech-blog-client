@@ -136,7 +136,6 @@ export default function PostsPage() {
         {displayStyle === "list" && posts && (
           <ArticlesListDisplay posts={posts} loading={categoryPostsLoading} />
         )}
-        {!posts && <div>No posts found</div>}
       </div>
 
       {/* mobile pagination */}

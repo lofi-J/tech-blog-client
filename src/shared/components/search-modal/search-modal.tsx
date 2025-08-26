@@ -32,7 +32,7 @@ export const SearchModal = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setKeyword(e.target.value);
     },
-    [],
+    []
   );
 
   // create fuse instance
@@ -41,11 +41,12 @@ export const SearchModal = () => {
       new Fuse(index ?? [], {
         // 검색 필드 및 가중치 부여
         keys: [
-          { name: "title", weight: 0.6 },
-          { name: "description", weight: 0.4 },
-          { name: "tags", weight: 0.3 },
-          { name: "date", weight: 0.3 },
-          { name: "content", weight: 0.2 },
+          { name: "metadata.title", weight: 0.6 },
+          { name: "metadata.category", weight: 0.5 },
+          { name: "metadata.description", weight: 0.4 },
+          { name: "metadata.tags", weight: 0.2 },
+          { name: "metadata.published", weight: 0.3 },
+          { name: "content", weight: 0.1 },
         ],
         // 매칭 정확도 (0.0~1.0, 낮을수록 엄격)
         threshold: 0.4,
@@ -68,7 +69,7 @@ export const SearchModal = () => {
         // 검색 점수 기준 정렬
         shouldSort: true,
       }),
-    [index],
+    [index]
   );
 
   // search from index.json
