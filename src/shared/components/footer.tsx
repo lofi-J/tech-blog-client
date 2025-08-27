@@ -6,6 +6,7 @@ import { TypoLogo } from "./typo-logo";
 export const Footer = () => {
   return (
     <footer
+      id="footer"
       data-zen-hideable="slide-down"
       className="w-full border-t border-accent mt-20 flex-container"
     >
