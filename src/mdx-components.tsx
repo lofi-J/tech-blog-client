@@ -32,7 +32,13 @@ const components: MDXComponents = {
     </pre>
   ),
   Image: (props: ImageProps) => {
-    return <Image {...props} />;
+    return (
+      <Image
+        {...props}
+        alt={props.alt ?? "unknown image"}
+        className="w-full h-auto"
+      />
+    );
   },
 };
 
@@ -69,7 +75,13 @@ const previewComponents: MDXComponents = {
     </pre>
   ),
   Image: (props: ImageProps) => {
-    return <Image {...props} className="w-full h-auto" />;
+    return (
+      <Image
+        {...props}
+        alt={props.alt ?? "unknown image"}
+        className="w-full h-auto"
+      />
+    );
   },
 };
 

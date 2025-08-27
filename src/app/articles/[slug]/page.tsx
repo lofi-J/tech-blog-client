@@ -1,5 +1,10 @@
+import {
+  CategoryIcon,
+  CategoryName,
+} from "@/features/categories/category-icon";
 import { getMDXComponents } from "@/mdx-components";
 import { getAllPostSlugs, getPostBySlug } from "@/mdx/mdx";
+import { Badge } from "@/shared/components/ui/badge";
 import { compile, run } from "@mdx-js/mdx";
 import { formatDate } from "date-fns";
 import { Metadata } from "next";
@@ -26,7 +31,7 @@ export async function generateMetadata({
     const post = getPostBySlug(slug);
 
     return {
-      title: post.metadata.title,
+      title: `${post.metadata.category} | ${post.metadata.title} - Lofi-J`,
       description: post.metadata.description,
       openGraph: {
         title: post.metadata.title,
@@ -73,20 +78,37 @@ export default async function ArticlePage({ params }: PageProps) {
   return (
     <article className="w-full">
       <header className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">{title}</h1>
-        <div className="flex items-center gap-1">
-          <span className="rts-14 font-semibold">Lofi-J</span>
-          <span className="w-[3px] h-[3px] bg-foreground rounded-full" />
-          <time className="rts-14">
-            {formatDate(new Date(published), "yyyy-MM-dd")}
-          </time>
+        <h1 className="rts-h1 font-bold mb-8">{title}</h1>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <span className="rts-14 font-semibold">Lofi-J</span>
+            <span className="w-[3px] h-[3px] bg-foreground rounded-full" />
+            <time className="rts-14">
+              {formatDate(new Date(published), "yyyy-MM-dd")}
+            </time>
+          </div>
+          <div>
+            <CategoryIcon categoryName={category as CategoryName} size={24} />
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 mt-4">
+          {tags?.map((tag, index) => (
+            <Badge key={`${tag}-${index}`} variant="highlight">
+              {tag}
+            </Badge>
+          ))}
         </div>
       </header>
 
       {/* Thumbnail */}
       {thumbnail && (
         <div className="flex items-center justify-center my-8">
-          <Image src={thumbnail} alt={title} width={600} height={350} />
+          <Image
+            src={thumbnail}
+            alt={`${title} thumbnail`}
+            width={600}
+            height={350}
+          />
         </div>
       )}
 

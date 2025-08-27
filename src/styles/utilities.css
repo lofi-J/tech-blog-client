@@ -10,6 +10,24 @@
 }
 
 /* Responsive Text Size */
+@utility rts-h1 {
+  font-size: 32px;
+  @media (min-width: 768px) {
+    font-size: 34px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 36px;
+  }
+}
+@utility rts-h2 {
+  font-size: 28px;
+  @media (min-width: 768px) {
+    font-size: 30px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 32px;
+  }
+}
 @utility rts-18 {
   font-size: 16px;
   @media (min-width: 768px) {
@@ -92,7 +110,7 @@
   }
 }
 
-/* MDX Components Color */
+/* MDX Components Color TODO remove this */
 @utility mdx-text {
   @apply rts-14;
   color: var(--mdx-text);
