@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans min-h-screen flex flex-col`}
       >
         <ApolloWrapper>
           <ThemeProvider
@@ -56,7 +56,7 @@ export default function RootLayout({
                   <KeymapProvider>
                     <HeaderNavbar />
                     <MobileMenuSidebar />
-                    {children}
+                    <main className="flex-1 flex flex-col">{children}</main>
                     <Footer />
                     <SearchModal />
                   </KeymapProvider>

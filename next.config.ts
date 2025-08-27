@@ -58,8 +58,8 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   // MDX 관련 옵션들을 여기에 설정
   options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
+    remarkPlugins: [], // Markdown 파싱 단계에서 적용할 플러그인들
+    rehypePlugins: [], // HTML 변환 단계에서 적용할 플러그인들
     providerImportSource: "@mdx-js/react",
   },
 });

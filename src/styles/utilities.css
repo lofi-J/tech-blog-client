@@ -5,6 +5,10 @@
   @apply block md:hidden;
 }
 
+@utility font-jetbrains-mono {
+  font-family: var(--font-jetbrains-mono);
+}
+
 /* Responsive Text Size */
 @utility rts-18 {
   font-size: 16px;

@@ -41,8 +41,8 @@ export async function generateMetadata({
     };
   } catch {
     return {
-      title: "Post Not Found",
-      description: "The requested post could not be found.",
+      title: "Page Not Found",
+      description: "The requested page could not be found.",
     };
   }
 }

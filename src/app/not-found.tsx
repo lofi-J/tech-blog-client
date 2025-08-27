@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 
 export default function NotFound() {
   const pathname = usePathname();
-  const articleSlug = pathname.split("/").at(-1) ?? "unknown";
 
   return (
     <div className="w-full flex-1 flex items-center">
@@ -15,15 +14,12 @@ export default function NotFound() {
           404 Not Found
         </h1>
         <p className="font-jetbrains-mono rts-16 my-10 flex items-center gap-2">
-          <span className="text-highlight font-semibold">
-            {"/"}
-            {articleSlug}
-          </span>
+          <span className="text-highlight font-semibold">{pathname}</span>
           <span>could not be found.</span>
         </p>
-        <Link href="/articles" className="font-jetbrains-mono rts-14 font-bold">
+        <Link href="/" className="font-jetbrains-mono rts-14 font-bold">
           <Button variant="highlight" asChild>
-            <span>포스팅 목록으로 돌아가기</span>
+            <span>메인 페이지로 돌아가기</span>
           </Button>
         </Link>
       </div>
