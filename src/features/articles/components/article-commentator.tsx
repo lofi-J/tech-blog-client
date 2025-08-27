@@ -62,7 +62,7 @@ export const ArticleCommentator = ({
   }
 
   return (
-    <div className="w-[250px] px-3 py-4 bg-background/85 rounded-lg dark:border shadow-sm">
+    <div className="w-full max-w-[250px] px-3 py-4">
       <h3 className="text-[14px] font-semibold mb-4 text-foreground">
         Commentary
       </h3>

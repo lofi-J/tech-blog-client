@@ -45,13 +45,13 @@ export default function ArticleDetailLayout({
   }, [articleRef]);
 
   return (
-    <div className="relative grid grid-cols-1 xl:grid-cols-[1fr_3fr_1fr] gap-30 justify-between min-w-screen">
+    <div className="relative grid grid-cols-1 xl:grid-cols-[1fr_3fr_1fr] gap-8 xl:gap-12 justify-between">
       {/* Commentator */}
       <div
         data-zen-hideable="slide-left"
         className="relative hidden xl:flex justify-center"
       >
-        <div className="max-h-[600px] w-[250px] sticky top-[var(--header-height)] transition-all duration-200 ease-in-out pt-4">
+        <div className="max-h-[600px] w-full max-w-[250px] sticky top-[var(--header-height)] transition-all duration-200 ease-in-out pt-4">
           <ArticleCommentator slug={slug} helpWord={helpWord} />
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function ArticleDetailLayout({
       {/* Article */}
       <div
         ref={articleRef}
-        className="lg:max-w-[800px] max-w-[600px] w-full mx-auto"
+        className="lg:max-w-[800px] max-w-[600px] w-full mx-auto px-4"
       >
         {children}
       </div>
@@ -67,9 +67,9 @@ export default function ArticleDetailLayout({
       {/* Navigator */}
       <div
         data-zen-hideable="slide-right"
-        className="relative h-full hidden xl:flex justify-center"
+        className="relative hidden xl:flex justify-center"
       >
-        <div className="max-h-[600px] w-[250px] sticky top-[var(--header-height)] transition-all duration-200 ease-in-out pt-4">
+        <div className="max-h-[600px] w-full max-w-[250px] sticky top-[var(--header-height)] transition-all duration-200 ease-in-out pt-4">
           <ArticleNavigator />
         </div>
       </div>

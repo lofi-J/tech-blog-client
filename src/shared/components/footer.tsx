@@ -1,19 +1,9 @@
-"use client";
-
 import GithubIcon from "@/shared/icons/github.svg";
 import MailIcon from "@/shared/icons/mail.svg";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { TypoLogo } from "./typo-logo";
 
-const excludePaths = ["/articles/"];
-
 export const Footer = () => {
-  const pathname = usePathname();
-  const ishidden = excludePaths.some((path) => pathname.includes(path));
-
-  if (ishidden) return null;
-
   return (
     <footer
       id="footer"
