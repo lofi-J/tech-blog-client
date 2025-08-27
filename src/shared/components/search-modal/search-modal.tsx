@@ -79,7 +79,9 @@ export const SearchModal = () => {
   }, [keyword, fuse]);
 
   useEffect(() => {
-    fetchIndex(INDEX_PATH, setLoading).then(setIndex);
+    fetchIndex<Index>(INDEX_PATH, setLoading).then((data) =>
+      setIndex(data ?? [])
+    );
   }, []);
 
   return (

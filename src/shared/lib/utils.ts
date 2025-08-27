@@ -1,6 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { Index } from "../components/search-modal/search-modal-result-article-item";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
  */
 export async function healthCheck(
   baseUrl?: string,
-  timeout: number = 5000,
+  timeout: number = 5000
 ): Promise<{ status: boolean; message: string }> {
   try {
     const url = `${baseUrl || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"}/health`;
@@ -52,17 +51,17 @@ export async function healthCheck(
   }
 }
 
-export async function fetchIndex(
+export async function fetchIndex<T>(
   path: string,
-  setLoading: (loading: boolean) => void,
-): Promise<Index> {
+  setLoading: (loading: boolean) => void
+): Promise<T | null> {
   try {
     setLoading(true);
     const res = await fetch(path);
     const data = await res.json();
     return data;
   } catch {
-    return undefined;
+    return null;
   } finally {
     setLoading(false);
   }

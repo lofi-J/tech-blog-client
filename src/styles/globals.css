@@ -48,6 +48,7 @@
 
 :root {
   --radius: 0.625rem;
+  --header-height: 56px;
   --font-noto-sans-kr:
     "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
