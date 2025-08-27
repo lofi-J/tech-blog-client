@@ -7,8 +7,10 @@ const contentDirectory = path.join(process.cwd(), "src/content");
 export interface PostMetadata {
   title: string;
   description: string;
-  date: string;
-  tags: string[];
+  category: string;
+  tags?: string[];
+  thumbnail: string | null;
+  published: string;
 }
 
 export interface Post {
@@ -47,7 +49,7 @@ export function getAllPosts(): Post[] {
     .map((slug) => getPostBySlug(slug))
     .sort(
       (a, b) =>
-        new Date(b.metadata.date).getTime() -
-        new Date(a.metadata.date).getTime(),
+        new Date(b.metadata.published).getTime() -
+        new Date(a.metadata.published).getTime()
     );
 }

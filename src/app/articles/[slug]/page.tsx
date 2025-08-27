@@ -1,7 +1,9 @@
 import { getMDXComponents } from "@/mdx-components";
 import { getAllPostSlugs, getPostBySlug } from "@/mdx/mdx";
 import { compile, run } from "@mdx-js/mdx";
+import { formatDate } from "date-fns";
 import { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import * as runtime from "react/jsx-runtime";
 
@@ -30,7 +32,7 @@ export async function generateMetadata({
         title: post.metadata.title,
         description: post.metadata.description,
         type: "article",
-        publishedTime: post.metadata.date,
+        publishedTime: post.metadata.published,
         tags: post.metadata.tags,
       },
       twitter: {
@@ -47,7 +49,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function PostPage({ params }: PageProps) {
+export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params;
   let post;
 
@@ -66,32 +68,31 @@ export default async function PostPage({ params }: PageProps) {
   });
   const { default: Content } = await run(compiled, runtime);
 
+  const { title, category, published, tags, thumbnail } = post.metadata;
+
   return (
     <article className="prose prose-lg max-w-none">
       <header className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">{post.metadata.title}</h1>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.metadata.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
-            >
-              {tag}
-            </span>
-          ))}
+        <h1 className="text-4xl font-bold mb-4">{title}</h1>
+        <div className="flex items-center gap-1">
+          <span className="rts-14 font-semibold">Lofi-J</span>
+          <span className="w-[3px] h-[3px] bg-foreground rounded-full" />
+          <time className="rts-14">
+            {formatDate(new Date(published), "yyyy-MM-dd")}
+          </time>
         </div>
-        <time className="text-gray-600 text-sm">
-          {new Date(post.metadata.date).toLocaleDateString("ko-KR", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
       </header>
 
-      <div className="prose-content">
+      {/* Thumbnail */}
+      {thumbnail && (
+        <div className="flex items-center justify-center my-8">
+          <Image src={thumbnail} alt={title} width={600} height={350} />
+        </div>
+      )}
+
+      <main className="prose-content">
         <Content components={components} />
-      </div>
+      </main>
     </article>
   );
 }
