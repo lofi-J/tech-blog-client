@@ -4,19 +4,19 @@ import { ArticlesGridSkeleton } from "@/features/articles/components/articles-gr
 import { GetAllPostsDocument, GetAllPostsQuery } from "@/generated/graphql";
 import { Suspense } from "react";
 
-const SKELETON_COUNT = 6;
+const ARTICLES_COUNT = 6;
 
-export const RecomendedPostSection = async () => {
+export const RecomendedArticlesSection = async () => {
   const { data, error } = await client.query<GetAllPostsQuery>({
     query: GetAllPostsDocument,
     variables: {
       inputs: {
         orderBy: "LATEST",
-        limit: SKELETON_COUNT,
+        limit: ARTICLES_COUNT,
         offset: 0,
       },
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "network-only",
   });
 
   if (error) {
