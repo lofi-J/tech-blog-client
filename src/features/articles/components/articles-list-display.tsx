@@ -1,4 +1,5 @@
 import { Post } from "@/generated/graphql";
+import { Divider } from "@/shared/components/divider";
 import { Skeleton } from "@/shared/components/ui/skeleton";
 import { ArticleListCard } from "./article-list-card";
 
@@ -25,9 +26,19 @@ export const ArticlesListDisplay = ({
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      {posts.map((post) => (
-        <ArticleListCard key={post.id} post={post} />
+    <div className="flex flex-col">
+      {posts.map((post, index) => (
+        <div key={`${post.id}-${index}`}>
+          <ArticleListCard post={post} />
+          {posts.length - 1 !== index && (
+            <Divider
+              direction="horizontal"
+              size="sm"
+              className="my-6"
+              color="secondary"
+            />
+          )}
+        </div>
       ))}
     </div>
   );

@@ -132,7 +132,7 @@ export default function PostsPage() {
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-8">
         {displayStyle === "grid" && posts && (
           <ArticlesGridDisplay posts={posts} loading={categoryPostsLoading} />
         )}
