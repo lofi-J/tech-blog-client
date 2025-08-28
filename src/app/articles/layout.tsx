@@ -14,6 +14,8 @@ export default function PostsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="mx-auto px-4 py-8 flex-1 flex flex-col">{children}</div>
+    <div className="mx-auto px-4 py-8 flex-1 flex flex-col min-w-full">
+      {children}
+    </div>
   );
 }
