@@ -1,7 +1,10 @@
+import JavaScriptIcon from "@/shared/icons/javascript.svg";
+import ReactIcon from "@/shared/icons/react.svg";
 import RustIcon from "@/shared/icons/rust.svg";
+import TypeScriptIcon from "@/shared/icons/typescript.svg";
 import { cn } from "@/shared/lib/utils";
 
-export type CategoryName = "Rust";
+export type CategoryName = "TypeScript" | "Rust" | "JavaScript" | "React.js";
 
 type CategoryIconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
@@ -13,10 +16,16 @@ type CategoryIconProps = {
 
 const categoryIcons: Record<CategoryName, CategoryIconComponent> = {
   Rust: RustIcon,
+  TypeScript: TypeScriptIcon,
+  JavaScript: JavaScriptIcon,
+  "React.js": ReactIcon,
 };
 
 const customClassName: Record<CategoryName, string> = {
   Rust: "rounded-full bg-white",
+  TypeScript: "",
+  JavaScript: "",
+  "React.js": "",
 };
 
 export const CategoryIcon = ({

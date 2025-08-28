@@ -4,7 +4,7 @@ import { ArticlesGridSkeleton } from "@/features/articles/components/articles-gr
 import { GetAllPostsDocument, GetAllPostsQuery } from "@/generated/graphql";
 import { Suspense } from "react";
 
-const ARTICLES_COUNT = 6;
+const ARTICLES_COUNT = 4;
 
 export const RecomendedArticlesSection = async () => {
   const { data, error } = await client.query<GetAllPostsQuery>({
