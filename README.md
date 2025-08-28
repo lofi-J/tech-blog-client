@@ -1,16 +1,10 @@
 # Tech Stroy Client
 
-## Todos
+TODO
 
-1. @next/mdx 문법 정리 및 문서화
-2. @next/mdx 적용가능한 플러그인 확인
-
-3. article/slug page [@next/mdx]  
-   2.3 font size 조정
-   2.4 mdx 문법확인 및 문서화
-   2.5 사용 가능 모든 mdx 문법 component 지원
-
-### @Next/MDX 문법 정리
+1. mdx-component.tsx 스타일 정의
+2. rust prebuild category별 실행하도록 리팩토링
+3. 포스팅 삭제 테스트
 
 ## 기본 텍스트 서식
 
