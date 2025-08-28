@@ -108,6 +108,8 @@ export default async function ArticlePage({ params }: PageProps) {
             alt={`${title} thumbnail`}
             width={600}
             height={350}
+            priority
+            className="w-[80%] h-auto aspect-auto rounded-md shadow-md mx-auto"
           />
         </div>
       )}

@@ -36,7 +36,7 @@ const components: MDXComponents = {
       <Image
         {...props}
         alt={props.alt ?? "unknown image"}
-        className="w-full h-auto"
+        className="w-full h-auto aspect-auto"
       />
     );
   },

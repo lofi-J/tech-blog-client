@@ -24,7 +24,7 @@ export const ArticleCommentator = ({
 
   const fuse = useMemo(() => {
     return new Fuse(helperIndex, {
-      keys: ["keyword", "description"],
+      keys: ["keyword"],
       threshold: 0.3,
       includeScore: true,
       includeMatches: true,
