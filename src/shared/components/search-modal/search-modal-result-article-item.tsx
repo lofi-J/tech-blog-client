@@ -4,6 +4,7 @@ import {
 } from "@/features/categories/category-icon";
 import { formatDate } from "date-fns/format";
 import { FuseResult } from "fuse.js";
+import Image from "next/image";
 import Link from "next/link";
 import { Loader } from "../loader";
 import { Badge } from "../ui/badge";
@@ -14,10 +15,11 @@ type SearchIndexItem = {
   metadata: {
     title: string;
     category: string;
+    thumbnail: string | null;
     slug: string;
     description: string;
     published: string;
-    tags: string[];
+    tags?: string[];
   };
 };
 
@@ -38,7 +40,8 @@ export const SearchArticleResultItem = ({
   loading,
 }: SearchResultItemProps) => {
   const { item } = result;
-  const { title, slug, description, published, tags, category } = item.metadata;
+  const { title, slug, description, published, tags, category, thumbnail } =
+    item.metadata;
 
   if (loading) {
     return (
@@ -48,7 +51,7 @@ export const SearchArticleResultItem = ({
     );
   }
 
-  const tagList = tags.slice(0, Math.min(tags.length, 3));
+  const tagList = tags?.slice(0, Math.min(tags.length, 3));
 
   return (
     <Link
@@ -56,30 +59,44 @@ export const SearchArticleResultItem = ({
       onClick={closeModal}
       className="p-3 hover:bg-muted/50 rounded-md cursor-pointer border border-border/50 hover:border-border transition-colors"
     >
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <h3 className="font-medium rts-14 line-clamp-1">{title}</h3>
-          <CategoryIcon categoryName={category as CategoryName} size={20} />
-        </div>
-        <p className="rts-12 text-muted-foreground line-clamp-2">
-          {description}
-        </p>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1 items-center justify-start">
-            {tagList.map((tag, index) => (
-              <Badge
-                key={`${tag}-${index}`}
-                variant="outline"
-                className="rts-11"
-              >
-                {tag}
-              </Badge>
-            ))}
+      <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <h3 className="font-medium rts-14 line-clamp-1">{title}</h3>
+            <CategoryIcon categoryName={category as CategoryName} size={20} />
           </div>
-          <span className="rts-12 text-muted-foreground">
-            {formatDate(new Date(published), "yyyy.MM.dd")}
-          </span>
+          <p className="rts-12 text-muted-foreground line-clamp-2">
+            {description}
+          </p>
+          <div className="flex items-center justify-between">
+            <div className="flex gap-1 items-center justify-start">
+              {tagList?.map((tag, index) => (
+                <Badge
+                  key={`${tag}-${index}`}
+                  variant="outline"
+                  className="rts-11"
+                >
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+            <span className="rts-12 text-muted-foreground">
+              {formatDate(new Date(published), "yyyy.MM.dd")}
+            </span>
+          </div>
         </div>
+        {thumbnail && (
+          <div className="flex items-start min-w-24 h-20">
+            <Image
+              src={thumbnail}
+              alt={title}
+              width={90}
+              height={80}
+              className="object-contain rounded-sm w-full h-auto"
+              priority
+            />
+          </div>
+        )}
       </div>
     </Link>
   );

@@ -23,7 +23,12 @@ export const SearchModal = () => {
   const [index, setIndex] = useState<Index>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const closeModal = () => setIsOpen(false);
+  const resetKeyword = () => setKeyword("");
+
+  const closeModal = () => {
+    setIsOpen(false);
+    resetKeyword();
+  };
 
   const isEmptyArticleResult = searchResult.length === 0;
 
@@ -32,7 +37,7 @@ export const SearchModal = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setKeyword(e.target.value);
     },
-    [],
+    []
   );
 
   // create fuse instance
@@ -69,7 +74,7 @@ export const SearchModal = () => {
         // 검색 점수 기준 정렬
         shouldSort: true,
       }),
-    [index],
+    [index]
   );
 
   // search from index.json
@@ -80,7 +85,7 @@ export const SearchModal = () => {
 
   useEffect(() => {
     fetchIndex<Index>(INDEX_PATH, setLoading).then((data) =>
-      setIndex(data ?? []),
+      setIndex(data ?? [])
     );
   }, []);
 
@@ -113,7 +118,7 @@ export const SearchModal = () => {
           {!isEmptyArticleResult && (
             <div className="flex flex-col gap-1">
               <div className="text-muted-foreground text-[12px] px-2">
-                Posts
+                Articles
               </div>
               {searchResult.map((result, index) => (
                 <SearchArticleResultItem

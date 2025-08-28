@@ -33,6 +33,7 @@ pub struct UpsertBody {
 pub struct SearchIndexMetadata {
     pub title: String,
     pub slug: String,
+    pub thumbnail: String,
     pub description: String,
     pub category: String,
     pub tags: Vec<String>,

@@ -200,6 +200,7 @@ pub fn execute_mdx_indexing() {
 
         let title = extract_metadata_value(&metadata_str, "title").unwrap();
         let description = extract_metadata_value(&metadata_str, "description").unwrap();
+        let thumbnail = extract_metadata_value(&metadata_str, "thumbnail").unwrap_or_default();
         let published = extract_metadata_value(&metadata_str, "published").unwrap_or_default();
         let category = extract_metadata_value(&metadata_str, "category").unwrap_or_default();
         let tags = extract_metadata_value(&metadata_str, "tags")
@@ -213,6 +214,7 @@ pub fn execute_mdx_indexing() {
                 title,
                 slug: file_name.clone(),
                 description,
+                thumbnail,
                 category,
                 published,
                 tags,
