@@ -47,7 +47,7 @@ export const MobileMenuSidebar = () => {
         }}
         className={cn(
           "fixed inset-0 w-screen h-screen bg-background z-50 overflow-hidden transition-all duration-300",
-          isOpen ? "block" : "hidden",
+          isOpen ? "block" : "hidden"
         )}
       >
         <div className="container mx-auto flex flex-col items-start flex-1 px-4">
@@ -64,7 +64,7 @@ export const MobileMenuSidebar = () => {
           </div>
           {/* 메뉴 리스트 */}
           <nav className="flex flex-col gap-4 mt-8">
-            <h3 className="font-semibold text-sm text-muted">Links</h3>
+            <h3 className="font-semibold text-[18px] text-foreground">Links</h3>
             {menuConfig.map((menu) => (
               <div
                 key={`m-menu-${menu.label}`}
@@ -72,7 +72,7 @@ export const MobileMenuSidebar = () => {
               >
                 <Link
                   href={menu.href}
-                  className="font-semibold hover:text-[var(--highlight-color)]"
+                  className="font-semibold text-[14px] hover:text-[var(--highlight-color)]"
                 >
                   {menu.label}
                 </Link>
@@ -81,7 +81,9 @@ export const MobileMenuSidebar = () => {
           </nav>
           {/* 기능 리스트 */}
           <div className="flex flex-col items-start gap-4 mt-8 w-full">
-            <h3 className="font-semibold text-sm text-muted">Features</h3>
+            <h3 className="font-semibold text-[18px] text-foreground">
+              Features
+            </h3>
             <div className="flex items-center justify-start flex-1">
               <ToggleThemeButton />
             </div>
