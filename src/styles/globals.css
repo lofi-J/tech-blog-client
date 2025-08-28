@@ -174,3 +174,9 @@
     line-height: inherit;
   }
 }
+
+/* Color Picker */
+.react-colorful__pointer {
+  width: 25px !important;
+  height: 25px !important;
+}
