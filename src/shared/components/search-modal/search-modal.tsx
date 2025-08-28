@@ -120,14 +120,16 @@ export const SearchModal = () => {
               <div className="text-muted-foreground text-[12px] px-2">
                 Articles
               </div>
-              {searchResult.map((result, index) => (
-                <SearchArticleResultItem
-                  key={`search-result-${index}`}
-                  result={result}
-                  closeModal={closeModal}
-                  loading={loading}
-                />
-              ))}
+              <div className="f-col gap-1 overflow-y-auto h-[330px] scrollbar-hide">
+                {searchResult.map((result, index) => (
+                  <SearchArticleResultItem
+                    key={`search-result-${index}`}
+                    result={result}
+                    closeModal={closeModal}
+                    loading={loading}
+                  />
+                ))}
+              </div>
             </div>
           )}
           {isEmptyArticleResult && (

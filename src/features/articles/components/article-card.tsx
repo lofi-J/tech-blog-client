@@ -29,7 +29,7 @@ export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
             alt={title}
             width={300}
             height={160}
-            className="w-full h-auto object-cover rounded-t-md"
+            className="w-full h-auto object-cover rounded-t-md aspect-video"
             priority
           />
         )}
