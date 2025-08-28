@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  CategoryIcon,
+  CategoryName,
+} from "@/features/categories/category-icon";
 import { Post } from "@/generated/graphql";
 import { Skeleton } from "@/shared/components/ui/skeleton";
 import { cn } from "@/shared/lib/utils";
@@ -37,9 +41,7 @@ export const ArticlesTableDisplay = ({
         <table className="w-full min-w-[800px] table-fixed border-collapse">
           <thead>
             <tr>
-              <Th width="5%" minWidth="40px" isFirst>
-                No
-              </Th>
+              <Th width="5%" minWidth="40px" isFirst></Th>
               <Th width="25%" minWidth="200px">
                 Title
               </Th>
@@ -62,7 +64,10 @@ export const ArticlesTableDisplay = ({
                 onClick={() => router.push(`/articles/${post.slug}`)}
               >
                 <Td width="5%" minWidth="40px" isFirst>
-                  {index + 1}
+                  <CategoryIcon
+                    categoryName={post.category as CategoryName}
+                    size={"100%"}
+                  />
                 </Td>
                 <Td width="15%" minWidth="150px" align="center">
                   {post.title}

@@ -11,7 +11,7 @@ type CategoryIconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 type CategoryIconProps = {
   categoryName: CategoryName;
   className?: string;
-  size?: number;
+  size?: number | string;
 };
 
 const categoryIcons: Record<CategoryName, CategoryIconComponent> = {
