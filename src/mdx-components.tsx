@@ -11,23 +11,23 @@ const components: MDXComponents = {
   h3: ({ children }) => (
     <h3 className="rts-16 font-bold mb-3 mt-6 mdx-text">{children}</h3>
   ),
-  p: ({ children }) => <p className="mb-4 mdx-text rts-12">{children}</p>,
+  p: ({ children }) => <p className="mb-4 mdx-text rts-14">{children}</p>,
   ul: ({ children }) => (
-    <ul className="mb-4 list-disc list-inside space-y-2 mdx-text rts-12">
+    <ul className="mb-4 list-disc list-inside space-y-2 mdx-text rts-14">
       {children}
     </ul>
   ),
-  li: ({ children }) => <li className="mdx-text rts-12">{children}</li>,
+  li: ({ children }) => <li className="mdx-text rts-14">{children}</li>,
   strong: ({ children }) => (
-    <strong className="font-bold mdx-text rts-12">{children}</strong>
+    <strong className="font-bold mdx-text rts-14">{children}</strong>
   ),
   code: ({ children }) => (
-    <code className="px-1 py-0.5 mdx-bg rounded-sm rts-12 font-mono mdx-code">
+    <code className="px-1 py-0.5 mdx-bg rounded-sm rts-14 font-mono mdx-code">
       {children}
     </code>
   ),
   pre: ({ children }) => (
-    <pre className="mb-4 p-4 rounded-lg overflow-x-auto mdx-text rts-12">
+    <pre className="mb-4 p-4 rounded-lg overflow-x-auto mdx-text rts-14">
       {children}
     </pre>
   ),
