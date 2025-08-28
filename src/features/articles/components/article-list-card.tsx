@@ -12,24 +12,24 @@ export const ArticleListCard = ({ post }: ArticleListCardProps) => {
   return (
     <div className="flex items-center gap-5 md:gap-10 lg:gap-13">
       <div className="f-col">
-        <div className="flex items-center justify-between">
-          <h3 className="rts-18 font-bold mb-2">{title}</h3>
+        <div className="flex items-center justify-between gap-10">
+          <h3 className="rts-18 font-bold mb-2 line-clamp-1">{title}</h3>
           <span className="text-xs text-muted-foreground">
             {formatDate(new Date(published), "yyyy.MM.dd")}
           </span>
         </div>
-        <p className="rts-14 line-clamp-3">{description}</p>
+        <p className="rts-14 line-clamp-2">{description}</p>
       </div>
 
       {/* Thumbnail Image */}
-      <div className="min-w-[160px]">
+      <div className="max-w-[160px]">
         {thumbnail && (
           <Image
             src={thumbnail}
             alt={title}
             width={160}
             height={107}
-            className="h-auto w-auto rounded-sm"
+            className="h-auto w-auto rounded-sm object-cover aspect-video"
             priority
           />
         )}

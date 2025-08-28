@@ -40,16 +40,16 @@ export const ArticlesTableDisplay = ({
               <Th width="5%" minWidth="40px" isFirst>
                 No
               </Th>
-              <Th width="15%" minWidth="150px">
+              <Th width="25%" minWidth="200px">
                 Title
               </Th>
               <Th width="50%" minWidth="250px">
                 Preview
               </Th>
-              <Th width="15%" minWidth="120px">
+              <Th width="10%" minWidth="120px">
                 Published
               </Th>
-              <Th width="15%" minWidth="120px" isLast>
+              <Th width="10%" minWidth="120px" isLast>
                 Last update
               </Th>
             </tr>
@@ -108,7 +108,7 @@ const Th = ({
       className={cn(
         "h-9 px-2 border-b border-input",
         !isFirst && "border-l border-input",
-        className,
+        className
       )}
       style={style}
     >
@@ -150,7 +150,7 @@ const Td = ({
       className={cn(
         "px-2 py-1 border-b border-input",
         !isFirst && "border-l border-input",
-        className,
+        className
       )}
       style={style}
     >
