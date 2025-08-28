@@ -118,7 +118,7 @@ export default function PostsPage() {
               disabled={page === Math.ceil(totalPosts / POSTS_PER_PAGE)}
               onClick={() =>
                 setPage(
-                  Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE))
+                  Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE)),
                 )
               }
             >

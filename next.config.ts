@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     // @ts-expect-error 타입 에러 무시
     const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg")
+      rule.test?.test?.(".svg"),
     );
 
     config.module.rules.push(
@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
             },
           },
         ],
-      }
+      },
     );
     fileLoaderRule.exclude = /\.svg$/i;
     return config;

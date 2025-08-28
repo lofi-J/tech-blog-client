@@ -30,7 +30,7 @@ export function ZenModeProvider({ children }: PropsWithChildren) {
   // zen 모드 상태에 따라 data-zen-hideable 속성을 가진 요소들 숨기기/보이기
   useEffect(() => {
     const elements = document.querySelectorAll(
-      "[data-zen-hideable]"
+      "[data-zen-hideable]",
     ) as NodeListOf<HTMLElement>;
 
     const showElement = (element: HTMLElement) => {
@@ -61,7 +61,7 @@ export function ZenModeProvider({ children }: PropsWithChildren) {
 
     const hideElement = (
       element: HTMLElement,
-      animationType: string | null
+      animationType: string | null,
     ) => {
       element.style.transition = "all 0.3s ease-out";
       element.style.overflow = "hidden";
@@ -122,11 +122,11 @@ export function ZenModeProvider({ children }: PropsWithChildren) {
 
     const createHoverZone = (
       element: HTMLElement,
-      animationType: string | null
+      animationType: string | null,
     ) => {
       // 기존 hover zone이 있으면 제거
       const existingZone = document.querySelector(
-        `[data-zen-hover-zone-for="${element.id || element.getAttribute("data-zen-id")}"]`
+        `[data-zen-hover-zone-for="${element.id || element.getAttribute("data-zen-id")}"]`,
       );
       if (existingZone) {
         existingZone.remove();
@@ -140,7 +140,7 @@ export function ZenModeProvider({ children }: PropsWithChildren) {
       if (!element.id && !element.getAttribute("data-zen-id")) {
         element.setAttribute(
           "data-zen-id",
-          `zen-element-${Math.random().toString(36).substr(2, 9)}`
+          `zen-element-${Math.random().toString(36).substr(2, 9)}`,
         );
       }
       const elementId = element.id || element.getAttribute("data-zen-id");
@@ -245,7 +245,7 @@ export function ZenModeProvider({ children }: PropsWithChildren) {
         if (isHoverable) {
           const elementId = element.id || element.getAttribute("data-zen-id");
           const hoverZone = document.querySelector(
-            `[data-zen-hover-zone-for="${elementId}"]`
+            `[data-zen-hover-zone-for="${elementId}"]`,
           ) as HTMLElement;
 
           if (hoverZone) {
@@ -290,7 +290,7 @@ export function ZenModeProvider({ children }: PropsWithChildren) {
         if (isHoverable) {
           const elementId = element.id || element.getAttribute("data-zen-id");
           const hoverZone = document.querySelector(
-            `[data-zen-hover-zone-for="${elementId}"]`
+            `[data-zen-hover-zone-for="${elementId}"]`,
           ) as HTMLElement;
 
           if (hoverZone) {

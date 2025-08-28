@@ -108,7 +108,7 @@ const Th = ({
       className={cn(
         "h-9 px-2 border-b border-input",
         !isFirst && "border-l border-input",
-        className
+        className,
       )}
       style={style}
     >
@@ -150,7 +150,7 @@ const Td = ({
       className={cn(
         "px-2 py-1 border-b border-input",
         !isFirst && "border-l border-input",
-        className
+        className,
       )}
       style={style}
     >
