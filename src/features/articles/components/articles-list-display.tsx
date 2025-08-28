@@ -15,7 +15,7 @@ export const ArticlesListDisplay = ({
   if (loading) {
     return (
       <div className="flex flex-col gap-4">
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length: 4 }).map((_, index) => (
           <Skeleton
             key={`articles-list-display-skeleton-${index}`}
             className="w-full h-[90px]"
