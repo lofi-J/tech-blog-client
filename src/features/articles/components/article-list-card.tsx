@@ -22,15 +22,18 @@ export const ArticleListCard = ({ post }: ArticleListCardProps) => {
       </div>
 
       {/* Thumbnail Image */}
-      {thumbnail && (
-        <Image
-          src={thumbnail}
-          alt={title}
-          width={160}
-          height={107}
-          className="min-w-[160px] h-auto rounded-sm object-contain"
-        />
-      )}
+      <div className="min-w-[160px]">
+        {thumbnail && (
+          <Image
+            src={thumbnail}
+            alt={title}
+            width={160}
+            height={107}
+            className="h-auto w-auto rounded-sm"
+            priority
+          />
+        )}
+      </div>
     </div>
   );
 };

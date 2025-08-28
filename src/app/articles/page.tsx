@@ -13,6 +13,7 @@ import {
 import FullPageLoading from "@/shared/components/full-page-loading";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
+import { LocalStorageKeys } from "@/shared/config/local-storage";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -56,9 +57,12 @@ export default function PostsPage() {
   const totalPosts = categoryPostsData?.getPostsByCategory.totalCount ?? 0;
   const posts = categoryPostsData?.getPostsByCategory.posts;
 
-  // TODO initial display style set by localstorage
   useEffect(() => {
-    setDisplayStyle("grid");
+    const currentDisplay = localStorage.getItem(
+      LocalStorageKeys.articlesDisplayStyle
+    );
+
+    setDisplayStyle((currentDisplay as ArticleDisplayStyle) ?? "grid");
   }, []);
 
   if (categoriesLoading) return <FullPageLoading />;
@@ -118,7 +122,7 @@ export default function PostsPage() {
               disabled={page === Math.ceil(totalPosts / POSTS_PER_PAGE)}
               onClick={() =>
                 setPage(
-                  Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE)),
+                  Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE))
                 )
               }
             >
