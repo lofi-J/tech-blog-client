@@ -114,7 +114,7 @@ const FooterQuickLinks = ({
   return (
     <Link
       href={href}
-      className="text-sm font-light text-foreground transition-colors hover:text-blue-400"
+      className="text-sm font-light text-foreground transition-colors hover:text-highlight"
     >
       {children}
     </Link>
