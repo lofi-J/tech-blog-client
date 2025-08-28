@@ -1,5 +1,5 @@
 import { Post } from "@/generated/graphql";
-import { ArticleCard } from "./article-card";
+import { ArticleListCard } from "./article-list-card";
 
 type ArticlesListDisplayProps = {
   posts: Post[];
@@ -15,7 +15,7 @@ export const ArticlesListDisplay = ({
   return (
     <div className="flex flex-col gap-4">
       {posts.map((post) => (
-        <ArticleCard key={post.id} post={post} /> // TODO: add list 전용 card component
+        <ArticleListCard key={post.id} post={post} /> // TODO: add list 전용 card component
       ))}
     </div>
   );

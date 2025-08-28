@@ -1,4 +1,5 @@
 import RustIcon from "@/shared/icons/rust.svg";
+import { cn } from "@/shared/lib/utils";
 
 export type CategoryName = "Rust";
 
@@ -25,8 +26,8 @@ export const CategoryIcon = ({
 }: CategoryIconProps) => {
   const Component = categoryIcons[categoryName];
   return (
-    <div className={customClassName[categoryName]}>
-      <Component className={className} width={size} height={size} />
+    <div className={cn(customClassName[categoryName], className)}>
+      <Component width={size} height={size} />
     </div>
   );
 };

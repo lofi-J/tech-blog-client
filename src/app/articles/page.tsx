@@ -14,7 +14,7 @@ import FullPageLoading from "@/shared/components/full-page-loading";
 import { Badge } from "@/shared/components/ui/badge";
 import { Button } from "@/shared/components/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const POSTS_PER_PAGE = 10;
 
@@ -25,8 +25,7 @@ export default function PostsPage() {
   const [page, setPage] = useState(1);
   const [selectedSortOption, setSelectedSortOption] =
     useState<PostsOrderBy>("LATEST");
-  const [displayStyle, setDisplayStyle] =
-    useState<ArticleDisplayStyle>("table");
+  const [displayStyle, setDisplayStyle] = useState<ArticleDisplayStyle>("grid");
 
   const { data: categoriesData, loading: categoriesLoading } =
     useGetAllCategoriesQuery({
@@ -56,6 +55,11 @@ export default function PostsPage() {
     });
   const totalPosts = categoryPostsData?.getPostsByCategory.totalCount ?? 0;
   const posts = categoryPostsData?.getPostsByCategory.posts;
+
+  // TODO initial display style set by localstorage
+  useEffect(() => {
+    setDisplayStyle("grid");
+  }, []);
 
   if (categoriesLoading) return <FullPageLoading />;
 
@@ -125,14 +129,14 @@ export default function PostsPage() {
       </div>
 
       <div className="mt-5">
-        {displayStyle === "table" && posts && (
-          <ArticlesTableDisplay posts={posts} loading={categoryPostsLoading} />
-        )}
         {displayStyle === "grid" && posts && (
           <ArticlesGridDisplay posts={posts} loading={categoryPostsLoading} />
         )}
         {displayStyle === "list" && posts && (
           <ArticlesListDisplay posts={posts} loading={categoryPostsLoading} />
+        )}
+        {displayStyle === "table" && posts && (
+          <ArticlesTableDisplay posts={posts} loading={categoryPostsLoading} />
         )}
       </div>
 

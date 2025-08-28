@@ -26,16 +26,6 @@ export const SelectorArticlesStyle = ({
     >
       <button
         className={cn(
-          "text-muted-foreground px-3 hover:bg-muted py-2",
-          selectedDisplayStyle === "table" &&
-            "bg-input text-foreground hover:bg-input"
-        )}
-        onClick={() => handleClick("table")}
-      >
-        <Table2Icon className="w-5 h-5" />
-      </button>
-      <button
-        className={cn(
           "text-muted-foreground px-3 py-2 hover:bg-muted hover:text-foreground",
           selectedDisplayStyle === "grid" &&
             "bg-input text-foreground hover:bg-input"
@@ -53,6 +43,16 @@ export const SelectorArticlesStyle = ({
         onClick={() => handleClick("list")}
       >
         <LayoutListIcon className="w-5 h-5" />
+      </button>
+      <button
+        className={cn(
+          "text-muted-foreground px-3 hover:bg-muted py-2",
+          selectedDisplayStyle === "table" &&
+            "bg-input text-foreground hover:bg-input"
+        )}
+        onClick={() => handleClick("table")}
+      >
+        <Table2Icon className="w-5 h-5" />
       </button>
     </div>
   );
