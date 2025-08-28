@@ -96,7 +96,7 @@ export const HeaderColorPicker = ({ className }: { className?: string }) => {
               onChange={handleColorChange}
             />
             <div className="f-col gap-1">
-              <div className="text-[12px] font-semibold text-highlight">
+              <div className="text-[12px] font-semibold text-highlight cursor-default">
                 Recommended color
               </div>
               <div className="flex gap-1.5 items-center justify-around">
@@ -157,7 +157,7 @@ const ColorCircle = ({
       className={cn(
         "hover:scale-110 transition-all duration-300 cursor-pointer w-[25px] h-[25px] rounded-full border",
         className,
-        isDark ? "border-white" : "border-black",
+        isDark ? "border-white" : "border-black"
       )}
       style={{ backgroundColor: color }}
       aria-label={color}

@@ -37,13 +37,15 @@ export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
         <div className="flex flex-col p-4">
           <Link
             href={`/articles/${post.slug}`}
-            className="text-rts-15 font-bold hover:text-highlight transition-all duration-300 line-clamp-1"
+            className="text-rts-15 font-bold hover:text-highlight transition-all duration-300"
           >
-            {title}
+            <h3 className="line-clamp-1">{title}</h3>
           </Link>
-          <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
-            {description}
-          </p>
+          <Link href={`/articles/${post.slug}`}>
+            <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
+              {description}
+            </p>
+          </Link>
 
           <div className="flex items-center gap-2 mt-2">
             {tags?.slice(0, Math.min(tags.length, 2)).map((tag) => (
