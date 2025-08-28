@@ -57,7 +57,7 @@ export const ArticlesTableDisplay = ({
             </tr>
           </thead>
           <tbody>
-            {posts.map((post, index) => (
+            {posts.map((post) => (
               <tr
                 key={post.id}
                 className="h-9 cursor-pointer hover:bg-muted"
