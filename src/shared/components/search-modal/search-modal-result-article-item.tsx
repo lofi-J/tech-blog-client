@@ -51,7 +51,7 @@ export const SearchArticleResultItem = ({
     );
   }
 
-  const tagList = tags?.slice(0, Math.min(tags.length, 3));
+  const tagList = tags?.slice(0, Math.min(tags.length, 2));
 
   return (
     <Link
