@@ -1,16 +1,20 @@
 import { Post } from "@/generated/graphql";
 import { formatDate } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 
 type ArticleListCardProps = {
   post: Post;
 };
 
 export const ArticleListCard = ({ post }: ArticleListCardProps) => {
-  const { title, published, thumbnail, description } = post;
+  const { slug, title, published, thumbnail, description } = post;
 
   return (
-    <div className="flex items-center gap-5 md:gap-10 lg:gap-13">
+    <Link
+      href={`/articles/${slug}`}
+      className="flex items-center gap-5 md:gap-10 lg:gap-13 hover:text-highlight"
+    >
       <div className="f-col">
         <div className="flex items-center justify-between gap-10">
           <h3 className="rts-18 font-bold mb-2 line-clamp-1">{title}</h3>
@@ -34,6 +38,6 @@ export const ArticleListCard = ({ post }: ArticleListCardProps) => {
           />
         )}
       </div>
-    </div>
+    </Link>
   );
 };

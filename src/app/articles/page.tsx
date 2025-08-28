@@ -145,7 +145,7 @@ export default function PostsPage() {
       </div>
 
       {/* mobile pagination */}
-      <div className="items-center gap-3 flex md:hidden mt-3 mx-auto">
+      <div className="items-center gap-3 flex md:hidden mt-6 mx-auto">
         <Button
           variant="secondary"
           size="icon"
