@@ -15,6 +15,8 @@ published: "2025-02-10"
 
 순수함수는 같은 입력에 대해 항상 같은 출력을 반환하고, 부수효과가 없는 함수입니다.
 
+~~이전에는 명령형 프로그래밍이 주로 사용되었지만~~, 함수형 프로그래밍이 더 안전하고 예측 가능한 코드를 작성할 수 있게 해줍니다.
+
 ```javascript
 // 순수함수 예시
 const add = (a, b) => a + b;
@@ -209,7 +211,7 @@ const getTopYoungUsers = pipe(
   filterByAge(25),
   sortByScore,
   takeTop(2),
-  getNames,
+  getNames
 );
 
 console.log(getTopYoungUsers(users)); // ['Diana', 'Bob']
@@ -306,7 +308,7 @@ const result = divide(10, 2)
   .map((x) => x * 2)
   .fold(
     (error) => `에러: ${error}`,
-    (value) => `결과: ${value}`,
+    (value) => `결과: ${value}`
   );
 
 console.log(result); // '결과: 10'

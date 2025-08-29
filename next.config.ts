@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     // @ts-expect-error 타입 에러 무시
     const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg"),
+      rule.test?.test?.(".svg")
     );
 
     config.module.rules.push(
@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
             },
           },
         ],
-      },
+      }
     );
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
@@ -56,7 +56,7 @@ const nextConfig: NextConfig = {
 };
 
 const withMDX = createMDX({
-  // MDX 관련 옵션들을 여기에 설정
+  // MDX 관련 옵션들을 여기에 설정 (compile 단계에서 plugins 전달해야함)
   options: {
     remarkPlugins: [], // Markdown 파싱 단계에서 적용할 플러그인들
     rehypePlugins: [], // HTML 변환 단계에서 적용할 플러그인들

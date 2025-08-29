@@ -60,7 +60,7 @@ export default function ArticleDetailLayout({
       {/* Article */}
       <div
         ref={articleRef}
-        className="lg:max-w-[800px] max-w-[600px] w-full mx-auto pb-30 px-4"
+        className="prose lg:max-w-[800px] max-w-[600px] w-full mx-auto pb-30 px-4"
       >
         {children}
       </div>

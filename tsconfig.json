@@ -39,7 +39,8 @@
     "svgr.d.ts",
     "next-env.d.ts",
     "src/**/*.d.ts",
-    "generated/**/*"
+    "generated/**/*",
+    "next.config.mjs"
   ],
   "exclude": ["node_modules"]
 }

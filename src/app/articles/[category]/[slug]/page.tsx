@@ -11,6 +11,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import * as runtime from "react/jsx-runtime";
+import remarkGfm from "remark-gfm";
 
 interface PageProps {
   params: Promise<{
@@ -79,6 +80,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const compiled = await compile(post.content, {
     outputFormat: "function-body",
     development: false,
+    remarkPlugins: [remarkGfm],
   });
   const { default: Content } = await run(compiled, runtime);
 
