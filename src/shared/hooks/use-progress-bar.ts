@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ProgressBarOptions {
@@ -9,6 +10,7 @@ export const useProgressBar = (
   domId: string,
   options: ProgressBarOptions = {}
 ) => {
+  const pathname = usePathname();
   const [progressRate, setProgressRate] = useState(0);
   const { offsetTop = 0, offsetBottom = 0 } = options;
 
@@ -49,7 +51,7 @@ export const useProgressBar = (
       window.removeEventListener("scroll", calculateProgress);
       window.removeEventListener("resize", calculateProgress);
     };
-  }, [domId, offsetTop, offsetBottom]);
+  }, [domId, offsetTop, offsetBottom, pathname]);
 
   return { progressRate };
 };
