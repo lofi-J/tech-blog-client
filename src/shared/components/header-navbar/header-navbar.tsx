@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Divider } from "../divider";
 import { TypoLogo } from "../typo-logo";
+import { HeaderArticleProgressBar } from "./header-article-progress-bar";
 import { HeaderColorPicker } from "./header-color-picker";
 import { HeaderMobileHamburger } from "./header-mobile-hamburger";
 import { HeaderModalTrigger } from "./header-modal-trigger";
@@ -58,6 +59,9 @@ export const HeaderNavbar = () => {
           <HeaderMobileHamburger />
         </div>
       </div>
+
+      {/* articles progress bar */}
+      <HeaderArticleProgressBar />
     </header>
   );
 };

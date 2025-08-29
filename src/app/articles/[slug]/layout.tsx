@@ -18,6 +18,7 @@ export default function ArticleDetailLayout({
 
   useEffect(() => {
     const articleElm = articleRef.current;
+
     const handleMouseUp = (event: MouseEvent) => {
       if (!articleElm) return;
 

@@ -76,7 +76,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const { title, category, published, tags, thumbnail } = post.metadata;
 
   return (
-    <article className="w-full">
+    <article id="article-content" className="w-full">
       <header className="mb-8">
         <h1 className="rts-h1 font-bold mb-8">{title}</h1>
         <div className="flex items-center justify-between">
