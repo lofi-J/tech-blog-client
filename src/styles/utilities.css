@@ -122,6 +122,9 @@
 @utility mdx-bg {
   background-color: var(--mdx-code-bg);
 }
+@utility mdx-code-bg {
+  background-color: var(--mdx-code-bg);
+}
 
 /* Color Utilities */
 @utility bg-highlight {
