@@ -36,12 +36,12 @@ export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
 
         <div className="flex flex-col p-4">
           <Link
-            href={`/articles/${post.slug}`}
+            href={`/articles/${post.category}/${post.slug}`}
             className="text-rts-15 font-bold hover:text-highlight transition-all duration-300"
           >
             <h3 className="line-clamp-1">{title}</h3>
           </Link>
-          <Link href={`/articles/${post.slug}`}>
+          <Link href={`/articles/${post.category}/${post.slug}`}>
             <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
               {description}
             </p>

@@ -7,8 +7,8 @@ export const HeaderArticleProgressBar = () => {
   const pathname = usePathname();
   const { progressRate } = useProgressBar("article-content");
 
-  // /articles/[slug] 패턴인 경우에만 진행률 바를 표시
-  const isArticlePage = /^\/articles\/[^\/]+$/.test(pathname);
+  // /articles/[category]/[slug] 패턴인 경우에만 진행률 바를 표시
+  const isArticlePage = /^\/articles\/[^\/]+\/[^\/]+$/.test(pathname);
 
   if (!isArticlePage) {
     return null;
