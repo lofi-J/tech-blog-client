@@ -20,7 +20,7 @@ export const ArticleNavigator = () => {
     if (!articleElement) return;
 
     const headingElements = articleElement.querySelectorAll(
-      "h1, h2, h3, h4, h5, h6",
+      "h1, h2, h3, h4, h5, h6"
     );
     const headingItems: HeadingItem[] = [];
 
@@ -45,7 +45,7 @@ export const ArticleNavigator = () => {
     setHeadings(headingItems);
   }, []);
 
-  // 스크롤 위치에 따라 활성 헤딩 감지 (개선된 로직)
+  // 스크롤 위치에 따라 활성 헤딩 감지
   useEffect(() => {
     if (headings.length === 0) return;
 
@@ -58,9 +58,9 @@ export const ArticleNavigator = () => {
         });
       },
       {
-        rootMargin: "-10% 0px -60% 0px", // 더 정확한 감지
+        rootMargin: "-10% 0px -60% 0px",
         threshold: 0,
-      },
+      }
     );
 
     headings.forEach((heading) => {
@@ -73,12 +73,12 @@ export const ArticleNavigator = () => {
     return () => observer.disconnect();
   }, [headings]);
 
-  // 헤딩 클릭 시 해당 위치로 스크롤 (개선된 함수)
+  // 헤딩 클릭 시 해당 위치로 스크롤
   const scrollToHeading = useCallback((id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const headerHeight = 56; // 헤더 높이
-      const elementPosition = element.offsetTop - headerHeight - 20; // 여백 추가
+      const headerHeight = 56;
+      const elementPosition = element.offsetTop - headerHeight - 20;
 
       window.scrollTo({
         top: elementPosition,
@@ -87,7 +87,7 @@ export const ArticleNavigator = () => {
     }
   }, []);
 
-  // 헤딩 레벨에 따른 스타일 클래스
+  // 헤딩 레벨에 따른 스타일
   const getHeadingStyle = useCallback((level: number) => {
     switch (level) {
       case 1:
@@ -125,7 +125,7 @@ export const ArticleNavigator = () => {
             className={cn(
               "w-full text-left px-2 py-1 rounded transition-all duration-200 hover:text-accent-foreground truncate text-[12px] text-muted-foreground leading-relaxed",
               activeId === heading.id && "text-highlight font-semibold",
-              getHeadingStyle(heading.level),
+              getHeadingStyle(heading.level)
             )}
             title={heading.text}
           >
