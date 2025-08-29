@@ -14,21 +14,29 @@ import * as runtime from "react/jsx-runtime";
 
 interface PageProps {
   params: Promise<{
+    category: string;
     slug: string;
   }>;
 }
 
 export async function generateStaticParams() {
   const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return slugs.map((slug) => {
+    const [category, ...slugParts] = slug.split("/");
+    return {
+      category,
+      slug: slugParts.join("/"),
+    };
+  });
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   try {
-    const { slug } = await params;
-    const post = getPostBySlug(slug);
+    const { category, slug } = await params;
+    const fullSlug = `${category}/${slug}`;
+    const post = getPostBySlug(fullSlug);
 
     return {
       title: `${post.metadata.category} | ${post.metadata.title} - Lofi-J`,
@@ -55,11 +63,12 @@ export async function generateMetadata({
 }
 
 export default async function ArticlePage({ params }: PageProps) {
-  const { slug } = await params;
+  const { category, slug } = await params;
+  const fullSlug = `${category}/${slug}`;
   let post;
 
   try {
-    post = getPostBySlug(slug);
+    post = getPostBySlug(fullSlug);
   } catch {
     notFound();
   }
@@ -73,7 +82,13 @@ export default async function ArticlePage({ params }: PageProps) {
   });
   const { default: Content } = await run(compiled, runtime);
 
-  const { title, category, published, tags, thumbnail } = post.metadata;
+  const {
+    title,
+    category: postCategory,
+    published,
+    tags,
+    thumbnail,
+  } = post.metadata;
 
   return (
     <article id="article-content" className="w-full">
@@ -88,7 +103,10 @@ export default async function ArticlePage({ params }: PageProps) {
             </time>
           </div>
           <div>
-            <CategoryIcon categoryName={category as CategoryName} size={24} />
+            <CategoryIcon
+              categoryName={postCategory as CategoryName}
+              size={24}
+            />
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-3 mt-4">

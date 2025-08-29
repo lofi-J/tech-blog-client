@@ -55,7 +55,7 @@ export const SearchArticleResultItem = ({
 
   return (
     <Link
-      href={`/articles/${slug}`}
+      href={`/articles/${category}/${slug}`}
       onClick={closeModal}
       className="p-3 hover:bg-muted/50 rounded-md cursor-pointer border border-border/50 hover:border-border transition-colors"
     >
