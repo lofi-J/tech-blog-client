@@ -20,7 +20,7 @@ export const ArticleNavigator = () => {
     if (!articleElement) return;
 
     const headingElements = articleElement.querySelectorAll(
-      "h1, h2, h3, h4, h5, h6"
+      "h1, h2, h3, h4, h5, h6",
     );
     const headingItems: HeadingItem[] = [];
 
@@ -60,7 +60,7 @@ export const ArticleNavigator = () => {
       {
         rootMargin: "-10% 0px -60% 0px",
         threshold: 0,
-      }
+      },
     );
 
     headings.forEach((heading) => {
@@ -125,7 +125,7 @@ export const ArticleNavigator = () => {
             className={cn(
               "w-full text-left px-2 py-1 rounded transition-all duration-200 hover:text-accent-foreground truncate text-[12px] text-muted-foreground leading-relaxed",
               activeId === heading.id && "text-highlight font-semibold",
-              getHeadingStyle(heading.level)
+              getHeadingStyle(heading.level),
             )}
             title={heading.text}
           >

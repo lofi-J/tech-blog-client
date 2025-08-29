@@ -47,7 +47,7 @@ export const MobileMenuSidebar = () => {
         }}
         className={cn(
           "fixed inset-0 w-screen h-screen bg-background z-50 overflow-hidden transition-all duration-300",
-          isOpen ? "block" : "hidden"
+          isOpen ? "block" : "hidden",
         )}
       >
         <div className="container mx-auto flex flex-col items-start flex-1 px-4">

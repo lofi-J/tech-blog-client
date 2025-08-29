@@ -87,7 +87,7 @@ const previewComponents: MDXComponents = {
 
 // 서버 컴포넌트에서 사용할 함수
 export function getMDXComponents(
-  otherComponents?: MDXComponents
+  otherComponents?: MDXComponents,
 ): MDXComponents {
   return {
     ...components,
@@ -96,7 +96,7 @@ export function getMDXComponents(
 }
 
 export function getPreviewMDXComponents(
-  otherComponents?: MDXComponents
+  otherComponents?: MDXComponents,
 ): MDXComponents {
   return {
     ...previewComponents,
@@ -106,13 +106,13 @@ export function getPreviewMDXComponents(
 
 // 클라이언트 컴포넌트에서 사용하는 Hook
 export function useMDXComponents(
-  otherComponents?: MDXComponents
+  otherComponents?: MDXComponents,
 ): MDXComponents {
   return getMDXComponents(otherComponents);
 }
 
 export function usePreviewMDXComponents(
-  otherComponents?: MDXComponents
+  otherComponents?: MDXComponents,
 ): MDXComponents {
   return getPreviewMDXComponents(otherComponents);
 }

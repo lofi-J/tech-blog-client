@@ -1,4 +1,5 @@
 import { Post } from "@/generated/graphql";
+import { formatCategoryLink } from "@/shared/lib/utils/format-link";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +13,7 @@ export const ArticleListCard = ({ post }: ArticleListCardProps) => {
 
   return (
     <Link
-      href={`/articles/${post.category}/${slug}`}
+      href={`/articles/${formatCategoryLink(post.category)}/${slug}`}
       className="flex items-center gap-5 md:gap-10 lg:gap-13 hover:text-highlight"
     >
       <div className="f-col">

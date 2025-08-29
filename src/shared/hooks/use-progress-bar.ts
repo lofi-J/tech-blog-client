@@ -8,7 +8,7 @@ interface ProgressBarOptions {
 
 export const useProgressBar = (
   domId: string,
-  options: ProgressBarOptions = {}
+  options: ProgressBarOptions = {},
 ) => {
   const pathname = usePathname();
   const [progressRate, setProgressRate] = useState(0);

@@ -28,7 +28,7 @@ class DatabaseConnection {
     if (!DatabaseConnection.instance) {
       if (!connectionString) {
         throw new Error(
-          "첫 번째 인스턴스 생성 시 connectionString이 필요합니다."
+          "첫 번째 인스턴스 생성 시 connectionString이 필요합니다.",
         );
       }
       DatabaseConnection.instance = new DatabaseConnection(connectionString);
@@ -109,7 +109,7 @@ class Motorcycle implements Vehicle {
 class VehicleFactory {
   public static createVehicle(
     type: "car" | "motorcycle",
-    model: string
+    model: string,
   ): Vehicle {
     switch (type) {
       case "car":
@@ -230,7 +230,7 @@ class CreditCardPayment implements PaymentStrategy {
 
   pay(amount: number): void {
     console.log(
-      `${amount}원을 신용카드로 결제합니다. 카드번호: ${this.cardNumber}`
+      `${amount}원을 신용카드로 결제합니다. 카드번호: ${this.cardNumber}`,
     );
   }
 }

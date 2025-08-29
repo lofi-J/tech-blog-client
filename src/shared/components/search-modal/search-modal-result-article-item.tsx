@@ -2,6 +2,7 @@ import {
   CategoryIcon,
   CategoryName,
 } from "@/features/categories/category-icon";
+import { formatCategoryLink } from "@/shared/lib/utils/format-link";
 import { formatDate } from "date-fns/format";
 import { FuseResult } from "fuse.js";
 import Image from "next/image";
@@ -55,7 +56,7 @@ export const SearchArticleResultItem = ({
 
   return (
     <Link
-      href={`/articles/${category}/${slug}`}
+      href={`/articles/${formatCategoryLink(category)}/${slug}`}
       onClick={closeModal}
       className="p-3 hover:bg-muted/50 rounded-md cursor-pointer border border-border/50 hover:border-border transition-colors"
     >

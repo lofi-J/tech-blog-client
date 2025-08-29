@@ -157,7 +157,7 @@ const ColorCircle = ({
       className={cn(
         "hover:scale-110 transition-all duration-300 cursor-pointer w-[25px] h-[25px] rounded-full border",
         className,
-        isDark ? "border-white" : "border-black"
+        isDark ? "border-white" : "border-black",
       )}
       style={{ backgroundColor: color }}
       aria-label={color}

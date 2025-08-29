@@ -5,6 +5,7 @@ import {
 import { Post } from "@/generated/graphql";
 import { Badge } from "@/shared/components/ui/badge";
 import { cn } from "@/shared/lib/utils";
+import { formatCategoryLink } from "@/shared/lib/utils/format-link";
 import { formatDate } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,12 +37,14 @@ export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
 
         <div className="flex flex-col p-4">
           <Link
-            href={`/articles/${post.category}/${post.slug}`}
+            href={`/articles/${formatCategoryLink(post.category)}/${post.slug}`}
             className="text-rts-15 font-bold hover:text-highlight transition-all duration-300"
           >
             <h3 className="line-clamp-1">{title}</h3>
           </Link>
-          <Link href={`/articles/${post.category}/${post.slug}`}>
+          <Link
+            href={`/articles/${formatCategoryLink(post.category)}/${post.slug}`}
+          >
             <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
               {description}
             </p>

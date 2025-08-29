@@ -60,7 +60,7 @@ export default function PostsPage() {
 
   useEffect(() => {
     const currentDisplay = localStorage.getItem(
-      LocalStorageKeys.articlesDisplayStyle
+      LocalStorageKeys.articlesDisplayStyle,
     );
 
     setDisplayStyle((currentDisplay as ArticleDisplayStyle) ?? "grid");
@@ -83,7 +83,7 @@ export default function PostsPage() {
             className={cn(
               "cursor-pointer px-4 py-2 rounded-2xl",
               selectedCategory !== category.category_name &&
-                "hover:border-highlight"
+                "hover:border-highlight",
             )}
             onClick={() => setSelectedCategory(category.category_name)}
           >
@@ -127,7 +127,7 @@ export default function PostsPage() {
               disabled={page === Math.ceil(totalPosts / POSTS_PER_PAGE)}
               onClick={() =>
                 setPage(
-                  Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE))
+                  Math.min(page + 1, Math.ceil(totalPosts / POSTS_PER_PAGE)),
                 )
               }
             >

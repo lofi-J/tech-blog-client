@@ -209,7 +209,7 @@ const getTopYoungUsers = pipe(
   filterByAge(25),
   sortByScore,
   takeTop(2),
-  getNames
+  getNames,
 );
 
 console.log(getTopYoungUsers(users)); // ['Diana', 'Bob']
@@ -306,7 +306,7 @@ const result = divide(10, 2)
   .map((x) => x * 2)
   .fold(
     (error) => `에러: ${error}`,
-    (value) => `결과: ${value}`
+    (value) => `결과: ${value}`,
   );
 
 console.log(result); // '결과: 10'

@@ -112,8 +112,8 @@ function TodoList() {
   const toggleTodo = useCallback((id) => {
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
     );
   }, []);
 

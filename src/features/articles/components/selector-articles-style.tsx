@@ -23,14 +23,14 @@ export const SelectorArticlesStyle = ({
     <div
       className={cn(
         "flex items-center h-9 rounded-2xl border border-input overflow-hidden",
-        className
+        className,
       )}
     >
       <button
         className={cn(
           "text-muted-foreground px-3 py-2 hover:bg-muted hover:text-foreground",
           selectedDisplayStyle === "grid" &&
-            "bg-input text-foreground hover:bg-input"
+            "bg-input text-foreground hover:bg-input",
         )}
         onClick={() => handleClick("grid")}
       >
@@ -40,7 +40,7 @@ export const SelectorArticlesStyle = ({
         className={cn(
           "text-muted-foreground px-3 py-2 hover:bg-muted hover:text-foreground",
           selectedDisplayStyle === "list" &&
-            "bg-input text-foreground hover:bg-input"
+            "bg-input text-foreground hover:bg-input",
         )}
         onClick={() => handleClick("list")}
       >
@@ -50,7 +50,7 @@ export const SelectorArticlesStyle = ({
         className={cn(
           "text-muted-foreground px-3 hover:bg-muted py-2",
           selectedDisplayStyle === "table" &&
-            "bg-input text-foreground hover:bg-input"
+            "bg-input text-foreground hover:bg-input",
         )}
         onClick={() => handleClick("table")}
       >
