@@ -147,83 +147,96 @@ fn generate_all_posts_metadata(file_paths: Vec<PathBuf>) -> Vec<PostMetadata> {
 
 // main 에서 실행할 함수
 pub async fn execute_mdx_sync() {
-    let vec_file_paths = get_content_file_paths("src/content");
-    let local_post_metadata = generate_all_posts_metadata(vec_file_paths); // 모든 파일 파싱 후 메타데이터 벡터 생성
+    let categories_paths = get_content_file_paths("src/content");
 
-    let mut success_count = 0;
-    let mut error_count = 0;
+    for category_path in categories_paths {
+        let category_path = category_path.to_str().unwrap();
+        println!("📊 Category: {}", &category_path);
 
-    for post_metadata in local_post_metadata {
-        match https::upsert_post_metadata(post_metadata.clone()).await {
-            Ok(_response) => {
-                success_count += 1;
-            }
-            Err(e) => {
-                error_count += 1;
-                println!("❌ Failed to upsert '{}': {}", post_metadata.slug, e);
+        let contents_paths = get_content_file_paths(category_path);
+        let local_post_metadata = generate_all_posts_metadata(contents_paths); // 모든 파일 파싱 후 메타데이터 벡터 생성
+
+        let mut success_count = 0;
+        let mut error_count = 0;
+
+        for post_metadata in local_post_metadata {
+            match https::upsert_post_metadata(post_metadata.clone()).await {
+                Ok(_response) => {
+                    success_count += 1;
+                }
+                Err(e) => {
+                    error_count += 1;
+                    println!("❌ Failed to upsert '{}': {}", post_metadata.slug, e);
+                }
             }
         }
-    }
 
-    // 최종 결과 출력
-    println!("✅ Success: {} posts", success_count);
-    println!("❌ Errors: {} posts", error_count);
-    println!("📊 Total: {} posts", success_count + error_count);
+        println!(
+            "📊 Path: {} success: {} error: {}",
+            category_path, success_count, error_count
+        );
+    }
 }
 
 pub fn execute_mdx_indexing() {
     let emit_json_path = "public/search-index/index.json";
-    let vec_file_paths = get_content_file_paths("src/content");
+    let categories_paths = get_content_file_paths("src/content");
 
     let parent = Path::new(emit_json_path).parent().unwrap();
     fs::create_dir_all(parent).unwrap();
 
     let mut search_indices = Vec::<SearchIndex>::new();
 
-    for file_path in &vec_file_paths {
-        let file_name = file_path
-            .file_name()
-            .unwrap()
-            .to_str()
-            .unwrap()
-            .replace(".mdx", "");
+    for category_path in categories_paths {
+        let category_path = category_path.to_str().unwrap();
 
-        let content = fs::read_to_string(file_path).unwrap();
-        let only_article_content = content
-            .split("---")
-            .nth(2)
-            .unwrap()
-            .to_string()
-            .replace("\n", "");
+        let contents_paths = get_content_file_paths(category_path);
 
-        let metadata_str = extract_metadata(content.clone()).unwrap();
+        for file_path in &contents_paths {
+            let file_name = file_path
+                .file_name()
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .replace(".mdx", "");
 
-        let title = extract_metadata_value(&metadata_str, "title").unwrap();
-        let description = extract_metadata_value(&metadata_str, "description").unwrap();
-        let thumbnail = extract_metadata_value(&metadata_str, "thumbnail").unwrap_or_default();
-        let published = extract_metadata_value(&metadata_str, "published").unwrap_or_default();
-        let category = extract_metadata_value(&metadata_str, "category").unwrap_or_default();
-        let tags = extract_metadata_value(&metadata_str, "tags")
-            .unwrap()
-            .split(", ")
-            .map(|s| s.to_string())
-            .collect::<Vec<String>>();
+            let content = fs::read_to_string(file_path).unwrap();
+            let only_article_content = content
+                .split("---")
+                .nth(2)
+                .unwrap()
+                .to_string()
+                .replace("\n", "");
 
-        let search_index = SearchIndex {
-            metadata: SearchIndexMetadata {
-                title,
-                slug: file_name.clone(),
-                description,
-                thumbnail,
-                category,
-                published,
-                tags,
-            },
-            content: only_article_content,
-        };
+            let metadata_str = extract_metadata(content.clone()).unwrap();
 
-        search_indices.push(search_index);
-        println!("✅ Indexed: {}", file_name);
+            let title = extract_metadata_value(&metadata_str, "title").unwrap();
+            let description = extract_metadata_value(&metadata_str, "description").unwrap();
+            let thumbnail = extract_metadata_value(&metadata_str, "thumbnail").unwrap_or_default();
+            let published = extract_metadata_value(&metadata_str, "published").unwrap_or_default();
+            let category = extract_metadata_value(&metadata_str, "category").unwrap_or_default();
+            let tags = extract_metadata_value(&metadata_str, "tags")
+                .unwrap()
+                .split(", ")
+                .map(|s| s.to_string())
+                .collect::<Vec<String>>();
+
+            let search_index = SearchIndex {
+                metadata: SearchIndexMetadata {
+                    title,
+                    slug: file_name.clone(),
+                    description,
+                    thumbnail,
+                    category,
+                    published,
+                    tags,
+                },
+                content: only_article_content,
+            };
+
+            search_indices.push(search_index);
+            println!("✅ Indexed: {} (from {})", file_name, category_path);
+        }
     }
 
     // JSON 파일로 저장
