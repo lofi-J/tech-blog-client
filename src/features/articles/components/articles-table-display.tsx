@@ -67,6 +67,7 @@ export const ArticlesTableDisplay = ({
                   <CategoryIcon
                     categoryName={post.category as CategoryName}
                     size={"100%"}
+                    className="max-w-10 max-h-10 m-auto"
                   />
                 </Td>
                 <Td width="15%" minWidth="150px" align="center">
