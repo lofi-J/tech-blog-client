@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { IoIosCheckmark } from "react-icons/io";
+import { IoClipboardOutline } from "react-icons/io5";
 
 interface CopyButtonProps {
   code: string;
@@ -20,8 +22,15 @@ export const CopyButton = ({ code }: CopyButtonProps) => {
   };
 
   return (
-    <button onClick={handleCopy} className="copy-button" title="Copy code">
-      {copied ? "Copied!" : "Copy"}
-    </button>
+    <div
+      onClick={handleCopy}
+      className="size-6 flex items-center justify-center"
+    >
+      {copied ? (
+        <IoIosCheckmark className="size-6" />
+      ) : (
+        <IoClipboardOutline className="size-4" />
+      )}
+    </div>
   );
 };
