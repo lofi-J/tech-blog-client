@@ -62,11 +62,11 @@ const ensureClassName = (
 
 // rehypePrettyCode 설정 타입
 interface RehypePrettyCodeOptions {
-  theme: string;
-  keepBackground: boolean;
-  defaultLang: string;
-  onVisitLine: OnVisitLine;
-  onVisitHighlightedLine: OnVisitHighlightedLine;
+  theme?: string;
+  keepBackground?: boolean;
+  defaultLang?: string;
+  onVisitLine?: OnVisitLine;
+  onVisitHighlightedLine?: OnVisitHighlightedLine;
 }
 
 interface PageProps {
@@ -143,8 +143,7 @@ export default async function ArticlePage({ params }: PageProps) {
       [
         rehypePrettyCode,
         {
-          theme: "github-dark",
-          keepBackground: true,
+          keepBackground: false, // CSS 변수 배경색 사용
           defaultLang: "javascript",
           // 모든 코드 블록에 일관된 하이라이팅 적용
           onVisitLine(node: RehypeNode) {

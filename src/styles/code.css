@@ -3,7 +3,7 @@ pre {
   position: relative;
   overflow-x: auto;
   border-radius: 0.5rem;
-  background: var(--mdx-code-bg);
+  background: var(--mdx-code-bg) !important;
   padding: 1rem;
   margin: 1rem 0;
 }
@@ -17,21 +17,21 @@ pre code {
   line-height: 1.5;
 }
 
-/* rehypePrettyCode 테마 스타일 */
-pre[data-theme="github-dark"] {
-  background: #0d1117 !important;
-  color: #c9d1d9 !important;
+/* rehypePrettyCode 테마 스타일 덮어쓰기 */
+pre[data-theme] {
+  background: var(--mdx-code-bg) !important;
 }
 
-pre[data-theme="github-dark"] code {
-  color: #c9d1d9 !important;
+pre[data-theme] code {
+  background: transparent !important;
+  color: inherit !important;
 }
 
 /* ===== 언어별 커스텀 스타일 ===== */
 
 /* JavaScript 스타일 */
 pre[data-language="javascript"] {
-  background: #1e1e1e !important;
+  background: var(--mdx-code-bg) !important;
   border-left: 4px solid #f7df1e;
 }
 
@@ -65,7 +65,7 @@ pre[data-language="javascript"] .token.variable {
 
 /* TypeScript 스타일 */
 pre[data-language="typescript"] {
-  background: #1e1e1e !important;
+  background: var(--mdx-code-bg) !important;
   border-left: 4px solid #3178c6;
 }
 
@@ -111,7 +111,7 @@ pre[data-language="typescript"] .token.variable {
 
 /* MDX 스타일 */
 pre[data-language="mdx"] {
-  background: #1e1e1e !important;
+  background: var(--mdx-code-bg) !important;
   border-left: 4px solid #ff6b6b;
 }
 
@@ -145,7 +145,7 @@ pre[data-language="mdx"] .token.comment {
 
 /* CSS 스타일 */
 pre[data-language="css"] {
-  background: #1e1e1e !important;
+  background: var(--mdx-code-bg) !important;
   border-left: 4px solid #264de4;
 }
 
@@ -179,7 +179,7 @@ pre[data-language="css"] .token.comment {
 
 /* Rust 스타일 */
 pre[data-language="rust"] {
-  background: #1e1e1e !important;
+  background: var(--mdx-code-bg) !important;
   border-left: 4px solid #ce422b;
 }
 
@@ -214,7 +214,7 @@ pre[data-language="rust"] .token.comment {
 /* React/JSX 스타일 */
 pre[data-language="jsx"],
 pre[data-language="tsx"] {
-  background: #1e1e1e !important;
+  background: var(--mdx-code-bg) !important;
   border-left: 4px solid #61dafb;
 }
 
@@ -349,7 +349,6 @@ pre[data-language="tsx"] .token.comment {
 
 /* Highlighted Lines */
 .line.highlighted {
-  background: var(--highlight-color);
   border-left: 2px solid var(--highlight-color);
 }
 
