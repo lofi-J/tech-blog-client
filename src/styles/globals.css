@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "./components.css";
 @import "./utilities.css";
+@import "./code.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -96,6 +97,7 @@
   --mdx-text: oklch(0.269 0 0);
   --mdx-code: oklch(0.145 0 0);
   --mdx-code-bg: oklch(98% 0% 68deg);
+  --highlight-color: #8200ff;
 }
 
 .dark {
@@ -137,6 +139,7 @@
   --mdx-text: oklch(0.87 0 0);
   --mdx-code: oklch(0.87 0 0);
   --mdx-code-bg: oklch(20% 0% 68deg);
+  --highlight-color: #ca232b;
 }
 
 @layer base {

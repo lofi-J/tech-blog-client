@@ -1,0 +1,152 @@
+/* Code Highlighting */
+pre {
+  position: relative;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background: var(--mdx-code-bg);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0;
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* rehypePrettyCode 테마 스타일 */
+pre[data-theme="github-dark"] {
+  background: #0d1117 !important;
+  color: #c9d1d9 !important;
+}
+
+pre[data-theme="github-dark"] code {
+  color: #c9d1d9 !important;
+}
+
+/* 코드 하이라이팅 토큰들 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #8b949e;
+}
+
+.token.punctuation {
+  color: #c9d1d9;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #79c0ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a5d6ff;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #ff7b72;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #ff7b72;
+}
+
+.token.function {
+  color: #d2a8ff;
+}
+
+.token.class-name {
+  color: #ffa657;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #ffa657;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Line Numbers */
+.line {
+  display: table-row;
+}
+
+.line-number {
+  display: table-cell;
+  text-align: right;
+  padding-right: 1rem;
+  user-select: none;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+}
+
+.line-content {
+  display: table-cell;
+}
+
+/* Highlighted Lines */
+.line.highlighted {
+  background: var(--highlight-color);
+  border-left: 2px solid var(--highlight-color);
+}
+
+/* Copy Button */
+.copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--foreground);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+pre:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background: var(--accent);
+}

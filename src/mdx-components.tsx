@@ -1,3 +1,4 @@
+import { CopyButton } from "@/shared/components/copy-button";
 import { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
 
@@ -26,11 +27,18 @@ const components: MDXComponents = {
       {children}
     </code>
   ),
-  pre: ({ children }) => (
-    <pre className="mb-4 p-4 rounded-lg overflow-x-auto mdx-text rts-14 mdx-code-bg">
-      {children}
-    </pre>
-  ),
+  pre: ({ children, ...props }) => {
+    const code = typeof children === "string" ? children : "";
+    return (
+      <pre
+        className="mb-4 p-4 rounded-lg overflow-x-auto mdx-text rts-14 mdx-code-bg relative"
+        {...props}
+      >
+        <CopyButton code={code} />
+        {children}
+      </pre>
+    );
+  },
   del: ({ children }) => (
     <del className="line-through text-muted-foreground mdx-text rts-14">
       {children}

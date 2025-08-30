@@ -11,6 +11,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import * as runtime from "react/jsx-runtime";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 interface PageProps {
@@ -81,6 +84,32 @@ export default async function ArticlePage({ params }: PageProps) {
     outputFormat: "function-body",
     development: false,
     remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      rehypeSlug, // 헤딩에 ID 추가
+      rehypeAutolinkHeadings, // 헤딩에 자동 링크 추가
+      [
+        rehypePrettyCode,
+        {
+          theme: "github-dark",
+          keepBackground: true,
+          defaultLang: "javascript",
+          // 모든 코드 블록에 일관된 하이라이팅 적용
+          onVisitLine(node: any) {
+            // 빈 줄은 번호 표시 안함
+            if (node.children.length === 0) {
+              node.children = [{ type: "text", value: " " }];
+            }
+          },
+          onVisitHighlightedLine(node: any) {
+            // 하이라이트된 라인 스타일링
+            if (!node.properties.className) {
+              node.properties.className = [];
+            }
+            node.properties.className.push("highlighted");
+          },
+        },
+      ],
+    ],
   });
   const { default: Content } = await run(compiled, runtime);
 
