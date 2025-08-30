@@ -102,12 +102,9 @@ const users = [
 const activeUserNames = users
   .filter((user) => user.active)
   .map((user) => user.name)
-  .reduce((acc, name, index) => {
-    acc[index] = name.toUpperCase();
-    return acc;
-  }, []);
+  .reduce((acc, name) => acc + ", " + name, "");
 
-console.log(activeUserNames); // ['ALICE', 'CHARLIE', 'DIANA']
+console.log(activeUserNames); // "Alice, Charlie, Diana"
 ```
 
 ## 커링 (Currying)
@@ -127,7 +124,7 @@ const curry = (fn) => {
   };
 };
 
-// 커링 적용 예시
+// 사용 예시
 const add = (a, b, c) => a + b + c;
 const curriedAdd = curry(add);
 
@@ -135,37 +132,30 @@ console.log(curriedAdd(1)(2)(3)); // 6
 console.log(curriedAdd(1, 2)(3)); // 6
 console.log(curriedAdd(1)(2, 3)); // 6
 
-// 실전 활용 예시
-const createUser = (name, email, age) => ({
-  name,
-  email,
-  age,
-  createdAt: new Date(),
-});
+// 실용적인 커링 예시
+const multiply = (a) => (b) => a * b;
+const double = multiply(2);
+const triple = multiply(3);
 
-const curriedCreateUser = curry(createUser);
+console.log(double(5)); // 10
+console.log(triple(5)); // 15
 
-// 부분 적용
-const createUserWithName = curriedCreateUser("John Doe");
-const createUserWithNameAndEmail = createUserWithName("john@example.com");
+// 배열 처리에서 커링 활용
+const filter = (predicate) => (array) => array.filter(predicate);
+const map = (fn) => (array) => array.map(fn);
+const reduce = (fn, initial) => (array) => array.reduce(fn, initial);
 
-const user1 = createUserWithNameAndEmail(25);
-const user2 = createUserWithNameAndEmail(30);
+const isActive = (user) => user.active;
+const getName = (user) => user.name;
+const joinNames = (acc, name) => acc + ", " + name;
 
-// 유틸리티 함수들
-const map = curry((fn, array) => array.map(fn));
-const filter = curry((predicate, array) => array.filter(predicate));
-const reduce = curry((fn, initial, array) => array.reduce(fn, initial));
+const getActiveUserNames = pipe(
+  filter(isActive),
+  map(getName),
+  reduce(joinNames, "")
+);
 
-// 파이프라인 구성
-const double = (x) => x * 2;
-const addOne = (x) => x + 1;
-const isEven = (x) => x % 2 === 0;
-
-const processNumbers = pipe(filter(isEven), map(double), map(addOne));
-
-const numbers = [1, 2, 3, 4, 5, 6];
-console.log(processNumbers(numbers)); // [5, 9, 13]
+console.log(getActiveUserNames(users)); // "Alice, Charlie, Diana"
 ```
 
 ## 함수 합성 (Function Composition)
@@ -174,13 +164,14 @@ console.log(processNumbers(numbers)); // [5, 9, 13]
 
 ```javascript
 // 기본 합성 함수
-const compose = (...fns) => {
-  return (x) => fns.reduceRight((acc, fn) => fn(acc), x);
-};
-
-const pipe = (...fns) => {
-  return (x) => fns.reduce((acc, fn) => fn(acc), x);
-};
+const compose =
+  (...fns) =>
+  (x) =>
+    fns.reduceRight((acc, fn) => fn(acc), x);
+const pipe =
+  (...fns) =>
+  (x) =>
+    fns.reduce((acc, fn) => fn(acc), x);
 
 // 사용 예시
 const addOne = (x) => x + 1;
@@ -318,6 +309,172 @@ const result = divide(10, 2)
   );
 
 console.log(result); // '결과: 10'
+```
+
+## 다양한 언어 예시
+
+### TypeScript 예시
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+}
+
+type UserStatus = "active" | "inactive" | "pending";
+
+class UserService {
+  private users: User[] = [];
+
+  async getUserById(id: number): Promise<User | null> {
+    return this.users.find((user) => user.id === id) || null;
+  }
+
+  async updateUserStatus(id: number, status: UserStatus): Promise<User> {
+    const user = await this.getUserById(id);
+    if (!user) {
+      throw new Error(`User with id ${id} not found`);
+    }
+
+    return { ...user, isActive: status === "active" };
+  }
+}
+```
+
+### CSS 예시
+
+```css
+.user-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-info {
+  margin-top: 1rem;
+  color: white;
+}
+
+.user-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.user-email {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+```
+
+### Rust 예시
+
+```rust
+use std::collections::HashMap;
+
+#[derive(Debug, Clone)]
+struct User {
+    id: u32,
+    name: String,
+    email: String,
+    is_active: bool,
+}
+
+impl User {
+    fn new(id: u32, name: String, email: String) -> Self {
+        User {
+            id,
+            name,
+            email,
+            is_active: true,
+        }
+    }
+
+    fn deactivate(&mut self) {
+        self.is_active = false;
+    }
+
+    fn activate(&mut self) {
+        self.is_active = true;
+    }
+}
+
+fn main() {
+    let mut users: HashMap<u32, User> = HashMap::new();
+
+    let user1 = User::new(1, "Alice".to_string(), "alice@example.com".to_string());
+    let user2 = User::new(2, "Bob".to_string(), "bob@example.com".to_string());
+
+    users.insert(user1.id, user1);
+    users.insert(user2.id, user2);
+
+    if let Some(user) = users.get_mut(&1) {
+        user.deactivate();
+        println!("User deactivated: {:?}", user);
+    }
+}
+```
+
+### JSX 예시
+
+```jsx
+import React, { useState, useEffect } from "react";
+
+const UserCard = ({ user, onStatusChange }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(user.isActive ? "active" : "inactive");
+
+  const handleStatusToggle = async () => {
+    setIsLoading(true);
+    try {
+      const newStatus = status === "active" ? "inactive" : "active";
+      await onStatusChange(user.id, newStatus);
+      setStatus(newStatus);
+    } catch (error) {
+      console.error("Failed to update status:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="user-card">
+      <img src={user.avatar} alt={user.name} className="user-avatar" />
+      <div className="user-info">
+        <h3 className="user-name">{user.name}</h3>
+        <p className="user-email">{user.email}</p>
+        <button
+          onClick={handleStatusToggle}
+          disabled={isLoading}
+          className={`status-button ${status}`}
+        >
+          {isLoading ? "Updating..." : status}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default UserCard;
 ```
 
 ## 마무리

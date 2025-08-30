@@ -16,6 +16,59 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
+// rehypePrettyCode 노드 타입 정의
+interface RehypeNode {
+  type: string;
+  tagName?: string;
+  properties?: {
+    className?: string[];
+    [key: string]: unknown;
+  };
+  children?: RehypeNode[];
+  data?: {
+    meta?: {
+      language?: string;
+    };
+  };
+  lang?: string;
+  value?: string;
+}
+
+// rehypePrettyCode 콜백 함수 타입
+type OnVisitLine = (node: RehypeNode) => void;
+type OnVisitHighlightedLine = (node: RehypeNode) => void;
+
+// 타입 안전한 유틸리티 함수들
+const ensureProperties = (
+  node: RehypeNode
+): NonNullable<RehypeNode["properties"]> => {
+  if (!node.properties) {
+    node.properties = {};
+  }
+  return node.properties;
+};
+
+const ensureClassName = (
+  properties: NonNullable<RehypeNode["properties"]>
+): string[] => {
+  if (!properties.className) {
+    properties.className = [];
+  }
+  if (!Array.isArray(properties.className)) {
+    properties.className = [];
+  }
+  return properties.className;
+};
+
+// rehypePrettyCode 설정 타입
+interface RehypePrettyCodeOptions {
+  theme: string;
+  keepBackground: boolean;
+  defaultLang: string;
+  onVisitLine: OnVisitLine;
+  onVisitHighlightedLine: OnVisitHighlightedLine;
+}
+
 interface PageProps {
   params: Promise<{
     category: string;
@@ -94,20 +147,19 @@ export default async function ArticlePage({ params }: PageProps) {
           keepBackground: true,
           defaultLang: "javascript",
           // 모든 코드 블록에 일관된 하이라이팅 적용
-          onVisitLine(node: any) {
+          onVisitLine(node: RehypeNode) {
             // 빈 줄은 번호 표시 안함
-            if (node.children.length === 0) {
-              node.children = [{ type: "text", value: " " }];
+            if (node.children && node.children.length === 0) {
+              node.children = [{ type: "text", value: " " } as RehypeNode];
             }
           },
-          onVisitHighlightedLine(node: any) {
+          onVisitHighlightedLine(node: RehypeNode) {
             // 하이라이트된 라인 스타일링
-            if (!node.properties.className) {
-              node.properties.className = [];
-            }
-            node.properties.className.push("highlighted");
+            const properties = ensureProperties(node);
+            const className = ensureClassName(properties);
+            className.push("highlighted");
           },
-        },
+        } satisfies RehypePrettyCodeOptions,
       ],
     ],
   });
