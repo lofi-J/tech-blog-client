@@ -15,6 +15,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import { rehypeCodeFilename } from "@/plugins/rehype-code-filename";
 
 // rehypePrettyCode 노드 타입 정의
 interface RehypeNode {
@@ -160,6 +161,7 @@ export default async function ArticlePage({ params }: PageProps) {
           },
         } satisfies RehypePrettyCodeOptions,
       ],
+      rehypeCodeFilename, // rehypePrettyCode 후에 실행
     ],
   });
   const { default: Content } = await run(compiled, runtime);

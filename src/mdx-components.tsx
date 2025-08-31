@@ -1,6 +1,6 @@
-import { CopyButton } from "@/shared/components/copy-button";
 import { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
+import { CopyButton } from "./shared/components/copy-button";
 import {
   guranteeLanguage,
   LanguageIcon,
@@ -34,6 +34,7 @@ const components: MDXComponents = {
   pre: ({ children, ...props }) => {
     const code = typeof children === "string" ? children : "";
     const language = props["data-language"];
+    const filename = props["data-filename"];
     return (
       <pre
         className="rounded-lg overflow-x-auto mdx-text rts-14 mdx-code-bg relative"
@@ -44,6 +45,9 @@ const components: MDXComponents = {
             language={guranteeLanguage(language)}
             className="size-5"
           />
+          {filename && (
+            <span className="rts-14 font-jetbrains-mono">{filename}</span>
+          )}
           <CopyButton code={code} />
         </div>
         {children}
