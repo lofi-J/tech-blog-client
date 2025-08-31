@@ -3,3 +3,12 @@ query GetAllCategories($orderBy: CategoriesOrderBy) {
     ...CategoryAllFields
   }
 }
+
+query CategoryUsageStats {
+  categoryUsageStats {
+    id
+    category_name
+    usage_count
+    created_at
+  }
+}
