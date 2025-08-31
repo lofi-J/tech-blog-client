@@ -1,23 +1,19 @@
 import { isFilename } from "@/shared/lib/utils/regx";
+import type { Element, Root } from "hast";
+import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
-export function rehypeCodeFilename() {
-  return (tree: any) => {
-    visit(tree, "element", (node: any) => {
-      // pre > code 구조에서 pre 태그를 찾기
-      if (node.tagName === "pre" && node.children && node.children.length > 0) {
-        const codeElement = node.children[0] as any;
+// Plugin 타입 사용 (Transformer 대신)
+export const rehypeCodeFilename: Plugin<[], Root> = () => {
+  return (tree: Root) => {
+    visit(tree, "element", (node: Element) => {
+      if (node.tagName === "pre" && node.children?.length) {
+        const codeElement = node.children[0] as Element;
 
-        if (
-          codeElement &&
-          codeElement.tagName === "code" &&
-          codeElement.data?.meta
-        ) {
+        if (codeElement?.tagName === "code" && codeElement.data?.meta) {
           const meta = codeElement.data.meta as string;
 
-          if (!node.properties) {
-            node.properties = {};
-          }
+          node.properties = node.properties || {};
 
           if (isFilename(meta)) {
             node.properties["data-filename"] = meta;
@@ -28,4 +24,4 @@ export function rehypeCodeFilename() {
       }
     });
   };
-}
+};

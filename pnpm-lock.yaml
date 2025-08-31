@@ -107,6 +107,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -135,6 +138,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.11
+      '@types/hast':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^20
         version: 20.19.7
@@ -147,6 +153,9 @@ importers:
       '@types/react-slick':
         specifier: ^0.23.13
         version: 0.23.13
+      '@types/unist':
+        specifier: ^3.0.3
+        version: 3.0.3
       dotenv:
         specifier: ^17.2.1
         version: 17.2.1
