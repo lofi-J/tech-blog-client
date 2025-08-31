@@ -27,7 +27,7 @@ const components: MDXComponents = {
       {children}
     </code>
   ),
-  pre: ({ children, ...props }) => <MdxPre children={children} {...props} />,
+  pre: ({ children, ...props }) => <MdxPre {...props}>{children}</MdxPre>,
   del: ({ children }) => (
     <del className="line-through text-muted-foreground mdx-text rts-14">
       {children}
