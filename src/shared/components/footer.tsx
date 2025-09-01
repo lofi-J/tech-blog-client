@@ -74,6 +74,16 @@ export const Footer = () => {
                 </li>
               </ul>
             </div>
+            <div className="f-col justify-start gap-4">
+              <h4 className="text-sm font-semibold">Lofi-J</h4>
+              <ul className="f-col justify-between gap-2">
+                <li>
+                  <FooterQuickLinks href="https://lofi-j.github.io">
+                    Homepage
+                  </FooterQuickLinks>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
