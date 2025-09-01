@@ -14,7 +14,7 @@ export const ArticleListCard = ({ post }: ArticleListCardProps) => {
   return (
     <Link
       href={`/articles/${formatCategoryLink(post.category)}/${slug}`}
-      className="flex items-center gap-5 md:gap-10 lg:gap-13 hover:text-highlight"
+      className="flex justify-between items-center gap-5 md:gap-10 lg:gap-13 hover:text-highlight"
     >
       <div className="f-col">
         <div className="flex items-center justify-between gap-10">
