@@ -72,6 +72,22 @@ export type GetPostsInput = {
   search?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  increasePostLikes: PostStats;
+  increasePostViews: PostStats;
+};
+
+
+export type MutationIncreasePostLikesArgs = {
+  slug: Scalars['String']['input'];
+};
+
+
+export type MutationIncreasePostViewsArgs = {
+  slug: Scalars['String']['input'];
+};
+
 export type Post = {
   __typename?: 'Post';
   /** 첫 번째 태그를 카테고리로 사용 */
@@ -205,6 +221,20 @@ export type PostMetadataFieldsFragment = { __typename?: 'Post', slug: string, ha
 
 export type PostAllFieldsFragment = { __typename?: 'Post', id: number, slug: string, hash_code: string, title: string, description: string, thumbnail?: string | null, category?: string | null, published?: any | null, updated_at?: any | null, stats?: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } | null, tags?: Array<{ __typename?: 'Tags', tag_name: string, created_at: any, id: number }> | null };
 
+export type IncreasePostViewsMutationVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type IncreasePostViewsMutation = { __typename?: 'Mutation', increasePostViews: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } };
+
+export type IncreasePostLikesMutationVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type IncreasePostLikesMutation = { __typename?: 'Mutation', increasePostLikes: { __typename?: 'PostStats', post_id?: number | null, views: number, likes: number, updated_at?: any | null, id?: number | null } };
+
 export type GetAllPostsQueryVariables = Exact<{
   inputs: GetPostsInput;
 }>;
@@ -323,6 +353,72 @@ export const CategoryAllFieldsFragmentDoc = gql`
   usage_count
 }
     ${CategoryBaseFieldsFragmentDoc}`;
+export const IncreasePostViewsDocument = gql`
+    mutation IncreasePostViews($slug: String!) {
+  increasePostViews(slug: $slug) {
+    ...PostStatsAllFields
+  }
+}
+    ${PostStatsAllFieldsFragmentDoc}`;
+export type IncreasePostViewsMutationFn = Apollo.MutationFunction<IncreasePostViewsMutation, IncreasePostViewsMutationVariables>;
+
+/**
+ * __useIncreasePostViewsMutation__
+ *
+ * To run a mutation, you first call `useIncreasePostViewsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useIncreasePostViewsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [increasePostViewsMutation, { data, loading, error }] = useIncreasePostViewsMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useIncreasePostViewsMutation(baseOptions?: Apollo.MutationHookOptions<IncreasePostViewsMutation, IncreasePostViewsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<IncreasePostViewsMutation, IncreasePostViewsMutationVariables>(IncreasePostViewsDocument, options);
+      }
+export type IncreasePostViewsMutationHookResult = ReturnType<typeof useIncreasePostViewsMutation>;
+export type IncreasePostViewsMutationResult = Apollo.MutationResult<IncreasePostViewsMutation>;
+export type IncreasePostViewsMutationOptions = Apollo.BaseMutationOptions<IncreasePostViewsMutation, IncreasePostViewsMutationVariables>;
+export const IncreasePostLikesDocument = gql`
+    mutation IncreasePostLikes($slug: String!) {
+  increasePostLikes(slug: $slug) {
+    ...PostStatsAllFields
+  }
+}
+    ${PostStatsAllFieldsFragmentDoc}`;
+export type IncreasePostLikesMutationFn = Apollo.MutationFunction<IncreasePostLikesMutation, IncreasePostLikesMutationVariables>;
+
+/**
+ * __useIncreasePostLikesMutation__
+ *
+ * To run a mutation, you first call `useIncreasePostLikesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useIncreasePostLikesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [increasePostLikesMutation, { data, loading, error }] = useIncreasePostLikesMutation({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useIncreasePostLikesMutation(baseOptions?: Apollo.MutationHookOptions<IncreasePostLikesMutation, IncreasePostLikesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<IncreasePostLikesMutation, IncreasePostLikesMutationVariables>(IncreasePostLikesDocument, options);
+      }
+export type IncreasePostLikesMutationHookResult = ReturnType<typeof useIncreasePostLikesMutation>;
+export type IncreasePostLikesMutationResult = Apollo.MutationResult<IncreasePostLikesMutation>;
+export type IncreasePostLikesMutationOptions = Apollo.BaseMutationOptions<IncreasePostLikesMutation, IncreasePostLikesMutationVariables>;
 export const GetAllPostsDocument = gql`
     query GetAllPosts($inputs: GetPostsInput!) {
   getAllPosts(input: $inputs) {

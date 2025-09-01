@@ -1,0 +1,11 @@
+mutation IncreasePostViews($slug: String!) {
+  increasePostViews(slug: $slug) {
+    ...PostStatsAllFields
+  }
+}
+
+mutation IncreasePostLikes($slug: String!) {
+  increasePostLikes(slug: $slug) {
+    ...PostStatsAllFields
+  }
+}
