@@ -4,7 +4,13 @@ import {
 } from "@/features/categories/category-icon";
 import { getMDXComponents } from "@/mdx-components";
 import { getAllPostSlugs, getPostBySlug } from "@/mdx/mdx";
+import { rehypeCodeFilename } from "@/plugins/rehype-code-filename";
 import { Badge } from "@/shared/components/ui/badge";
+import {
+  ensureClassName,
+  ensureProperties,
+} from "@/shared/lib/utils/type-safe";
+import { RehypeNode, RehypePrettyCodeOptions } from "@/types/rehype";
 import { compile, run } from "@mdx-js/mdx";
 import { formatDate } from "date-fns";
 import { Metadata } from "next";
@@ -15,60 +21,6 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import { rehypeCodeFilename } from "@/plugins/rehype-code-filename";
-
-// rehypePrettyCode 노드 타입 정의
-interface RehypeNode {
-  type: string;
-  tagName?: string;
-  properties?: {
-    className?: string[];
-    [key: string]: unknown;
-  };
-  children?: RehypeNode[];
-  data?: {
-    meta?: {
-      language?: string;
-    };
-  };
-  lang?: string;
-  value?: string;
-}
-
-// rehypePrettyCode 콜백 함수 타입
-type OnVisitLine = (node: RehypeNode) => void;
-type OnVisitHighlightedLine = (node: RehypeNode) => void;
-
-// 타입 안전한 유틸리티 함수들
-const ensureProperties = (
-  node: RehypeNode
-): NonNullable<RehypeNode["properties"]> => {
-  if (!node.properties) {
-    node.properties = {};
-  }
-  return node.properties;
-};
-
-const ensureClassName = (
-  properties: NonNullable<RehypeNode["properties"]>
-): string[] => {
-  if (!properties.className) {
-    properties.className = [];
-  }
-  if (!Array.isArray(properties.className)) {
-    properties.className = [];
-  }
-  return properties.className;
-};
-
-// rehypePrettyCode 설정 타입
-interface RehypePrettyCodeOptions {
-  theme?: string;
-  keepBackground?: boolean;
-  defaultLang?: string;
-  onVisitLine?: OnVisitLine;
-  onVisitHighlightedLine?: OnVisitHighlightedLine;
-}
 
 interface PageProps {
   params: Promise<{
