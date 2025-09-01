@@ -30,14 +30,6 @@ export const HeaderNavbar = () => {
                 Articles
               </Link>
             </li>
-            <li>
-              <Link
-                href="/toys"
-                className="font-semibold hover:text-[var(--highlight-color)]"
-              >
-                Toy Projects
-              </Link>
-            </li>
           </ul>
         </nav>
         <div className="flex items-center gap-2">
