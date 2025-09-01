@@ -16,6 +16,15 @@ type ArticleCardProps = {
   className?: string;
 };
 
+export const LINE_CLAMP_MAP = {
+  1: "line-clamp-1",
+  2: "line-clamp-2",
+  3: "line-clamp-3",
+  4: "line-clamp-4",
+  5: "line-clamp-5",
+  6: "line-clamp-6",
+};
+
 export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
   const { title, published, category, thumbnail, description, tags } = post;
 
@@ -45,7 +54,7 @@ export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
           <Link
             href={`/articles/${formatCategoryLink(post.category)}/${post.slug}`}
           >
-            <p className={cn("rts-13 mt-2", `line-clamp-${maxLine}`)}>
+            <p className={cn("rts-13 mt-2", `${LINE_CLAMP_MAP[maxLine || 3]}`)}>
               {description}
             </p>
           </Link>
