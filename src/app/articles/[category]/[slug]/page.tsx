@@ -2,10 +2,12 @@ import {
   CategoryIcon,
   CategoryName,
 } from "@/features/categories/category-icon";
+import { IncreasePostViewsDocument } from "@/generated/graphql";
 import { getMDXComponents } from "@/mdx-components";
 import { getAllPostSlugs, getPostBySlug } from "@/mdx/mdx";
 import { rehypeCodeFilename } from "@/plugins/rehype-code-filename";
 import { Badge } from "@/shared/components/ui/badge";
+import { createServerApolloClient } from "@/shared/lib/api/create-apollo-client";
 import {
   ensureClassName,
   ensureProperties,
@@ -14,6 +16,7 @@ import { RehypeNode, RehypePrettyCodeOptions } from "@/types/rehype";
 import { compile, run } from "@mdx-js/mdx";
 import { formatDate } from "date-fns";
 import { Metadata } from "next";
+import { headers } from "next/headers";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import * as runtime from "react/jsx-runtime";
@@ -74,13 +77,23 @@ export async function generateMetadata({
 
 export default async function ArticlePage({ params }: PageProps) {
   const { category, slug } = await params;
-  const fullSlug = `${category}/${slug}`;
-  let post;
 
+  let post;
   try {
-    post = getPostBySlug(fullSlug);
+    post = getPostBySlug(`${category}/${slug}`);
   } catch {
     notFound();
+  }
+
+  try {
+    const headerList = await headers();
+    const client = createServerApolloClient(headerList.get("cookie") || "");
+    client.mutate({
+      mutation: IncreasePostViewsDocument,
+      variables: { slug },
+    });
+  } catch {
+    console.error("Failed to create Apollo client");
   }
 
   const components = getMDXComponents();
