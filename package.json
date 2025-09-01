@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbopack",
-    "prebuild": "cargo run --manifest-path scripts/mdx/Cargo.toml",
+    "mdx:sync": "cargo run --manifest-path scripts/mdx/Cargo.toml",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
