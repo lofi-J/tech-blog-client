@@ -18,6 +18,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/shared/components/ui/chart";
+import { skillColorConfig } from "@/shared/config/skill-config";
+import { formatCategory } from "@/shared/lib/utils/format-link";
 
 export const description = "A mixed bar chart";
 
@@ -105,7 +107,10 @@ export function TechStackSection() {
     .map((item, index) => ({
       category: item.category_name,
       usage_count: item.usage_count || 0,
-      fill: chartColors[index % chartColors.length], // 색상 순환
+      fill:
+        skillColorConfig[
+          formatCategory(item.category_name) as keyof typeof skillColorConfig
+        ] ?? chartColors[index % chartColors.length], // 색상 순환
     }));
 
   const totalUsage = chartData.reduce((sum, item) => sum + item.usage_count, 0);

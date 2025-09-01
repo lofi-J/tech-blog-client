@@ -1,5 +1,5 @@
-import { IntroduceSection } from "@/root/components/introduce-section";
 import { RecomendedArticlesSection } from "@/features/root/components/recomended-articles-section";
+import { IntroduceSection } from "@/root/components/introduce-section";
 import { TechStackSection } from "@/root/components/tech-stack-section";
 
 export default async function Home() {
