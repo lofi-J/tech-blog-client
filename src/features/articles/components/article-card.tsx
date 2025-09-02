@@ -54,7 +54,12 @@ export const ArticleCard = ({ post, maxLine, className }: ArticleCardProps) => {
           <Link
             href={`/articles/${formatCategoryLink(post.category)}/${post.slug}`}
           >
-            <p className={cn("rts-13 mt-2", `${LINE_CLAMP_MAP[maxLine || 3]}`)}>
+            <p
+              className={cn(
+                "rts-13 mt-2 min-h-[49px] md:min-h-[56px] overflow-hidden",
+                `${LINE_CLAMP_MAP[maxLine || 3]}`
+              )}
+            >
               {description}
             </p>
           </Link>
