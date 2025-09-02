@@ -1,10 +1,16 @@
+import GitIcon from "@/shared/icons/git.svg";
 import JavaScriptIcon from "@/shared/icons/javascript.svg";
 import ReactIcon from "@/shared/icons/react.svg";
 import RustIcon from "@/shared/icons/rust.svg";
 import TypeScriptIcon from "@/shared/icons/typescript.svg";
 import { cn } from "@/shared/lib/utils";
 
-export type CategoryName = "TypeScript" | "Rust" | "JavaScript" | "React.js";
+export type CategoryName =
+  | "TypeScript"
+  | "Rust"
+  | "JavaScript"
+  | "React.js"
+  | "Git";
 
 type CategoryIconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
@@ -19,6 +25,7 @@ const categoryIcons: Record<CategoryName, CategoryIconComponent> = {
   TypeScript: TypeScriptIcon,
   JavaScript: JavaScriptIcon,
   "React.js": ReactIcon,
+  Git: GitIcon,
 };
 
 const customClassName: Record<CategoryName, string> = {
@@ -26,6 +33,7 @@ const customClassName: Record<CategoryName, string> = {
   TypeScript: "",
   JavaScript: "",
   "React.js": "",
+  Git: "",
 };
 
 export const CategoryIcon = ({
