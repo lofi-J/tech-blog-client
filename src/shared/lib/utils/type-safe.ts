@@ -1,7 +1,7 @@
 import { RehypeNode } from "@/types/rehype";
 
 export const ensureProperties = (
-  node: RehypeNode
+  node: RehypeNode,
 ): NonNullable<RehypeNode["properties"]> => {
   if (!node.properties) {
     node.properties = {};
@@ -10,7 +10,7 @@ export const ensureProperties = (
 };
 
 export const ensureClassName = (
-  properties: NonNullable<RehypeNode["properties"]>
+  properties: NonNullable<RehypeNode["properties"]>,
 ): string[] => {
   if (!properties.className) {
     properties.className = [];

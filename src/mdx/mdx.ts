@@ -21,7 +21,7 @@ export interface Post {
 
 // 카테고리 폴더 내의 모든 MDX 파일을 재귀적으로 찾는 함수
 function getAllMdxFiles(
-  dir: string
+  dir: string,
 ): Array<{ filePath: string; slug: string }> {
   const items = fs.readdirSync(dir, { withFileTypes: true });
   const mdxFiles: Array<{ filePath: string; slug: string }> = [];
@@ -83,6 +83,6 @@ export function getAllPosts(): Post[] {
     .sort(
       (a, b) =>
         new Date(b.metadata.published).getTime() -
-        new Date(a.metadata.published).getTime()
+        new Date(a.metadata.published).getTime(),
     );
 }
