@@ -48,6 +48,7 @@
 }
 
 :root {
+  --force-color: #000;
   --radius: 0.625rem;
   --header-height: 56px;
   --font-noto-sans-kr:
@@ -101,6 +102,7 @@
 }
 
 .dark {
+  --force-color: #fff;
   --background: oklch(0.145 0 0);
   --plan-hover: oklch(24% 0% 68deg);
   --foreground: oklch(0.985 0 0);
@@ -138,7 +140,7 @@
   /* MDX Components Color */
   --mdx-text: oklch(0.87 0 0);
   --mdx-code: oklch(0.87 0 0);
-  --mdx-code-bg: oklch(20% 0% 68deg);
+  --mdx-code-bg: oklch(27% 0% 68deg);
   --highlight-color: #ca232b;
 }
 

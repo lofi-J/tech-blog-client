@@ -3,6 +3,7 @@ import Image, { ImageProps } from "next/image";
 import { MdxLi } from "./mdx/components/li";
 import { MdxPre } from "./mdx/components/pre";
 import { MdxStrong } from "./mdx/components/strong";
+import { MdxCode } from "./mdx/components/code";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
@@ -23,9 +24,7 @@ const components: MDXComponents = {
   li: ({ children }) => <MdxLi>{children}</MdxLi>,
   strong: ({ children }) => <MdxStrong>{children}</MdxStrong>,
   code: ({ children }) => (
-    <code className="px-1 py-0.5 mdx-bg rounded-sm rts-14 font-jetbrains-mono mdx-code">
-      {children}
-    </code>
+    <MdxCode>{children}</MdxCode>
   ),
   pre: ({ children, ...props }) => <MdxPre {...props}>{children}</MdxPre>,
   del: ({ children }) => (

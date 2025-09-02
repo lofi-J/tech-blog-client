@@ -1,3 +1,11 @@
+@utility color-force {
+  color: var(--force-color);
+}
+
+@utility force-bg {
+  background-color: var(--force-color);
+}
+
 @utility only-pc {
   @apply hidden md:block;
 }
