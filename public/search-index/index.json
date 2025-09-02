@@ -1,8 +1,8 @@
 [
   {
     "metadata": {
-      "title": "Git 명령어 정리",
-      "slug": "git-commands",
+      "title": "Git 개념과 사용법",
+      "slug": "git-simple-concept",
       "thumbnail": "/mdx-images/git/bg-git.jpg",
       "description": "Git을 처음 다루는 취준생 및 신입 개발자를 위한 개념, 명령어 정리\n",
       "category": "Git",

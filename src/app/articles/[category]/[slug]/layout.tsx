@@ -2,8 +2,11 @@
 
 import { ArticleCommentator } from "@/features/articles/components/article-commentator";
 import { ArticleNavigator } from "@/features/articles/components/article-navigator";
+import { atom, useAtom } from "jotai";
 import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+
+export const helpWordAtom = atom<string>("");
 
 export default function ArticleDetailLayout({
   children,
@@ -14,7 +17,7 @@ export default function ArticleDetailLayout({
 
   const articleRef = useRef<HTMLDivElement>(null);
 
-  const [helpWord, setHelpWord] = useState("");
+  const [helpWord, setHelpWord] = useAtom(helpWordAtom);
 
   useEffect(() => {
     const articleElm = articleRef.current;
@@ -43,7 +46,7 @@ export default function ArticleDetailLayout({
     return () => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [articleRef]);
+  }, [articleRef, helpWord, setHelpWord]);
 
   return (
     <div className="relative grid grid-cols-1 xl:grid-cols-[1fr_3fr_1fr] gap-8 xl:gap-12 justify-between">

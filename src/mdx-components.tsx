@@ -1,6 +1,7 @@
 import { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
 import { MdxPre } from "./mdx/components/pre";
+import { MdxStrong } from "./mdx/components/strong";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
@@ -19,9 +20,7 @@ const components: MDXComponents = {
     </ul>
   ),
   li: ({ children }) => <li className="mdx-text rts-14">{children}</li>,
-  strong: ({ children }) => (
-    <strong className="font-bold mdx-text rts-14">{children}</strong>
-  ),
+  strong: ({ children }) => <MdxStrong>{children}</MdxStrong>,
   code: ({ children }) => (
     <code className="px-1 py-0.5 mdx-bg rounded-sm rts-14 font-jetbrains-mono mdx-code">
       {children}
@@ -46,7 +45,7 @@ const components: MDXComponents = {
 
 // 서버 컴포넌트에서 사용할 함수
 export function getMDXComponents(
-  otherComponents?: MDXComponents,
+  otherComponents?: MDXComponents
 ): MDXComponents {
   return {
     ...components,
@@ -56,7 +55,7 @@ export function getMDXComponents(
 
 // 클라이언트 컴포넌트에서 사용하는 Hook
 export function useMDXComponents(
-  otherComponents?: MDXComponents,
+  otherComponents?: MDXComponents
 ): MDXComponents {
   return getMDXComponents(otherComponents);
 }
