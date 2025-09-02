@@ -7,4 +7,5 @@ export const skillColorConfig: Record<Category, string> = {
   rust: "#f6771c",
   css: "#2d53e5",
   git: "#de4c36",
+  bash: "#000000",
 };

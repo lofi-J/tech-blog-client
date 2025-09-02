@@ -5,11 +5,19 @@ import { SiTypescript } from "react-icons/si";
 
 import { IconType } from "react-icons/lib";
 
+import { BsTerminalFill } from "react-icons/bs";
 import { FaRust } from "react-icons/fa";
 import { IoLogoCss3 } from "react-icons/io";
+
 import { cn } from "../lib/utils";
 
-export type Language = "javascript" | "typescript" | "react" | "rust" | "css";
+export type Language =
+  | "javascript"
+  | "typescript"
+  | "react"
+  | "rust"
+  | "css"
+  | "bash";
 export type Category = Language | "git";
 
 const languageIcons: Record<Language, IconType> = {
@@ -18,6 +26,7 @@ const languageIcons: Record<Language, IconType> = {
   react: FaReact,
   rust: FaRust,
   css: IoLogoCss3,
+  bash: BsTerminalFill,
 };
 
 export const LanguageIcon = ({
