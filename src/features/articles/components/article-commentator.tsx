@@ -11,11 +11,13 @@ type HelperItem = {
 
 type ArticleCommentatorProps = {
   slug: string;
+  category: string;
   helpWord: string;
 };
 
 export const ArticleCommentator = ({
   slug,
+  category,
   helpWord,
 }: ArticleCommentatorProps) => {
   const [loadingHelperIndex, setLoadingHelperIndex] = useState(false);
@@ -50,7 +52,7 @@ export const ArticleCommentator = ({
   // fetch helper index
   useEffect(() => {
     fetchIndex<HelperItem[]>(
-      `/helper-index/${slug}.json`,
+      `/helper-index/${category}/${slug}.json`,
       setLoadingHelperIndex,
     ).then((data) => {
       setHelperIndex(data ?? []);

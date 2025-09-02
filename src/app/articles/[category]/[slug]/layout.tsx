@@ -10,7 +10,7 @@ export default function ArticleDetailLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug, category } = useParams<{ slug: string; category: string }>();
 
   const articleRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +53,11 @@ export default function ArticleDetailLayout({
         className="relative hidden xl:flex justify-center"
       >
         <div className="max-h-[600px] w-full max-w-[250px] sticky top-[var(--header-height)] transition-all duration-200 ease-in-out pt-4">
-          <ArticleCommentator slug={slug} helpWord={helpWord} />
+          <ArticleCommentator
+            slug={slug}
+            category={category}
+            helpWord={helpWord}
+          />
         </div>
       </div>
 
