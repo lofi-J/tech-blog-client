@@ -28,11 +28,11 @@ export const COLOR_SET = {
 };
 
 // Jota global variable
-export const openColorPicker = atom(false);
+export const openColorPickerAtom = atom(false);
 
 export const HeaderColorPicker = ({ className }: { className?: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useAtom(openColorPicker);
+  const [open, setOpen] = useAtom(openColorPickerAtom);
   const { highlightColor, setHighlightColor } = useColor();
   const { theme } = useTheme();
 
@@ -157,7 +157,7 @@ const ColorCircle = ({
       className={cn(
         "hover:scale-110 transition-all duration-300 cursor-pointer w-[25px] h-[25px] rounded-full border",
         className,
-        isDark ? "border-white" : "border-black",
+        isDark ? "border-white" : "border-black"
       )}
       style={{ backgroundColor: color }}
       aria-label={color}

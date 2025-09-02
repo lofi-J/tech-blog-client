@@ -19,7 +19,7 @@ type ColorProviderProps = {
   children: ReactNode;
 };
 
-const DEFAULT_HIGHLIGHT_COLOR = "#fff";
+const DEFAULT_HIGHLIGHT_COLOR = "#2079ff";
 
 export const ColorProvider = ({ children }: ColorProviderProps) => {
   // 기본값 설정 (SSR 고려)

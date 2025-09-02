@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { useTheme } from "next-themes";
-import { openColorPicker as openColorPickerAtom } from "../components/header-navbar/header-color-picker";
+import { openColorPickerAtom } from "../components/header-navbar/header-color-picker";
 import { useZenMode } from "../context/zen-mode-provider";
 
 export const useFeature = () => {
