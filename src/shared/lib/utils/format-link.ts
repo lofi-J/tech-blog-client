@@ -1,6 +1,6 @@
-import { Language } from "@/shared/components/language-icon";
+import { Category } from "@/shared/components/language-icon";
 
-export const formatCategory = (category: string): Language => {
+export const formatCategory = (category: string): Category => {
   switch (category) {
     case "React.js":
       return "react";
@@ -10,8 +10,10 @@ export const formatCategory = (category: string): Language => {
       return "typescript";
     case "Rust":
       return "rust";
+    case "Git":
+      return "git";
     default:
-      console.warn("category 매핑이 필요할 수 있음.");
+      console.warn("category 매핑이 필요함. (formatCategory Fn)");
       throw new Error(`Invalid category: ${category}`);
   }
 };

@@ -10,6 +10,7 @@ import { IoLogoCss3 } from "react-icons/io";
 import { cn } from "../lib/utils";
 
 export type Language = "javascript" | "typescript" | "react" | "rust" | "css";
+export type Category = Language | "git";
 
 const languageIcons: Record<Language, IconType> = {
   javascript: IoLogoJavascript,

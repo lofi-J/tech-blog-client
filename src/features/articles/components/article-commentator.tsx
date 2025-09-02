@@ -53,11 +53,11 @@ export const ArticleCommentator = ({
   useEffect(() => {
     fetchIndex<HelperItem[]>(
       `/helper-index/${category}/${slug}.json`,
-      setLoadingHelperIndex,
+      setLoadingHelperIndex
     ).then((data) => {
       setHelperIndex(data ?? []);
     });
-  }, [slug]);
+  }, [slug, category]);
 
   if (loadingHelperIndex || helperIndex.length === 0) {
     return null;
