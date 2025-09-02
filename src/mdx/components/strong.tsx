@@ -1,6 +1,6 @@
 "use client";
 
-import { helpWordAtom } from "@/app/articles/[category]/[slug]/layout";
+import { helpWordAtom } from "@/features/articles/atoms/help-word-atom";
 import { useSetAtom } from "jotai";
 
 export const MdxStrong = ({ children }: { children: React.ReactNode }) => {

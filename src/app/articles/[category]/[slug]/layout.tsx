@@ -1,12 +1,11 @@
 "use client";
 
+import { helpWordAtom } from "@/features/articles/atoms/help-word-atom";
 import { ArticleCommentator } from "@/features/articles/components/article-commentator";
 import { ArticleNavigator } from "@/features/articles/components/article-navigator";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { useParams } from "next/navigation";
 import { useEffect, useRef } from "react";
-
-export const helpWordAtom = atom<string>("");
 
 export default function ArticleDetailLayout({
   children,
