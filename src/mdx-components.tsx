@@ -1,5 +1,6 @@
 import { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
+import { MdxLi } from "./mdx/components/li";
 import { MdxPre } from "./mdx/components/pre";
 import { MdxStrong } from "./mdx/components/strong";
 
@@ -19,7 +20,7 @@ const components: MDXComponents = {
       {children}
     </ul>
   ),
-  li: ({ children }) => <li className="mdx-text rts-14">{children}</li>,
+  li: ({ children }) => <MdxLi>{children}</MdxLi>,
   strong: ({ children }) => <MdxStrong>{children}</MdxStrong>,
   code: ({ children }) => (
     <code className="px-1 py-0.5 mdx-bg rounded-sm rts-14 font-jetbrains-mono mdx-code">
