@@ -36,6 +36,24 @@
     font-size: 32px;
   }
 }
+@utility rts-h3 {
+  font-size: 20px;
+  @media (min-width: 768px) {
+    font-size: 22px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 28px;
+  }
+}
+@utility rts-h4 {
+  font-size: 18px;
+  @media (min-width: 768px) {
+    font-size: 19px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}
 @utility rts-18 {
   font-size: 16px;
   @media (min-width: 768px) {

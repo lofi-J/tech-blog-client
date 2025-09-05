@@ -1,4 +1,4 @@
-import { FaReact } from "react-icons/fa";
+import { FaFileAlt, FaJava, FaReact } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 
 import { SiTypescript } from "react-icons/si";
@@ -17,7 +17,11 @@ export type Language =
   | "react"
   | "rust"
   | "css"
-  | "bash";
+  | "bash"
+  | "jsp"
+  | "txt"
+  | "java";
+
 export type Category = Language | "git";
 
 const languageIcons: Record<Language, IconType> = {
@@ -27,6 +31,9 @@ const languageIcons: Record<Language, IconType> = {
   rust: FaRust,
   css: IoLogoCss3,
   bash: BsTerminalFill,
+  jsp: IoLogoCss3,
+  java: FaJava,
+  txt: FaFileAlt,
 };
 
 export const LanguageIcon = ({

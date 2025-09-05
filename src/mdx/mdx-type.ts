@@ -9,4 +9,5 @@ export type MdxProps<T extends keyof JSX.IntrinsicElements> = {
 export type MdxPreProps = MdxProps<"pre"> & {
   "data-language"?: string;
   "data-filename"?: string;
+  "data-normal-text"?: string;
 };

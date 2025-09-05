@@ -9,6 +9,8 @@ export const MdxPre = ({ children, ...props }: MdxPreProps) => {
   const code = typeof children === "string" ? children : "";
   const language = props["data-language"] || "javascript";
   const filename = props["data-filename"];
+  const normalText = props["data-normal-text"];
+
   return (
     <pre
       className="rounded-lg overflow-x-auto mdx-text rts-14 mdx-code-bg relative"
@@ -22,6 +24,9 @@ export const MdxPre = ({ children, ...props }: MdxPreProps) => {
           />
           {filename && (
             <span className="rts-14 font-jetbrains-mono">{filename}</span>
+          )}
+          {normalText && (
+            <span className="rts-14 font-jetbrains-mono">{normalText}</span>
           )}
         </div>
         <CopyButton code={code} />

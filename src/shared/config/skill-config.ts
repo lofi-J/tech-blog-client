@@ -8,4 +8,7 @@ export const skillColorConfig: Record<Category, string> = {
   css: "#2d53e5",
   git: "#de4c36",
   bash: "#000000",
+  jsp: "#000033",
+  txt: "#333",
+  java: "#0000ff",
 };
