@@ -12,6 +12,12 @@ export const formatCategory = (category: string): Category => {
       return "rust";
     case "Git":
       return "git";
+    case "JSP":
+      return "jsp";
+    case "Java":
+      return "java";
+    case "txt":
+      return "txt";
     default:
       console.warn("category 매핑이 필요함. (formatCategory Fn)");
       throw new Error(`Invalid category: ${category}`);
