@@ -60,8 +60,8 @@ export const SearchArticleResultItem = ({
       onClick={closeModal}
       className="p-3 hover:bg-muted/50 rounded-md cursor-pointer border border-border/50 hover:border-border transition-colors"
     >
-      <div className="flex gap-2">
-        <div className="flex flex-col gap-2">
+      <div className="flex gap-4 justify-between">
+        <div className="flex flex-col gap-2 flex-1">
           <div className="flex items-center justify-between">
             <h3 className="font-medium rts-14 line-clamp-1">{title}</h3>
             <CategoryIcon categoryName={category as CategoryName} size={20} />
@@ -87,7 +87,7 @@ export const SearchArticleResultItem = ({
           </div>
         </div>
         {thumbnail && (
-          <div className="flex items-start min-w-24 h-20">
+          <div className="flex items-start min-w-24 h-20 overflow-hidden rounded-sm">
             <Image
               src={thumbnail}
               alt={title}
