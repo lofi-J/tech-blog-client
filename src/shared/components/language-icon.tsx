@@ -1,4 +1,4 @@
-import { FaFileAlt, FaJava, FaReact } from "react-icons/fa";
+import { FaFileAlt, FaHtml5, FaJava, FaReact } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 
 import { DiJqueryLogo } from "react-icons/di";
@@ -13,6 +13,7 @@ import { IoLogoCss3 } from "react-icons/io";
 import { cn } from "../lib/utils";
 
 export type Language =
+  | "html"
   | "javascript"
   | "typescript"
   | "react"
@@ -27,6 +28,7 @@ export type Language =
 export type Category = Language | "git";
 
 const languageIcons: Record<Language, IconType> = {
+  html: FaHtml5,
   javascript: IoLogoJavascript,
   typescript: SiTypescript,
   react: FaReact,
@@ -64,6 +66,7 @@ export const guranteeLanguage = (language: string): Language => {
 
 // icon color config
 export const skillColorConfig: Record<Category, string> = {
+  html: "#e34c26",
   javascript: "#f1db4e",
   typescript: "#3278c6",
   react: "#21d9fe",
