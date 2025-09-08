@@ -14,6 +14,8 @@ export const formatCategory = (category: string): Category => {
       return "git";
     case "JSP":
       return "jsp";
+    case "jQuery":
+      return "jquery";
     case "Java":
       return "java";
     case "txt":

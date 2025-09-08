@@ -4,6 +4,7 @@ import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
 import { useCategoryUsageStatsQuery } from "@/generated/graphql";
+import { skillColorConfig } from "@/shared/components/language-icon";
 import {
   Card,
   CardContent,
@@ -18,7 +19,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/shared/components/ui/chart";
-import { skillColorConfig } from "@/shared/config/skill-config";
 import { formatCategory } from "@/shared/lib/utils/format-link";
 
 export const description = "A mixed bar chart";

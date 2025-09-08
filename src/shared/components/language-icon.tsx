@@ -1,6 +1,7 @@
 import { FaFileAlt, FaJava, FaReact } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
 
+import { DiJqueryLogo } from "react-icons/di";
 import { SiTypescript } from "react-icons/si";
 
 import { IconType } from "react-icons/lib";
@@ -20,7 +21,8 @@ export type Language =
   | "bash"
   | "jsp"
   | "txt"
-  | "java";
+  | "java"
+  | "jquery";
 
 export type Category = Language | "git";
 
@@ -34,6 +36,7 @@ const languageIcons: Record<Language, IconType> = {
   jsp: IoLogoCss3,
   java: FaJava,
   txt: FaFileAlt,
+  jquery: DiJqueryLogo,
 };
 
 export const LanguageIcon = ({
@@ -51,10 +54,25 @@ export const LanguageIcon = ({
   );
 };
 
-// language가 Language에 없을 경우 default javascript로 처리
+// language가 Language에 없을 경우 default text 처리
 export const guranteeLanguage = (language: string): Language => {
   if (language in languageIcons) {
     return language as Language;
   }
-  return "javascript";
+  return "txt";
+};
+
+// icon color config
+export const skillColorConfig: Record<Category, string> = {
+  javascript: "#f1db4e",
+  typescript: "#3278c6",
+  react: "#21d9fe",
+  rust: "#f6771c",
+  css: "#2d53e5",
+  git: "#de4c36",
+  bash: "#000000",
+  jsp: "#0000ff",
+  txt: "#333",
+  java: "#0000ff",
+  jquery: "#0000ff",
 };
