@@ -4,7 +4,7 @@ import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
 import { useCategoryUsageStatsQuery } from "@/generated/graphql";
-import { skillColorConfig } from "@/shared/components/language-icon";
+import { chartSkillColorConfig } from "@/shared/components/language-icon";
 import {
   Card,
   CardContent,
@@ -108,8 +108,10 @@ export function TechStackSection() {
       category: item.category_name,
       usage_count: item.usage_count || 0,
       fill:
-        skillColorConfig[
-          formatCategory(item.category_name) as keyof typeof skillColorConfig
+        chartSkillColorConfig[
+          formatCategory(
+            item.category_name
+          ) as keyof typeof chartSkillColorConfig
         ] ?? chartColors[index % chartColors.length], // 색상 순환
     }));
 

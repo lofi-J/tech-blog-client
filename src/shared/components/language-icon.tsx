@@ -64,8 +64,8 @@ export const guranteeLanguage = (language: string): Language => {
   return "txt";
 };
 
-// icon color config
-export const skillColorConfig: Record<Category, string> = {
+// chart color config
+export const chartSkillColorConfig: Record<Category, string> = {
   html: "#e34c26",
   javascript: "#f1db4e",
   typescript: "#3278c6",
