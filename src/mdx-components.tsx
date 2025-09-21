@@ -1,9 +1,17 @@
 import { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
 import { MdxCode } from "./mdx/components/code";
+import { MdxHelper } from "./mdx/components/helper";
 import { MdxLi } from "./mdx/components/li";
 import { MdxPre } from "./mdx/components/pre";
-import { MdxStrong } from "./mdx/components/strong";
+import {
+  MdxTable,
+  MdxTableBody,
+  MdxTableCell,
+  MdxTableHead,
+  MdxTableHeader,
+  MdxTableRow,
+} from "./mdx/components/table";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
@@ -25,14 +33,12 @@ const components: MDXComponents = {
     </ul>
   ),
   li: ({ children }) => <MdxLi>{children}</MdxLi>,
-  strong: ({ children }) => <MdxStrong>{children}</MdxStrong>,
+  strong: ({ children }) => (
+    <strong className="mdx-text rts-14 font-bold">{children}</strong>
+  ),
   code: ({ children }) => <MdxCode>{children}</MdxCode>,
   pre: ({ children, ...props }) => <MdxPre {...props}>{children}</MdxPre>,
-  del: ({ children }) => (
-    <del className="line-through text-muted-foreground mdx-text rts-14">
-      {children}
-    </del>
-  ),
+  del: ({ children }) => <MdxHelper>{children}</MdxHelper>,
   Image: (props: ImageProps) => {
     return (
       <Image
@@ -42,6 +48,12 @@ const components: MDXComponents = {
       />
     );
   },
+  table: ({ children }) => <MdxTable>{children}</MdxTable>,
+  thead: ({ children }) => <MdxTableHead>{children}</MdxTableHead>,
+  tr: ({ children }) => <MdxTableRow>{children}</MdxTableRow>,
+  td: ({ children }) => <MdxTableCell>{children}</MdxTableCell>,
+  th: ({ children }) => <MdxTableHeader>{children}</MdxTableHeader>,
+  tbody: ({ children }) => <MdxTableBody>{children}</MdxTableBody>,
 };
 
 // 서버 컴포넌트에서 사용할 함수
